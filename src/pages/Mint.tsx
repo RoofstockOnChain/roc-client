@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import {
-  Box,
   Button,
   FormControl,
   FormControlLabel,
@@ -12,7 +11,6 @@ import {
   StepLabel,
   Stepper,
   TextField,
-  Typography,
 } from '@mui/material';
 
 export const Mint: FC = () => {
