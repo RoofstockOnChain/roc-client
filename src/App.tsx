@@ -5,17 +5,25 @@ import { List } from './pages/List';
 import { Mint } from './pages/Mint';
 import { Burn } from './pages/Burn';
 import { Administration } from './pages/Administration';
+import { Box } from '@mui/material';
+import { Detail } from './pages/Detail';
 
 function App() {
   return (
     <>
       <TopBar />
-      <Routes>
-        <Route index element={<List />} />
-        <Route path="mint" element={<Mint />} />
-        <Route path="mint" element={<Burn />} />
-        <Route path="admin" element={<Administration />} />
-      </Routes>
+      <Box padding={2}>
+        <Routes>
+          <Route index element={<List />} />
+          <Route
+            path="/properties/:contractAddress/:token"
+            element={<Detail />}
+          />
+          <Route path="mint" element={<Mint />} />
+          <Route path="mint" element={<Burn />} />
+          <Route path="admin" element={<Administration />} />
+        </Routes>
+      </Box>
     </>
   );
 }
