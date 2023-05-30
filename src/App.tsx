@@ -20,7 +20,7 @@ function App() {
             element={<Detail />}
           />
           <Route path="mint" element={<Mint />} />
-          <Route path="mint" element={<Burn />} />
+          <Route path="burn" element={<Burn />} />
           <Route path="admin" element={<Administration />} />
         </Routes>
       </Box>
