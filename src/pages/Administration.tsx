@@ -1,3 +1,3 @@
 export const Administration = () => {
-  return <></>
-}
+  return <></>;
+};
