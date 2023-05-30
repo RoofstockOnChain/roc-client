@@ -7,7 +7,7 @@ const StyledButton = styled(Button)`
 
 export const TopBar = () => {
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
         <Link href="/">
           <img
