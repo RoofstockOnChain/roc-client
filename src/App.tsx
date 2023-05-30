@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopBar } from './layout/TopBar';
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 import { List } from './pages/List';
 import { Mint } from './pages/Mint';
 import { Burn } from './pages/Burn';
