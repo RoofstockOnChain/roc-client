@@ -7,14 +7,17 @@ import { Burn } from './pages/Burn';
 import { Administration } from './pages/Administration';
 import { Box } from '@mui/material';
 import { Detail } from './pages/Detail';
+import { Home } from './pages/Home';
+import { Footer } from './layout/Footer';
 
 function App() {
   return (
     <>
       <TopBar />
-      <Box padding={2}>
+      <Box padding={2} bgcolor="#fff">
         <Routes>
-          <Route index element={<List />} />
+          <Route index element={<Home />} />
+          <Route path="properties" element={<List />} />
           <Route
             path="/properties/:contractAddress/:token"
             element={<Detail />}
@@ -24,6 +27,7 @@ function App() {
           <Route path="admin" element={<Administration />} />
         </Routes>
       </Box>
+      <Footer />
     </>
   );
 }
