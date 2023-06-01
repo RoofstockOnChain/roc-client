@@ -1,5 +1,14 @@
 import React from 'react';
-import { AppBar, Box, Button, Link, styled, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  Divider,
+  Link,
+  Stack,
+  styled,
+  Toolbar,
+} from '@mui/material';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -10,6 +19,10 @@ const StyledAppBar = styled(AppBar)`
 const StyledImg = styled('img')`
   padding-left: 1rem;
   padding-right: 1rem;
+`;
+
+const DividerStyled = styled(Divider)`
+  background-color: #fff;
 `;
 
 const StyledButton = styled(Button)`
@@ -27,12 +40,24 @@ export const TopBar = () => {
             alt="Roofstock onChain Logo"
           />
         </Link>
-        <Box display="flex">
+        <Stack
+          display="flex"
+          columnGap="1rem"
+          direction="row"
+          divider={
+            <DividerStyled
+              flexItem
+              light
+              orientation="vertical"
+              sx={{ alignSelf: 'center', height: '1rem' }}
+            />
+          }
+        >
           <StyledButton href="/properties">Properties</StyledButton>
           <StyledButton href="/mint">Mint</StyledButton>
           <StyledButton href="/burn">Burn</StyledButton>
           <StyledButton href="/admin">Administration</StyledButton>
-        </Box>
+        </Stack>
         <Box textAlign="end" width="100%">
           <StyledButton>Connect Wallet</StyledButton>
         </Box>
