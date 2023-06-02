@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Box,
@@ -6,11 +6,14 @@ import {
   Container,
   Divider,
   Link,
+  Menu,
+  MenuItem,
   Stack,
   styled,
   Toolbar,
 } from '@mui/material';
 import { config } from '../config';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -23,12 +26,16 @@ const DividerStyled = styled(Divider)`
 `;
 
 const StyledButton = styled(Button)`
+  border-color: #fff !important;
   color: #fff;
   text-transform: none;
   white-space: nowrap;
 `;
 
 export const TopBar = () => {
+  const { howItWorksUrl, faqsUrl } = config;
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
+  const open = Boolean(anchorEl);
   const { marketplaceUrl } = config;
 
   return (
@@ -60,10 +67,30 @@ export const TopBar = () => {
             <StyledButton href={marketplaceUrl}>
               Buy on Marketplace
             </StyledButton>
-            <StyledButton>Learn</StyledButton>
+            <StyledButton
+              endIcon={<ArrowDropDownIcon />}
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+            >
+              Learn
+            </StyledButton>
           </Stack>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={() => setAnchorEl(null)}
+          >
+            <MenuItem component={Link} href="/mint">
+              Become a member
+            </MenuItem>
+            <MenuItem component="a" href={howItWorksUrl}>
+              How it works
+            </MenuItem>
+            <MenuItem component="a" href={faqsUrl}>
+              FAQs
+            </MenuItem>
+          </Menu>
           <Box textAlign="end" width="100%">
-            <StyledButton>Connect Wallet</StyledButton>
+            <StyledButton variant="outlined">Connect Wallet</StyledButton>
           </Box>
         </Toolbar>
       </Container>

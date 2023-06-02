@@ -1,6 +1,17 @@
 import { FC } from 'react';
-import { Card, CardContent, CardMedia, Link, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Link,
+  styled,
+  Typography,
+} from '@mui/material';
 import { Property } from '../models/Property';
+
+const StyledCard = styled(Card)`
+  height: 100%;
+`;
 
 interface PropertyCardProps {
   property: Property;
@@ -9,7 +20,7 @@ interface PropertyCardProps {
 export const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
   return (
     <Link href={`/properties/${property.contractAddress}/${property.token}`}>
-      <Card>
+      <StyledCard>
         <CardMedia
           component="img"
           image={property.imageUrl}
@@ -19,7 +30,7 @@ export const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
         <CardContent>
           <Typography>{property.name}</Typography>
         </CardContent>
-      </Card>
+      </StyledCard>
     </Link>
   );
 };

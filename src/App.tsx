@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <TopBar />
-      <Box padding={2} bgcolor="#fff">
+      <Box padding={2}>
         <Routes>
           <Route index element={<Home />} />
           <Route path="properties" element={<List />} />
