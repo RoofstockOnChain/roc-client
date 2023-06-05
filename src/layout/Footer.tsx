@@ -86,7 +86,7 @@ export const Footer: FC = () => {
                 href="https://github.com/RoofstockOnChain"
               >
                 <img
-                  src={`/images/footer/github-logo.svg`}
+                  src={`/images/github-logo.svg`}
                   alt="GitHub Logo"
                   width="60px"
                 />
@@ -96,14 +96,14 @@ export const Footer: FC = () => {
                 href="https://discord.gg/RoofstockOnChain"
               >
                 <img
-                  src={`/images/footer/discord-logo.svg`}
+                  src={`/images/discord-logo.svg`}
                   alt="Discord Logo"
                   width="60px"
                 />
               </IconButton>
               <IconButton disableRipple href="https://twitter.com/rsonchain">
                 <img
-                  src={`/images/footer/twitter-logo.svg`}
+                  src={`/images/twitter-logo.svg`}
                   alt="Twitter Logo"
                   width="60px"
                 />
