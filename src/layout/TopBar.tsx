@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Divider,
+  IconButton,
   Link,
   Menu,
   MenuItem,
@@ -14,6 +15,8 @@ import {
 } from '@mui/material';
 import { config } from '../config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useWeb3Auth } from '../hooks/useWeb3Auth';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -32,11 +35,20 @@ const StyledButton = styled(Button)`
   white-space: nowrap;
 `;
 
+const StyledIconButton = styled(IconButton)`
+  color: #fff;
+`;
+
 export const TopBar = () => {
   const { howItWorksUrl, faqsUrl } = config;
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
-  const open = Boolean(anchorEl);
+  const [learnMenuAnchorEl, setLearnMenuAnchorEl] =
+    useState<HTMLElement | null>();
+  const learnMenuOpen = Boolean(learnMenuAnchorEl);
+  const [profileMenuAnchorEl, setProfileMenuAnchorEl] =
+    useState<HTMLElement | null>();
+  const profileMenuOpen = Boolean(profileMenuAnchorEl);
   const { marketplaceUrl } = config;
+  const { isAuthenticated, logout } = useWeb3Auth();
 
   return (
     <StyledAppBar position="static">
@@ -69,15 +81,15 @@ export const TopBar = () => {
             </StyledButton>
             <StyledButton
               endIcon={<ArrowDropDownIcon />}
-              onClick={(event) => setAnchorEl(event.currentTarget)}
+              onClick={(event) => setLearnMenuAnchorEl(event.currentTarget)}
             >
               Learn
             </StyledButton>
           </Stack>
           <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={() => setAnchorEl(null)}
+            anchorEl={learnMenuAnchorEl}
+            open={learnMenuOpen}
+            onClose={() => setLearnMenuAnchorEl(null)}
           >
             <MenuItem component={Link} href="/mint">
               Become a member
@@ -90,7 +102,30 @@ export const TopBar = () => {
             </MenuItem>
           </Menu>
           <Box textAlign="end" width="100%">
-            <StyledButton variant="outlined">Connect Wallet</StyledButton>
+            {!isAuthenticated && (
+              <StyledButton variant="outlined">Connect Wallet</StyledButton>
+            )}
+            {isAuthenticated && (
+              <>
+                <StyledIconButton
+                  onClick={(event) =>
+                    setProfileMenuAnchorEl(event.currentTarget)
+                  }
+                >
+                  <AccountCircleOutlinedIcon />
+                </StyledIconButton>
+                <Menu
+                  anchorEl={profileMenuAnchorEl}
+                  open={profileMenuOpen}
+                  onClose={() => setProfileMenuAnchorEl(null)}
+                >
+                  <MenuItem component={Link} href="/profile">
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                </Menu>
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>

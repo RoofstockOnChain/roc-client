@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useGetProperties } from '../hooks/useGetProperties';
+import { useGetProperties } from '../../hooks/useGetProperties';
 import {
   Checkbox,
   styled,
