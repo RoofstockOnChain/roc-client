@@ -77,7 +77,7 @@ export const TopBar = () => {
   const profileMenuOpen = Boolean(profileMenuAnchorEl);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const { marketplaceUrl } = config;
-  const { isAuthenticated, logout } = useWeb3Auth();
+  const { connectWallet, isAuthenticated, logout } = useWeb3Auth();
 
   return (
     <StyledAppBar position="static">
@@ -133,7 +133,12 @@ export const TopBar = () => {
             </Menu>
             <Box textAlign="end" width="100%">
               {!isAuthenticated && (
-                <StyledButton variant="outlined">Connect Wallet</StyledButton>
+                <StyledButton
+                  variant="outlined"
+                  onClick={() => connectWallet()}
+                >
+                  Connect Wallet
+                </StyledButton>
               )}
               {isAuthenticated && (
                 <>
