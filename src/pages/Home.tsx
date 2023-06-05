@@ -75,9 +75,8 @@ const Jumbotron: FC = () => {
               Find a home for your crypto
             </Typography>
             <Typography
-              color="#fff"
-              component="p"
-              maxWidth="1000px"
+              color={(theme) => theme.palette.slate.p800}
+              variant="subtitle1"
               sx={{
                 '@keyframes fade-in-subtitle': {
                   '0%': { opacity: 0, marginTop: '60px' },
@@ -91,7 +90,7 @@ const Jumbotron: FC = () => {
             <Box marginTop="2rem">
               <Button
                 href="/properties"
-                color="inherit"
+                color="primary"
                 variant="contained"
                 size="large"
               >
