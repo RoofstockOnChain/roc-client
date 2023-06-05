@@ -3,6 +3,7 @@ export const config: RocClientConfig = {
   marketplaceUrl: process.env.REACT_APP_MARKETPLACE_URL!,
   faqsUrl: process.env.REACT_APP_FAQS_URL!,
   howItWorksUrl: process.env.REACT_APP_HOW_IT_WORKS_URL!,
+  learnUrl: process.env.REACT_APP_LEARN_URL!,
 };
 
 type RocClientConfig = {
@@ -10,4 +11,5 @@ type RocClientConfig = {
   marketplaceUrl: string;
   faqsUrl: string;
   howItWorksUrl: string;
+  learnUrl: string;
 };
