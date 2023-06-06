@@ -25,7 +25,6 @@ export const Home: FC = () => {
       {/*<FeaturesAlt />*/}
       {/*<Highlight />*/}
       {/*<MembershipCta />*/}
-      {/*<TheTeam />*/}
       {/*<Partners />*/}
       {/*<Faqs />*/}
       {!isMember && <MintMembershipTokenBanner />}

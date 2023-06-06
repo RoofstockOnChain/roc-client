@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { RocThemeProvider } from './providers/RocThemeProvider';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <RocThemeProvider>
-        <App />
-      </RocThemeProvider>
+      <HelmetProvider>
+        <RocThemeProvider>
+          <App />
+        </RocThemeProvider>
+      </HelmetProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

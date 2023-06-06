@@ -121,7 +121,7 @@ export const TopBar = () => {
               open={learnMenuOpen}
               onClose={() => setLearnMenuAnchorEl(null)}
             >
-              <MenuItem component={Link} href="/mint">
+              <MenuItem component={Link} href="/membership">
                 Become a member
               </MenuItem>
               <MenuItem component="a" href={howItWorksUrl}>
@@ -203,7 +203,7 @@ export const TopBar = () => {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton href="/mint">
+                  <ListItemButton href="/membership">
                     <StyledListItemText primary="Become a member" />
                   </ListItemButton>
                 </ListItem>
