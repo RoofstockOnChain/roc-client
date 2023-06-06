@@ -4,6 +4,7 @@ export const config: RocClientConfig = {
   faqsUrl: process.env.REACT_APP_FAQS_URL!,
   howItWorksUrl: process.env.REACT_APP_HOW_IT_WORKS_URL!,
   learnUrl: process.env.REACT_APP_LEARN_URL!,
+  rsOnChainTwitterUrl: process.env.REACT_APP_RS_ON_CHAIN_TWITTER_URL!,
 };
 
 type RocClientConfig = {
@@ -12,4 +13,5 @@ type RocClientConfig = {
   faqsUrl: string;
   howItWorksUrl: string;
   learnUrl: string;
+  rsOnChainTwitterUrl: string;
 };

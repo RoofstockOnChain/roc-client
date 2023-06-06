@@ -8,7 +8,7 @@ export const List: FC = () => {
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} padding="1rem">
         {properties.map((property, index) => (
           <Grid key={index} item xs={12} md={4}>
             <PropertyCard property={property} />

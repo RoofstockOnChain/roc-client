@@ -6,7 +6,6 @@ import { Mint as MembershipMint } from './pages/membership/Mint';
 import { Mint as AdminMint } from './pages/admin/Mint';
 import { Burn } from './pages/admin/Burn';
 import { Administration } from './pages/admin/Administration';
-import { Box } from '@mui/material';
 import { Detail } from './pages/Detail';
 import { Home } from './pages/Home';
 import { Footer } from './layout/Footer';
@@ -16,23 +15,21 @@ function App() {
   return (
     <>
       <TopBar />
-      <Box padding={2}>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="properties" element={<List />} />
-          <Route
-            path="/properties/:contractAddress/:token"
-            element={<Detail />}
-          />
-          <Route path="mint" element={<MembershipMint />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="admin">
-            <Route index element={<Administration />} />
-            <Route path="mint" element={<AdminMint />} />
-            <Route path="burn" element={<Burn />} />
-          </Route>
-        </Routes>
-      </Box>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="properties" element={<List />} />
+        <Route
+          path="/properties/:contractAddress/:token"
+          element={<Detail />}
+        />
+        <Route path="mint" element={<MembershipMint />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="admin">
+          <Route index element={<Administration />} />
+          <Route path="mint" element={<AdminMint />} />
+          <Route path="burn" element={<Burn />} />
+        </Route>
+      </Routes>
       <Footer />
     </>
   );
