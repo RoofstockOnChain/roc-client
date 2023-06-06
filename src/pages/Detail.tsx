@@ -1,12 +1,23 @@
-import { FC } from 'react';
-import { useGetProperty } from '../hooks/useGetProperty';
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, CardMedia, Grid, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { useHocToken } from '../hooks/useHocToken';
+import { Property } from '../models/Property';
 
 export const Detail: FC = () => {
+  const [property, setProperty] = useState<Property>();
   const { contractAddress, token } = useParams();
-  const { property } = useGetProperty(contractAddress!, Number(token));
+  const { getProperty } = useHocToken();
+
+  useEffect(() => {
+    const property = getProperty(contractAddress!, Number(token));
+    setProperty(property);
+  }, [getProperty, contractAddress, token]);
+
+  if (!property) {
+    return <></>;
+  }
 
   return (
     <>
