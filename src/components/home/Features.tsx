@@ -1,25 +1,13 @@
 import { FC } from 'react';
 import { Box, Container, Typography } from '@mui/material';
+import { Feature } from '../../models/Feature';
 
-export const Features: FC = () => {
-  const features = [
-    {
-      imageUrl: '/images/home/top-rental-markets.svg',
-      imageAlt: 'Top Rental Markets',
-      text: 'Find move-in ready, vetted properties, in top rental markets',
-    },
-    {
-      imageUrl: '/images/home/compliance-and-security.svg',
-      imageAlt: 'Compliance and Security',
-      text: 'Blockchain ownership designed for compliance and security',
-    },
-    {
-      imageUrl: '/images/home/blockchain-financing.svg',
-      imageAlt: 'Blockchain Financing',
-      text: 'Blockchain financing available, up to 80% of home value',
-    },
-  ];
+interface FeaturesProps {
+  cta: string;
+  features: Feature[];
+}
 
+export const Features: FC<FeaturesProps> = ({ cta, features }) => {
   return (
     <Box
       component="section"
@@ -35,7 +23,7 @@ export const Features: FC = () => {
           alignItems="center"
         >
           <Typography component="h2" textAlign="center" variant="h4">
-            We simplify buying and owning property for the web3 generation
+            {cta}
           </Typography>
           <Box
             display="grid"
