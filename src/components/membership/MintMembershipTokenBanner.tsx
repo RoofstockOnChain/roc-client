@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { FC } from 'react';
-import { useMembershipToken } from '../hooks/useMembershipToken';
+import { useMembershipToken } from '../../hooks/useMembershipToken';
 
 export const MintMembershipTokenBanner: FC = () => {
   const { mint } = useMembershipToken();
