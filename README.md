@@ -5,7 +5,8 @@
 - [ ] Styling
   - [x] Top Bar
   - [x] Footer
-  - [ ] Home Page
+  - [x] Home Page
+  - [x] Membership Page
   - [ ] Properties Page
   - [ ] Property Detail Page
   - [ ] Profile Page
