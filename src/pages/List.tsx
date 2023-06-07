@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
-import { PropertyCard } from '../components/PropertyCard';
+import { PropertyCard } from '../components/properties/PropertyCard';
 import { Helmet } from 'react-helmet-async';
 import { useHocToken } from '../hooks/useHocToken';
 import { Property } from '../models/Property';

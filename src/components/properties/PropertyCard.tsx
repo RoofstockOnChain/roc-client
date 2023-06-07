@@ -7,7 +7,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { Property } from '../models/Property';
+import { Property } from '../../models/Property';
 
 const StyledCard = styled(Card)`
   height: 100%;

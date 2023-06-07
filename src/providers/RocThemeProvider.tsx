@@ -37,6 +37,14 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           },
         },
       },
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            paddingLeft: '0 !important',
+            paddingRight: '0 !important',
+          },
+        },
+      },
       MuiTypography: {
         styleOverrides: {
           h1: {
@@ -46,11 +54,11 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
             letterSpacing: '-0.053em',
             lineHeight: '100%',
           },
-          subtitle1: {
-            fontSize: `1.875rem`,
-            fontWeight: 600,
-            letterSpacing: 'normal',
-            lineHeight: 1.2,
+          h3: {
+            fontFamily: '"Roboto Mono", monospace',
+          },
+          h6: {
+            fontFamily: '"Roboto Mono", monospace',
           },
         },
       },

@@ -80,7 +80,7 @@ export const TopBar = () => {
   const { connectWallet, isAuthenticated, logout } = useWeb3Auth();
 
   return (
-    <StyledAppBar position="static">
+    <StyledAppBar position="sticky">
       <Container maxWidth="xl">
         <StyledToolbar>
           <Link href="/">
