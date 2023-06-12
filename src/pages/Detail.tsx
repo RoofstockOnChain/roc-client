@@ -29,7 +29,7 @@ export const Detail: FC = () => {
   const { property, isLoading } = useProperty(contractAddress!, token!);
 
   if (!property) {
-    return <></>;
+    return <Loading />;
   }
 
   return (
@@ -53,7 +53,7 @@ export const Detail: FC = () => {
               </Card>
             </Grid>
             <Grid item xs={12} md={7}>
-              <Typography variant="h5" color="#fff">
+              <Typography variant="h5" color="#fff" sx={{ py: '1rem' }}>
                 {property.name}
               </Typography>
               <Card>

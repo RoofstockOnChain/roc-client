@@ -53,7 +53,7 @@ export const Jumbotron: FC = () => {
               Find a home for your crypto
             </Typography>
             <Typography
-              color={(theme) => theme.palette.slate.p800}
+              color={(theme) => theme.palette.custom.slate}
               variant="subtitle1"
               sx={{
                 '@keyframes fade-in-subtitle': {
