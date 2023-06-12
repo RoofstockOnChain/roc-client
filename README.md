@@ -2,6 +2,8 @@
 
 # To Do
 
+**Before Release**
+
 - [ ] Styling
   - [x] Top Bar
   - [x] Footer
@@ -10,6 +12,11 @@
   - [ ] Properties Page
   - [ ] Property Detail Page
   - [ ] Profile Page
+- [ ] Infrastructure
+  - [ ] Host Static Files
+
+**Post Release**
+
 - [ ] Homes onChain
   - [ ] Get All Properties
   - [ ] Get Property Details
@@ -27,8 +34,6 @@
   - [ ] Document Verification
     - [ ] Sign Documents
     - [ ] Are Documents Signed
-- [ ] Infrastructure
-  - [ ] Host Static Files
 - [ ] SEO
   - [ ] Google Analytics
   - [ ] Open Graph
