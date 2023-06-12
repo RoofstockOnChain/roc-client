@@ -21,6 +21,7 @@ interface RocThemeProviderProps {
 export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
   const rocTheme = createTheme({
     palette: {
+      mode: 'dark',
       slate: {
         p800: '#232A35',
       },
@@ -34,6 +35,13 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           containedPrimary: {
             backgroundColor: '#fff',
             color: '#232A35',
+          },
+        },
+      },
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            textDecoration: 'initial',
           },
         },
       },

@@ -21,8 +21,6 @@ import {
 } from '@mui/material';
 import { config } from '../config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useWeb3Auth } from '../hooks/useWeb3Auth';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -72,15 +70,11 @@ export const TopBar = () => {
   const [learnMenuAnchorEl, setLearnMenuAnchorEl] =
     useState<HTMLElement | null>();
   const learnMenuOpen = Boolean(learnMenuAnchorEl);
-  const [profileMenuAnchorEl, setProfileMenuAnchorEl] =
-    useState<HTMLElement | null>();
-  const profileMenuOpen = Boolean(profileMenuAnchorEl);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const { marketplaceUrl } = config;
-  const { connectWallet, isAuthenticated, logout } = useWeb3Auth();
 
   return (
-    <StyledAppBar position="sticky">
+    <StyledAppBar position="sticky" elevation={0}>
       <Container maxWidth="xl">
         <StyledToolbar>
           <Link href="/">
@@ -131,37 +125,6 @@ export const TopBar = () => {
                 FAQs
               </MenuItem>
             </Menu>
-            <Box textAlign="end" width="100%">
-              {!isAuthenticated && (
-                <StyledButton
-                  variant="outlined"
-                  onClick={() => connectWallet()}
-                >
-                  Connect Wallet
-                </StyledButton>
-              )}
-              {isAuthenticated && (
-                <>
-                  <StyledIconButton
-                    onClick={(event) =>
-                      setProfileMenuAnchorEl(event.currentTarget)
-                    }
-                  >
-                    <AccountCircleOutlinedIcon />
-                  </StyledIconButton>
-                  <Menu
-                    anchorEl={profileMenuAnchorEl}
-                    open={profileMenuOpen}
-                    onClose={() => setProfileMenuAnchorEl(null)}
-                  >
-                    <MenuItem component={Link} href="/profile">
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={() => logout()}>Logout</MenuItem>
-                  </Menu>
-                </>
-              )}
-            </Box>
           </Hidden>
           <Hidden mdUp>
             <Box textAlign="end" width="100%">
@@ -225,20 +188,6 @@ export const TopBar = () => {
                     <StyledListItemText primary="Learn" />
                   </ListItemButton>
                 </ListItem>
-                {isAuthenticated && (
-                  <>
-                    <ListItem disablePadding>
-                      <ListItemButton href="/profile">
-                        <StyledListItemText primary="Profile" />
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton onClick={() => logout()}>
-                        <StyledListItemText primary="Logout" />
-                      </ListItemButton>
-                    </ListItem>
-                  </>
-                )}
               </List>
             </StyledDrawer>
           </Hidden>

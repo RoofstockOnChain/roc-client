@@ -28,6 +28,7 @@ export const PropertyCard: FC<PropertyCardProps> = ({ property }) => {
           height="200px"
         />
         <CardContent>
+          <Typography>TOKEN ID: {property.token}</Typography>
           <Typography>{property.name}</Typography>
         </CardContent>
       </StyledCard>

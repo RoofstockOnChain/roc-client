@@ -6,7 +6,6 @@ import { Membership } from './pages/Membership';
 import { Detail } from './pages/Detail';
 import { Home } from './pages/Home';
 import { Footer } from './layout/Footer';
-import { Profile } from './pages/Profile';
 import { NotFound } from './pages/NotFound';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           element={<Detail />}
         />
         <Route path="membership" element={<Membership />} />
-        <Route path="profile" element={<Profile />} />
         {/* Leave this old route here for now, remove in the future */}
         <Route path="mint" element={<Navigate to="/membership" />} />
         <Route path="*" element={<NotFound />} />

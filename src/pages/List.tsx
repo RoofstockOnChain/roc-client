@@ -1,31 +1,39 @@
-import { Grid } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { FC } from 'react';
 import { PropertyCard } from '../components/properties/PropertyCard';
 import { Helmet } from 'react-helmet-async';
-import { useHocToken } from '../hooks/useHocToken';
-import { Property } from '../models/Property';
+import { useProperties } from '../hooks/useProperties';
+import { Loading } from '../components/Loading';
 
 export const List: FC = () => {
-  const { getProperties } = useHocToken();
-  const [properties, setProperties] = useState<Property[]>([]);
-
-  useEffect(() => {
-    const properties = getProperties();
-    setProperties(properties);
-  }, [getProperties]);
+  const { properties, isLoading } = useProperties();
 
   return (
     <>
       <Helmet>
         <title>Roofstock onChain - Properties</title>
       </Helmet>
-      <Grid container spacing={2} padding="1rem">
-        {properties.map((property, index) => (
-          <Grid key={index} item xs={12} md={4}>
-            <PropertyCard property={property} />
+      <Container maxWidth="xl">
+        <Box display="flex" justifyContent="center" padding="1rem" color="#fff">
+          <Typography textAlign="center" variant="subtitle1">
+            Real-world houses titled under individual LLCs as Home onChain
+            Tokens.
+            <br />
+            Buy the token, become the single owner of the corresponding LLC -
+            instantly.
+          </Typography>
+        </Box>
+        {isLoading && <Loading />}
+        {!isLoading && (
+          <Grid container spacing={2} padding="1rem">
+            {properties.map((property, index) => (
+              <Grid key={index} item xs={12} md={4}>
+                <PropertyCard property={property} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        )}
+      </Container>
     </>
   );
 };

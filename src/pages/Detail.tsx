@@ -1,19 +1,32 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, CardMedia, Grid, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  Tab,
+  Typography,
+} from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { useHocToken } from '../hooks/useHocToken';
-import { Property } from '../models/Property';
+import ReactMarkdown from 'react-markdown';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { useProperty } from '../hooks/useProperty';
+import { Loading } from '../components/Loading';
+import { MarketSection } from '../components/properties/MarketSection';
+import { NeighborhoodSection } from '../components/properties/NeighborhoodSection';
+import { PropertyDocuments } from '../components/properties/PropertyDocuments';
+import { PropertyImages } from '../components/properties/PropertyImages';
+import { PropertyManagementSection } from '../components/properties/PropertyManagementSection';
 
 export const Detail: FC = () => {
-  const [property, setProperty] = useState<Property>();
+  const [selectedTab, setSelectedTab] = useState<'images' | 'documents'>(
+    'images'
+  );
   const { contractAddress, token } = useParams();
-  const { getProperty } = useHocToken();
-
-  useEffect(() => {
-    const property = getProperty(contractAddress!, Number(token));
-    setProperty(property);
-  }, [getProperty, contractAddress, token]);
+  const { property, isLoading } = useProperty(contractAddress!, token!);
 
   if (!property) {
     return <></>;
@@ -24,22 +37,60 @@ export const Detail: FC = () => {
       <Helmet>
         <title>Roofstock onChain - {property.name}</title>
       </Helmet>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={5}>
-          <Card>
-            <CardMedia
-              component="img"
-              image={property.imageUrl}
-              alt={property.name}
-              height="100%"
-              width="100%"
-            />
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={7}>
-          <Typography variant="h3">{property.name}</Typography>
-        </Grid>
-      </Grid>
+      <Container maxWidth="xl">
+        {isLoading && <Loading />}
+        {!isLoading && (
+          <Grid container spacing={2} padding="1rem">
+            <Grid item xs={12} md={5}>
+              <Card>
+                <CardMedia
+                  component="img"
+                  image={property.imageUrl}
+                  alt={property.name}
+                  height="100%"
+                  width="100%"
+                />
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <Typography variant="h5" color="#fff">
+                {property.name}
+              </Typography>
+              <Card>
+                <CardHeader title="Description" />
+                <CardContent>
+                  <ReactMarkdown>{property.description}</ReactMarkdown>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <TabContext value={selectedTab}>
+                <TabList onChange={(_, newValue) => setSelectedTab(newValue)}>
+                  <Tab label="Images" value="images" />
+                  <Tab label="Documents" value="documents" />
+                </TabList>
+                <TabPanel value="images">
+                  <PropertyImages images={property.images} />
+                </TabPanel>
+                <TabPanel value="documents">
+                  <PropertyDocuments documents={property.documents} />
+                </TabPanel>
+              </TabContext>
+            </Grid>
+            <Grid item xs={12}>
+              <PropertyManagementSection
+                propertyManagers={property.propertyManagementOptions}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <NeighborhoodSection property={property} />
+            </Grid>
+            <Grid item xs={12}>
+              <MarketSection cbsaCode={property.cbsaCode} />
+            </Grid>
+          </Grid>
+        )}
+      </Container>
     </>
   );
 };
