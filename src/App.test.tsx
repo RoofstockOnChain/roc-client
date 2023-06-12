@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RocThemeProvider } from './providers/RocThemeProvider';
 import { HelmetProvider } from 'react-helmet-async';
 
-test('renders learn react link', () => {
+test('renders home page', () => {
   render(
     <BrowserRouter>
       <HelmetProvider>
