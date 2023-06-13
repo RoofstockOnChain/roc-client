@@ -71,6 +71,15 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           },
         },
       },
+      MuiListSubheader: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'transparent',
+            color: '#fff',
+            fontSize: '1.875rem',
+          },
+        },
+      },
       MuiToolbar: {
         styleOverrides: {
           root: {

@@ -324,6 +324,178 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
         value: 'GA',
       },
     ],
+    latitude: 33.602589,
+    longitude: -83.966211,
+    images: [
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/e331fd90-b5fc-4138-93e3-7be940191e23_01-photo-front-view-12510846_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/d9674454-e98b-4aa0-9009-da1c384e0d50_02-photo-living-room-12510854_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/78404880-9f6d-4f23-b69b-dde2024f4227_03-photo-living-room-12510855_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/e3a18203-4e48-4821-b57a-676228e079e3_04-photo-living-room-12510856_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/afe1bb20-5000-4c2a-ab38-fa3603000ebe_05-photo-living-room-12510857_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/14681054-ea46-482c-8829-171c0caa0390_06-photo-kitchen-12510858_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/43c33910-6ac9-4bfc-8699-6b80eefa8075_07-photo-main-bedroom-12510849_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/f8f91428-e761-4e5d-827a-fd14a46ee143_08-photo-main-bedroom-12510850_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/bc61f922-b242-4109-919a-3d2bfbead915_09-photo-main-bathroom-12510848_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/113b9817-a7a6-463c-8eba-3338dc86b094_10-photo-bedroom-12510851_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/6523f53b-b74a-420a-83cd-f5353de422c9_11-photo-bedroom-12510852_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/e5af6321-966d-49b0-bbf0-7a621f05c4ce_12-photo-bedroom-12510859_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/4b624890-afb3-437e-9911-e6ef1c7ee41b_13-photo-bedroom-12510860_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/d82ad274-747d-4ff2-afca-b348e58d5214_14-photo-bathroom-12510847_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2009948/photo/b2af08ee-8187-4a80-b0f7-55c2c84acd64_15-photo-rear-view-12510887_1280.jpg',
+        description: '',
+      },
+    ],
+    documents: [
+      {
+        category: 'Transaction',
+        name: 'Purchase and Sale Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/1ba384d8-237c-4491-8b10-3f92ce07b850_1.Transaction_Purchase_Agreement_Purchase_and_Sale_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'HOA Covenants Conditions and Restrictions',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/d81d38b0-b40c-4273-b423-2fd2c1ebc9e5_1.Property_HOA_Covenants_Conditions_and_Restrictions_HOA_CCNRs.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'LLC Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/ce009e62-51a8-409b-9e09-0965551bad5e_1.Transaction_LLC_Agreement_GA_LLC_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'LLC',
+        name: 'Articles of Organization',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/b38394a7-9543-46cd-98a2-a36b66960671_2.LLC_Articles_of_organization_Articles_of_organization.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Title Report',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/ca11864c-031b-4409-a7ef-57a1a4fd37f0_3.Property_Title_Report_Title_Report.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Property Assessment',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/58b94c0b-b0f8-448b-a527-155e2cafeaaf_1.Property_Assessment_Report_Property_Assessment.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'LLC Administration Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/427af74f-77dc-4cf5-b1d7-b5dc2fa3d0e5_1.Transaction_Administration_Agreement_LLC_Admin_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'Token Administration Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/6074c994-e26a-45a2-b0d4-06ead690f193_1.Transaction_Token_Administration_Agreement_Token_Admin_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'LLC',
+        name: 'Good Standing',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/cd80ea14-5ba4-4ddc-a628-ae70e4fe1baf_2.LLC_Good_standing_LLC_Good_standing_LLC.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Deed',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/e7fcbe2c-3703-44f5-8565-e0033f28d3e3_3.Property_Deed_Deed.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'LLC',
+        name: 'EIN',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/f96f531a-5ffb-444e-a0e6-3bdeb693f876_2.LLC_EIN_EIN.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Renovation Detail',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/f96dbca8-b03a-4966-af9b-6a968dbc97aa_1.Property_Completed_Renovation_Details_Renovation_Detail.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Property Analysis',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2009948/onchain/0a873f71-80fa-412a-9e50-8084391197af_1.Property_Rental_Property_Analysis_Renovation_Detail.pdf',
+        documentType: 'PDF',
+      },
+    ],
     propertyManagementOptions: [],
     cbsaCode: 12060,
   },
@@ -370,6 +542,112 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
       {
         trait_type: 'State',
         value: 'AL',
+      },
+    ],
+    latitude: 34.85672,
+    longitude: -86.70807,
+    images: [
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/829a2d84-9bd5-4bf6-a822-bcf6c72f7710_IMG_4041_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/6826f7c3-d315-4d2e-a673-b3103e0897c3_IMG_4045_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/8c682f0d-c260-436a-b10a-84d9baa45657_IMG_4048_960.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/2201ba38-ddce-40fc-a9d9-fa3970e2c7cc_IMG_4052_960.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/4af95293-3a4c-48c8-869a-ed5423f75a95_IMG_4054_1280.jpg',
+        description: '',
+      },
+      {
+        imageUrl:
+          'https://roofstock-cdn4.azureedge.net/public/properties/2006185/photo/38aa473d-5064-4f1d-b520-08cdd25a514d_IMG_4055_1280.jpg',
+        description: '',
+      },
+    ],
+    documents: [
+      {
+        category: 'Transaction',
+        name: 'LLC Administration Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/1fd62826-94aa-4582-a245-a28c542e9f35_1.Transaction_Administration_Agreement_LLC_Admin_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'LLC Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/640ebba2-97a4-451e-b5f2-408559252a86_1.Transaction_LLC_Agreement_LLC_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'Token Administration Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/6f4eb006-aa20-410a-8017-f52cec02c80a_1.Transaction_Token_Administration_Agreement_Token_Admin_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'LLC',
+        name: 'Articles of Organization',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/bec5887f-186e-4d8b-a31a-3dd1737bd353_2.LLC_Articles_of_organization_Articles_of_organization.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'LLC',
+        name: 'Good Standing',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/6a966675-d071-43ef-978c-561ac281494b_2.LLC_Good_standing_LLC_Good_standing_LLC.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Deed',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/316d37cc-0ad5-4842-aea8-81f86210cf39_3.Property_Deed_Deed.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Disclosure Statement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/662a28aa-15d3-44ff-b3a4-5250077709a6_3.Property_Disclosure_Statement_Disclosure_Statement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Title Report',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/44ffd0cd-0aa2-4724-8cff-1e96bf642d3f_3.Property_Title_Report_Title_Report.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Transaction',
+        name: 'Purchase and Sale Agreement',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/f3fef196-11e5-466a-b4db-089bc6c984a0_1.Transaction_Purchase_Agreement_Purchase_and_Sale_Agreement.pdf',
+        documentType: 'PDF',
+      },
+      {
+        category: 'Property',
+        name: 'Assessment Report',
+        documentUrl:
+          'https://rs1pub1content.blob.core.windows.net/public/properties/2006185/onchain/ef26a500-27b7-4ef7-821c-420685d8c802_3.Property_Assesment_Report_Assessment_Report.pdf',
+        documentType: 'PDF',
       },
     ],
     propertyManagementOptions: [],
