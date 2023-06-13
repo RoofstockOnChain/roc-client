@@ -14,6 +14,13 @@
 - [x] Infrastructure
   - [x] Host Static Files
 
+**Feedback**
+
+- [x] - Static Files
+- [ ] - Mint button
+- [ ] - Video Tour
+- [ ] - 3D Walkthrough
+
 **Post Release**
 
 - [ ] Homes onChain

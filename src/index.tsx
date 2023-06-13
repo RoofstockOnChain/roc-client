@@ -1,16 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { RocThemeProvider } from './providers/RocThemeProvider';
 import { HelmetProvider } from 'react-helmet-async';
+import { hydrate, render } from 'react-dom';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const Index = () => (
   <React.StrictMode>
     <BrowserRouter>
       <HelmetProvider>
@@ -21,5 +18,12 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+const rootElement = document.getElementById('root');
+if (rootElement?.hasChildNodes()) {
+  hydrate(<Index />, rootElement);
+} else {
+  render(<Index />, rootElement);
+}
 
 reportWebVitals();
