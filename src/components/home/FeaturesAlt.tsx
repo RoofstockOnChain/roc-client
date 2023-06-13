@@ -4,7 +4,7 @@ import { Box, Container, Typography } from '@mui/material';
 export const FeaturesAlt: FC = () => {
   return (
     <Box
-      bgcolor={(theme) => theme.palette.slate.p800}
+      bgcolor={(theme) => theme.palette.custom.slate}
       color="#fff"
       component="section"
       paddingTop="100px"
@@ -30,7 +30,7 @@ export const FeaturesAlt: FC = () => {
               padding="0.25rem"
             >
               <Typography
-                color={(theme) => theme.palette.slate.p800}
+                color={(theme) => theme.palette.custom.slate}
                 component="h3"
                 textAlign="center"
                 variant="subtitle2"
@@ -99,7 +99,7 @@ export const FeaturesAlt: FC = () => {
               padding="0.25rem"
             >
               <Typography
-                color={(theme) => theme.palette.slate.p800}
+                color={(theme) => theme.palette.custom.slate}
                 component="h3"
                 textAlign="center"
                 variant="subtitle2"

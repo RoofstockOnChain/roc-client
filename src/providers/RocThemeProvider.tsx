@@ -3,13 +3,15 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 declare module '@mui/material/styles' {
   interface Palette {
-    slate: {
-      p800: string;
+    custom: {
+      slate: string;
+      orange: string;
     };
   }
   interface PaletteOptions {
-    slate: {
-      p800: string;
+    custom: {
+      slate: string;
+      orange: string;
     };
   }
 }
@@ -20,10 +22,20 @@ interface RocThemeProviderProps {
 
 export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
   const rocTheme = createTheme({
+    typography: {
+      subtitle1: {
+        fontFamily: 'Roboto',
+        fontSize: '1.25rem',
+        fontWeight: 600,
+        letterSpacing: '0.031em',
+        lineHeight: 1.2,
+      },
+    },
     palette: {
       mode: 'dark',
-      slate: {
-        p800: '#232A35',
+      custom: {
+        slate: '#232A35',
+        orange: '#FD9D4F',
       },
     },
     components: {
@@ -38,10 +50,33 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           },
         },
       },
+      MuiCardContent: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'rgb(21, 25, 32)',
+          },
+        },
+      },
       MuiLink: {
         styleOverrides: {
           root: {
             textDecoration: 'initial',
+          },
+        },
+      },
+      MuiList: {
+        styleOverrides: {
+          root: {
+            color: '#fff',
+          },
+        },
+      },
+      MuiListSubheader: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'transparent',
+            color: '#fff',
+            fontSize: '1.875rem',
           },
         },
       },

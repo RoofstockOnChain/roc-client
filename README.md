@@ -9,7 +9,7 @@
   - [x] Footer
   - [x] Home Page
   - [x] Membership Page
-  - [ ] Properties Page
+  - [x] Properties Page
   - [ ] Property Detail Page
   - [ ] Profile Page
 - [ ] Infrastructure

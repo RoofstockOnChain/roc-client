@@ -43,7 +43,7 @@ export const FeaturedTransaction = () => {
     >
       <Container maxWidth="xl">
         <Typography
-          bgcolor={(theme) => theme.palette.slate.p800}
+          bgcolor={(theme) => theme.palette.custom.slate}
           variant="h5"
           width="fit-content"
           sx={{ paddingInline: '0.5rem', paddingBlock: '0.25rem' }}
@@ -56,7 +56,7 @@ export const FeaturedTransaction = () => {
         <Typography variant="h4" maxWidth="620px" marginTop="1.5rem">
           <Typography
             bgcolor="#B6F1CA"
-            color={(theme) => theme.palette.slate.p800}
+            color={(theme) => theme.palette.custom.slate}
             component="mark"
             display="inline"
             lineHeight="1.75"

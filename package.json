@@ -16,6 +16,7 @@
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "dayjs": "^1.11.8",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "prettier": "2.8.8"
   }
 }

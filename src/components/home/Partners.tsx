@@ -4,7 +4,7 @@ import { FC } from 'react';
 export const Partners: FC = () => {
   return (
     <Box
-      bgcolor={(theme) => theme.palette.slate.p800}
+      bgcolor={(theme) => theme.palette.custom.slate}
       component="section"
       paddingTop="100px"
       paddingBottom="100px"
