@@ -1,6 +1,4 @@
 import { FC } from 'react';
-import { MintMembershipTokenBanner } from '../components/membership/MintMembershipTokenBanner';
-import { useMembershipToken } from '../hooks/useMembershipToken';
 import {
   Faqs,
   FeaturedTransaction,
@@ -15,7 +13,6 @@ import {
 import { Feature } from '../models/Feature';
 
 export const Home: FC = () => {
-  const { isMember } = useMembershipToken();
   const features: Feature[] = [
     {
       imageUrl: '/images/home/top-rental-markets.svg',
@@ -49,7 +46,6 @@ export const Home: FC = () => {
       <Partners />
       <GradientDivider />
       <Faqs />
-      {!isMember && <MintMembershipTokenBanner />}
     </>
   );
 };
