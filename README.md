@@ -4,15 +4,15 @@
 
 **Before Release**
 
-- [ ] Styling
+- [x] Styling
   - [x] Top Bar
   - [x] Footer
   - [x] Home Page
   - [x] Membership Page
   - [x] Properties Page
   - [x] Property Detail Page
-- [ ] Infrastructure
-  - [ ] Host Static Files
+- [x] Infrastructure
+  - [x] Host Static Files
 
 **Post Release**
 
