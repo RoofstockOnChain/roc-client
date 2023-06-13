@@ -10,8 +10,7 @@
   - [x] Home Page
   - [x] Membership Page
   - [x] Properties Page
-  - [ ] Property Detail Page
-  - [ ] Profile Page
+  - [x] Property Detail Page
 - [ ] Infrastructure
   - [ ] Host Static Files
 
@@ -25,6 +24,8 @@
   - [ ] Is Wallet Connected
   - [ ] Get Wallet Address
   - [ ] Logout
+- [ ] Styling
+  - [ ] Profile Page
 - [ ] Membership Token
   - [ ] Mint
   - [ ] Is Member

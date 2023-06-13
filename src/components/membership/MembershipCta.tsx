@@ -1,6 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
-import { useMembershipToken } from '../../hooks/useMembershipToken';
 
 interface MembershipCtaProps {
   showLearnMoreButton?: boolean;
@@ -9,8 +8,6 @@ interface MembershipCtaProps {
 export const MembershipCta: FC<MembershipCtaProps> = ({
   showLearnMoreButton = true,
 }) => {
-  const { mint } = useMembershipToken();
-
   return (
     <Box
       component="section"
@@ -34,15 +31,6 @@ export const MembershipCta: FC<MembershipCtaProps> = ({
                 flexDirection={{ xs: 'column', sm: 'row' }}
                 gap="1rem"
               >
-                <Box>
-                  <Button
-                    variant="contained"
-                    onClick={() => mint()}
-                    size="large"
-                  >
-                    Mint membership token
-                  </Button>
-                </Box>
                 {showLearnMoreButton && (
                   <Box>
                     <Button
