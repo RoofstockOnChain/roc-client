@@ -16,12 +16,15 @@
 
 **Feedback**
 
-- [x] - Static Files
-- [ ] - Mint button
-- [ ] - Video Tour
-- [ ] - 3D Walkthrough
+- [x] Static Files
+- [ ] Video Tour
+- [ ] 3D Walkthrough
+- [ ] Mint button
+- [ ] Update property descriptions
 
 **Post Release**
+
+- [ ] Update NFT Image for 149 Cottage Lake Way
 
 - [ ] Homes onChain
   - [ ] Get All Properties

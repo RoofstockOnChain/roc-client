@@ -23,6 +23,9 @@ interface RocThemeProviderProps {
 export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
   const rocTheme = createTheme({
     typography: {
+      h1: {
+        color: '#fff'
+      },
       subtitle1: {
         fontFamily: 'Roboto',
         fontSize: '1.25rem',

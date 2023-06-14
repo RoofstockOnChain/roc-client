@@ -1,10 +1,12 @@
 import { FC } from 'react';
-import { Typography } from '@mui/material';
+import {Box, Container, Typography} from '@mui/material';
 
 export const NotFound: FC = () => {
   return (
-    <>
-      <Typography variant="h1">Page Not Found</Typography>
-    </>
+    <Container maxWidth="xl">
+      <Box padding="1rem">
+        <Typography variant="h1">Page Not Found</Typography>
+      </Box>
+    </Container>
   );
 };
