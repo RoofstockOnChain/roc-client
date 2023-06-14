@@ -17,8 +17,8 @@
 **Feedback**
 
 - [x] Static Files
-- [ ] Video Tour
-- [ ] 3D Walkthrough
+- [x] Video Tour
+- [x] 3D Walkthrough
 - [ ] Mint button
 - [ ] Update property descriptions
 

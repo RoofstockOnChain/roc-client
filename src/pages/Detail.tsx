@@ -20,6 +20,7 @@ import { NeighborhoodSection } from '../components/properties/NeighborhoodSectio
 import { PropertyDocuments } from '../components/properties/PropertyDocuments';
 import { PropertyImages } from '../components/properties/PropertyImages';
 import { PropertyManagementSection } from '../components/properties/PropertyManagementSection';
+import { VideoTour } from '../components/properties/VideoTour';
 
 export const Detail: FC = () => {
   const [selectedTab, setSelectedTab] = useState<'images' | 'documents'>(
@@ -63,6 +64,11 @@ export const Detail: FC = () => {
                 </CardContent>
               </Card>
             </Grid>
+            {property.videoWalkthroughUrl && (
+              <Grid item xs={12}>
+                <VideoTour videoUrl={property.videoWalkthroughUrl} />
+              </Grid>
+            )}
             <Grid item xs={12}>
               <TabContext value={selectedTab}>
                 <TabList onChange={(_, newValue) => setSelectedTab(newValue)}>
@@ -70,7 +76,10 @@ export const Detail: FC = () => {
                   <Tab label="Documents" value="documents" />
                 </TabList>
                 <TabPanel value="images">
-                  <PropertyImages images={property.images} />
+                  <PropertyImages
+                    images={property.images}
+                    threeDTourUrl={property.threeDTourUrl}
+                  />
                 </TabPanel>
                 <TabPanel value="documents">
                   <PropertyDocuments documents={property.documents} />

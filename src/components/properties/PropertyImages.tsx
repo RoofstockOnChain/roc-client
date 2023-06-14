@@ -4,15 +4,34 @@ import { Grid } from '@mui/material';
 
 interface PropertyImagesProps {
   images?: Image[];
+  threeDTourUrl?: string;
 }
 
-export const PropertyImages: FC<PropertyImagesProps> = ({ images }) => {
+export const PropertyImages: FC<PropertyImagesProps> = ({
+  images,
+  threeDTourUrl,
+}) => {
   if (!images) {
     return <></>;
   }
 
   return (
     <Grid container spacing={2}>
+      {threeDTourUrl && (
+        <Grid item xs={12} md={3}>
+          <iframe
+            src={threeDTourUrl}
+            allowFullScreen
+            allow="xr-spatial-tracking"
+            style={{
+              border: 'none',
+              height: '100%',
+              minHeight: '200px',
+              width: '100%',
+            }}
+          ></iframe>
+        </Grid>
+      )}
       {images.map((image, index) => (
         <Grid key={index} item xs={12} md={3}>
           <img

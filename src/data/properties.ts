@@ -270,6 +270,8 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
         documentType: 'PDF',
       },
     ],
+    // threeDTourUrl: 'https://my.matterport.com/show/?m=6YJeBU8hP94',
+    videoWalkthroughUrl: 'https://www.youtube.com/embed/tu7RMFGyuRk?rel=0',
     propertyManagementOptions: [
       {
         name: 'Turner Properties',
@@ -496,6 +498,8 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
         documentType: 'PDF',
       },
     ],
+    // threeDTourUrl: 'https://my.matterport.com/show/?m=6YJeBU8hP94',
+    videoWalkthroughUrl: 'https://www.youtube.com/embed/a1a_A_u9rs8?rel=0',
     propertyManagementOptions: [],
     cbsaCode: 12060,
   },

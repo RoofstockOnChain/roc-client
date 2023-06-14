@@ -26,6 +26,9 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
       h1: {
         color: '#fff',
       },
+      h2: {
+        color: '#fff',
+      },
       subtitle1: {
         fontFamily: 'Roboto',
         fontSize: '1.25rem',
