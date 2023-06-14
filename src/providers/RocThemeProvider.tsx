@@ -24,7 +24,7 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
   const rocTheme = createTheme({
     typography: {
       h1: {
-        color: '#fff'
+        color: '#fff',
       },
       subtitle1: {
         fontFamily: 'Roboto',
