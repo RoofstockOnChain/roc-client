@@ -60,6 +60,7 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
         styleOverrides: {
           root: {
             backgroundColor: 'rgb(21, 25, 32)',
+            height: '100%',
           },
         },
       },
