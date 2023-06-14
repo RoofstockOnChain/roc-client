@@ -10,6 +10,7 @@ export const VideoTour: FC<VideoTourProps> = ({ videoUrl }) => {
     <>
       <Typography variant="h2">Video Tour</Typography>
       <iframe
+        title="Video Tour"
         src={videoUrl}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen

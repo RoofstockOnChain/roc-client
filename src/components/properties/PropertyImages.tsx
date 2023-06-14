@@ -20,6 +20,7 @@ export const PropertyImages: FC<PropertyImagesProps> = ({
       {threeDTourUrl && (
         <Grid item xs={12} md={3}>
           <iframe
+            title="3D Tour"
             src={threeDTourUrl}
             allowFullScreen
             allow="xr-spatial-tracking"
