@@ -19,8 +19,8 @@
 - [x] Static Files
 - [x] Video Tour
 - [x] 3D Walkthrough
+- [x] Update property descriptions
 - [ ] Mint button
-- [ ] Update property descriptions
 
 **Post Release**
 

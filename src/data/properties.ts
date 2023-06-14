@@ -285,7 +285,8 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
     contractAddress: '0xF928d6285B8a4f9ac5A640ae598D7399C331cea7',
     token: '1',
     name: '80 Colser Dr, Covington, GA 30016',
-    description: '',
+    description:
+      'A beautiful home in the serene subdivision of The Reserve at Lakewood Estates community. Home has a fully renovated kitchen, new carpet and LVP flooring throughout. Home features an open floor concept with natural lighting and all bedrooms on the upper level. Additional laundry room located upstairs between the secondary bedrooms. Home comes completely repainted with new light fixtures.',
     imageUrl:
       'https://devrspubcontent.blob.core.windows.net/public/onChain/80%20Colser/80-Colser_700x700.png',
     attributes: [
@@ -507,7 +508,8 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
     contractAddress: '0xF928d6285B8a4f9ac5A640ae598D7399C331cea7',
     token: '2',
     name: '205 Cloverbrook Dr, Harvest, AL 35749',
-    description: '',
+    description:
+      'A charming home with 3 bedrooms and 2 baths in the heart of Harvest, AL! This home offers vinyl wood flooring and lots of natural light throughout. The kitchen features matching appliances and plenty of cabinet and counter space. The primary bedroom has a full ensuite bathroom. Spacious backyard, great for relaxing or entertaining!',
     imageUrl:
       'https://devrspubcontent.blob.core.windows.net/public/onChain/205%20Cloverbrook/205-Cloverbrook_350x350.png',
     attributes: [
