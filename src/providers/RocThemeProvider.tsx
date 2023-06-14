@@ -53,6 +53,9 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           containedPrimary: {
             backgroundColor: '#fff',
             color: '#232A35',
+            '&:hover': {
+              backgroundColor: '#fff',
+            },
           },
         },
       },
