@@ -45,6 +45,14 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
       },
     },
     components: {
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            paddingBottom: '1rem',
+            paddingTop: '1rem',
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
