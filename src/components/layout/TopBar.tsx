@@ -74,7 +74,7 @@ export const TopBar = () => {
   const learnMenuOpen = Boolean(learnMenuAnchorEl);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const { marketplaceUrl } = config;
-  const { isConnected, address } = useAccount();
+  const { isConnected } = useAccount();
   const { open } = useWeb3Modal();
   const { disconnectAsync } = useDisconnect();
 
@@ -140,14 +140,12 @@ export const TopBar = () => {
                 </StyledButton>
               )}
               {isConnected && (
-                <>
-                  <StyledButton
-                    variant="outlined"
-                    onClick={async () => await disconnectAsync()}
-                  >
-                    Disconnect
-                  </StyledButton>
-                </>
+                <StyledButton
+                  variant="outlined"
+                  onClick={async () => await disconnectAsync()}
+                >
+                  Disconnect
+                </StyledButton>
               )}
             </Box>
           </Hidden>
