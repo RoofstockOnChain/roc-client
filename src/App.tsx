@@ -1,11 +1,11 @@
 import React from 'react';
-import { TopBar } from './layout/TopBar';
+import { TopBar } from './components/layout/TopBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { List } from './pages/List';
 import { Membership } from './pages/Membership';
 import { Detail } from './pages/Detail';
 import { Home } from './pages/Home';
-import { Footer } from './layout/Footer';
+import { Footer } from './components/layout/Footer';
 import { NotFound } from './pages/NotFound';
 
 function App() {

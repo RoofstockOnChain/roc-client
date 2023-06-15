@@ -9,7 +9,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { config } from '../config';
+import { config } from '../../config';
 import EmailIcon from '@mui/icons-material/Email';
 
 const FooterInner = styled(Box)`

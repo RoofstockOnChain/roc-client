@@ -19,7 +19,7 @@ import {
   styled,
   Toolbar,
 } from '@mui/material';
-import { config } from '../config';
+import { config } from '../../config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
