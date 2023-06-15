@@ -212,6 +212,29 @@ export const TopBar = () => {
                   </ListItemButton>
                 </ListItem>
               </List>
+              <Stack padding="1rem">
+                {!isConnected && (
+                  <StyledButton
+                    variant="outlined"
+                    onClick={async () => {
+                      await open();
+                      setMobileDrawerOpen(false);
+                    }}
+                    fullWidth
+                  >
+                    Connect Wallet
+                  </StyledButton>
+                )}
+                {isConnected && (
+                  <StyledButton
+                    variant="outlined"
+                    onClick={async () => await disconnectAsync()}
+                    fullWidth
+                  >
+                    Disconnect
+                  </StyledButton>
+                )}
+              </Stack>
             </StyledDrawer>
           </Hidden>
         </StyledToolbar>
