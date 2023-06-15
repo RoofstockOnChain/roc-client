@@ -6,6 +6,8 @@ export const config: RocClientConfig = {
   learnUrl: process.env.REACT_APP_LEARN_URL!,
   rsOnChainTwitterUrl: process.env.REACT_APP_RS_ON_CHAIN_TWITTER_URL!,
   walletConnectProjectId: process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID!,
+  roofstockMembershipContractAddress: process.env
+    .REACT_APP_ROOFSTOCK_MEMBERSHIP_CONTRACT_ADDRESS! as `0x${string}`,
 };
 
 type RocClientConfig = {
@@ -16,4 +18,5 @@ type RocClientConfig = {
   learnUrl: string;
   rsOnChainTwitterUrl: string;
   walletConnectProjectId: string;
+  roofstockMembershipContractAddress: `0x${string}`;
 };

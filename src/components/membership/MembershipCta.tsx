@@ -1,5 +1,8 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
+import { useMembershipToken } from '../../hooks/useMembershipToken';
+import { useAccount } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/react';
 
 interface MembershipCtaProps {
   showLearnMoreButton?: boolean;
@@ -8,6 +11,10 @@ interface MembershipCtaProps {
 export const MembershipCta: FC<MembershipCtaProps> = ({
   showLearnMoreButton = true,
 }) => {
+  const { isConnected } = useAccount();
+  const { open } = useWeb3Modal();
+  const { isMember, mint } = useMembershipToken();
+
   return (
     <Box
       component="section"
@@ -31,6 +38,24 @@ export const MembershipCta: FC<MembershipCtaProps> = ({
                 flexDirection={{ xs: 'column', sm: 'row' }}
                 gap="1rem"
               >
+                {!isConnected && (
+                  <Button
+                    variant="contained"
+                    onClick={async () => await open()}
+                    size="large"
+                  >
+                    Connect Wallet
+                  </Button>
+                )}
+                {isConnected && !isMember && (
+                  <Button
+                    variant="contained"
+                    onClick={async () => await mint()}
+                    size="large"
+                  >
+                    Mint membership token
+                  </Button>
+                )}
                 {showLearnMoreButton && (
                   <Box>
                     <Button
