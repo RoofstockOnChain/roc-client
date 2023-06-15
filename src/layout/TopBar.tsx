@@ -23,6 +23,8 @@ import { config } from '../config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { useAccount, useDisconnect } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/react';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -72,6 +74,9 @@ export const TopBar = () => {
   const learnMenuOpen = Boolean(learnMenuAnchorEl);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const { marketplaceUrl } = config;
+  const { isConnected } = useAccount();
+  const { open } = useWeb3Modal();
+  const { disconnectAsync } = useDisconnect();
 
   return (
     <StyledAppBar position="sticky" elevation={0}>
@@ -125,6 +130,24 @@ export const TopBar = () => {
                 FAQs
               </MenuItem>
             </Menu>
+            <Box textAlign="end" width="100%">
+              {!isConnected && (
+                <StyledButton
+                  variant="outlined"
+                  onClick={async () => await open()}
+                >
+                  Connect Wallet
+                </StyledButton>
+              )}
+              {isConnected && (
+                <StyledButton
+                  variant="outlined"
+                  onClick={async () => await disconnectAsync()}
+                >
+                  Disconnect
+                </StyledButton>
+              )}
+            </Box>
           </Hidden>
           <Hidden mdUp>
             <Box textAlign="end" width="100%">

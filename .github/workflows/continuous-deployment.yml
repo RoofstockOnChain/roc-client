@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '18'
       - name: Install Packages
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Upload
@@ -31,7 +31,7 @@ jobs:
       id-token: write
     environment:
       name: 'New Roofstock onChain'
-      url: 'https://new.roofstockonchain.com'
+      url: 'https://onchain.roofstock.com'
     steps:
       - name: Publish to GitHub Pages
         uses: actions/deploy-pages@v2

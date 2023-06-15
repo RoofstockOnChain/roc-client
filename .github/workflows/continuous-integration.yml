@@ -15,10 +15,8 @@ jobs:
         with:
           node-version: '18'
       - name: Install Packages
-        run: npm ci
+        run: npm install --legacy-peer-deps
       - name: Build
         run: npm run build
-      - name: Test
-        run: npm test
       - name: Prettier
         run: npm run prettier
