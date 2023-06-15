@@ -1,4 +1,4 @@
-export const RoofstockMembershipAbi = [
+export const roofstockMembershipAbi = [
   {
     name: 'mint',
     type: 'function',

@@ -1,17 +1,17 @@
 import { useAccount, useContractRead, useContractWrite } from 'wagmi';
-import { RoofstockMembershipAbi } from '../abis/RoofstockMembershipAbi';
+import { roofstockMembershipAbi } from '../abis/RoofstockMembershipAbi';
 import { config } from '../config';
 
 export const useMembershipToken = () => {
   const { address } = useAccount();
   const { writeAsync } = useContractWrite({
     address: config.roofstockMembershipContractAddress,
-    abi: RoofstockMembershipAbi,
+    abi: roofstockMembershipAbi,
     functionName: 'mint',
   });
   const { data: balanceOf } = useContractRead({
     address: config.roofstockMembershipContractAddress,
-    abi: RoofstockMembershipAbi,
+    abi: roofstockMembershipAbi,
     functionName: 'balanceOf',
     args: [address],
   });
