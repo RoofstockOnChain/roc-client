@@ -9,27 +9,34 @@ import {
   w3mProvider,
 } from '@web3modal/ethereum';
 import { RocThemeProvider } from './src/providers/RocThemeProvider';
+import { Layout } from './src/components/Layout';
+
+const { chains, publicClient } = configureChains(
+  [mainnet],
+  [w3mProvider({ projectId: config.walletConnectProjectId })]
+);
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  publicClient,
+  connectors: w3mConnectors({
+    projectId: config.walletConnectProjectId,
+    version: 1,
+    chains,
+  }),
+});
+
+const ethereumClient = new EthereumClient(wagmiConfig, chains);
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   element,
 }) => {
-  const { chains, publicClient } = configureChains(
-    [mainnet],
-    [w3mProvider({ projectId: config.walletConnectProjectId })]
-  );
+  return <Layout>{element}</Layout>;
+};
 
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    publicClient,
-    connectors: w3mConnectors({
-      projectId: config.walletConnectProjectId,
-      version: 1,
-      chains,
-    }),
-  });
-
-  const ethereumClient = new EthereumClient(wagmiConfig, chains);
-
+export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
+  element,
+}) => {
   return (
     <RocThemeProvider>
       <WagmiConfig config={wagmiConfig}>

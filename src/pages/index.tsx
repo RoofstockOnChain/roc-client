@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Layout } from '../components/Layout';
 import {
   Faqs,
   FeaturedTransaction,
@@ -16,7 +15,7 @@ import { Seo } from '../components/layout/Seo';
 
 const IndexPage: FC<PageProps> = () => {
   return (
-    <Layout>
+    <>
       <Jumbotron />
       <Features />
       <FeaturedTransaction />
@@ -27,7 +26,7 @@ const IndexPage: FC<PageProps> = () => {
       <Partners />
       <GradientDivider />
       <Faqs />
-    </Layout>
+    </>
   );
 };
 export default IndexPage;
