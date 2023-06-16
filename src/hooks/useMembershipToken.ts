@@ -14,6 +14,7 @@ export const useMembershipToken = () => {
     abi: roofstockMembershipAbi,
     functionName: 'balanceOf',
     args: [address],
+    enabled: Boolean(address),
   });
 
   const mint = async () => {
