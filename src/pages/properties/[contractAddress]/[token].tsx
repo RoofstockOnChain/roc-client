@@ -1,5 +1,7 @@
-import { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import type { PageProps } from 'gatsby';
+import { Helmet } from 'react-helmet';
+import { Layout } from '../../../components/Layout';
 import {
   Card,
   CardContent,
@@ -10,23 +12,25 @@ import {
   Tab,
   Typography,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
+import { Loading } from '../../../components/Loading';
 import ReactMarkdown from 'react-markdown';
+import { VideoTour } from '../../../components/properties/VideoTour';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useProperty } from '../hooks/useProperty';
-import { Loading } from '../components/Loading';
-import { MarketSection } from '../components/properties/MarketSection';
-import { NeighborhoodSection } from '../components/properties/NeighborhoodSection';
-import { PropertyDocuments } from '../components/properties/PropertyDocuments';
-import { PropertyImages } from '../components/properties/PropertyImages';
-import { PropertyManagementSection } from '../components/properties/PropertyManagementSection';
-import { VideoTour } from '../components/properties/VideoTour';
+import { PropertyImages } from '../../../components/properties/PropertyImages';
+import { PropertyDocuments } from '../../../components/properties/PropertyDocuments';
+import { PropertyManagementSection } from '../../../components/properties/PropertyManagementSection';
+import { NeighborhoodSection } from '../../../components/properties/NeighborhoodSection';
+import { MarketSection } from '../../../components/properties/MarketSection';
+import { useProperty } from '../../../hooks/useProperty';
+import { Seo } from '../../../components/layout/Seo';
+import { HeadFC } from 'gatsby';
 
-export const Detail: FC = () => {
+const PropertyPage: FC<PageProps> = ({
+  params: { contractAddress, token },
+}) => {
   const [selectedTab, setSelectedTab] = useState<'images' | 'documents'>(
     'images'
   );
-  const { contractAddress, token } = useParams();
   const { property, isLoading } = useProperty(contractAddress!, token!);
 
   if (!property) {
@@ -34,10 +38,7 @@ export const Detail: FC = () => {
   }
 
   return (
-    <>
-      <Helmet>
-        <title>Roofstock onChain - {property.name}</title>
-      </Helmet>
+    <Layout>
       <Container maxWidth="xl">
         {isLoading && <Loading />}
         {!isLoading && (
@@ -100,6 +101,11 @@ export const Detail: FC = () => {
           </Grid>
         )}
       </Container>
-    </>
+    </Layout>
   );
 };
+export default PropertyPage;
+
+export const Head: HeadFC = () => (
+  <Seo title="Roofstock onChain - Property Details" />
+);

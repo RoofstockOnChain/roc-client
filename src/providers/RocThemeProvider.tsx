@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 
 declare module '@mui/material/styles' {

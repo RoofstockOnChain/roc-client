@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 
 export const FeaturesAlt: FC = () => {

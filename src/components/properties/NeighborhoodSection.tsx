@@ -1,5 +1,5 @@
 import { Property } from '../../models/Property';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 interface NeighborhoodSectionProps {
   property: Property;

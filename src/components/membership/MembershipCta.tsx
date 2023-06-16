@@ -1,5 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useMembershipToken } from '../../hooks/useMembershipToken';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';

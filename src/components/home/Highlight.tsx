@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
+import React, { FC } from 'react';
 
-export const Highlight = () => {
+export const Highlight: FC = () => {
   return (
     <Box
       component="section"

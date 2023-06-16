@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 const StyledImg = styled('img')`
   height: 58px;

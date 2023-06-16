@@ -1,22 +1,21 @@
+import React, { FC } from 'react';
+import type { HeadFC, PageProps } from 'gatsby';
+import { Layout } from '../../components/Layout';
 import { Box, Container, Grid, styled, Typography } from '@mui/material';
-import { FC } from 'react';
-import { PropertyCard } from '../components/properties/PropertyCard';
-import { Helmet } from 'react-helmet-async';
-import { useProperties } from '../hooks/useProperties';
-import { Loading } from '../components/Loading';
+import { Loading } from '../../components/Loading';
+import { PropertyCard } from '../../components/properties/PropertyCard';
+import { useProperties } from '../../hooks/useProperties';
+import { Seo } from '../../components/layout/Seo';
 
 const Orange = styled('span')`
   color: ${(props) => props.theme.palette.custom.orange};
 `;
 
-export const List: FC = () => {
+const PropertiesPage: FC<PageProps> = () => {
   const { properties, isLoading } = useProperties();
 
   return (
-    <>
-      <Helmet>
-        <title>Roofstock onChain - Properties</title>
-      </Helmet>
+    <Layout>
       <Container maxWidth="xl">
         <Box
           display="flex"
@@ -43,6 +42,11 @@ export const List: FC = () => {
           </Grid>
         )}
       </Container>
-    </>
+    </Layout>
   );
 };
+export default PropertiesPage;
+
+export const Head: HeadFC = () => (
+  <Seo title="Roofstock onChain - Properties" />
+);

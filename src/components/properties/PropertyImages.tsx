@@ -1,5 +1,5 @@
 import { Image } from '../../models/Image';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Grid } from '@mui/material';
 
 interface PropertyImagesProps {

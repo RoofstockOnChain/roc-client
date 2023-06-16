@@ -1,5 +1,5 @@
 import { Document } from '../../models/Document';
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import {
   List,
   ListItem,
@@ -16,13 +16,11 @@ interface PropertyDocumentsProps {
 export const PropertyDocuments: FC<PropertyDocumentsProps> = ({
   documents,
 }) => {
-  const documentGroups = _.chain(documents)
-    .groupBy((x) => x.category)
-    .map((documents, category) => ({
-      category: category,
-      documents: documents,
-    }))
-    .value();
+  const documentsByCategory = _.groupBy(documents, (x) => x.category);
+  const documentGroups = _.map(documentsByCategory, (documents, category) => ({
+    category: category,
+    documents: documents,
+  }));
 
   if (!documents) {
     return <></>;

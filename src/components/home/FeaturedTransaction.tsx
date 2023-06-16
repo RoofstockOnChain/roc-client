@@ -1,9 +1,10 @@
+import React, { FC } from 'react';
 import { config } from '../../config';
 import dayjs from 'dayjs';
 import { Box, Container, Link, Typography } from '@mui/material';
 import { OpenInNew } from '@mui/icons-material';
 
-export const FeaturedTransaction = () => {
+export const FeaturedTransaction: FC = () => {
   const { rsOnChainTwitterUrl } = config;
   const transaction = {
     featuredImage: {

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import { config } from '../../config';
 import { useFaqs } from '../../hooks/useFaqs';
