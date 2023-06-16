@@ -1,21 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    custom: {
-      slate: string;
-      orange: string;
-    };
-  }
-  interface PaletteOptions {
-    custom: {
-      slate: string;
-      orange: string;
-    };
-  }
-}
-
 interface RocThemeProviderProps {
   children: ReactNode;
 }
@@ -39,10 +24,6 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
     },
     palette: {
       mode: 'dark',
-      custom: {
-        slate: '#232A35',
-        orange: '#FD9D4F',
-      },
     },
     components: {
       MuiAppBar: {

@@ -8,7 +8,6 @@ interface SeoProps {
 }
 
 export const Seo: FC<SeoProps> = ({ title, description, children }) => {
-  const { pathname } = location;
   const {
     title: defaultTitle,
     description: defaultDescription,
@@ -21,7 +20,7 @@ export const Seo: FC<SeoProps> = ({ title, description, children }) => {
     title: title || defaultTitle,
     description: description || defaultDescription,
     image: `${siteUrl}${image}`,
-    url: `${siteUrl}${pathname || ``}`,
+    url: siteUrl,
     twitterUsername,
   };
 

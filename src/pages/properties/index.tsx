@@ -7,7 +7,7 @@ import { useProperties } from '../../hooks/useProperties';
 import { Seo } from '../../components/layout/Seo';
 
 const Orange = styled('span')`
-  color: ${(props) => props.theme.palette.custom.orange};
+  color: #fd9d4f;
 `;
 
 const PropertiesPage: FC<PageProps> = () => {
