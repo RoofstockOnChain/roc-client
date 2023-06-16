@@ -51,13 +51,6 @@ export const Partners: FC = () => {
               style={{ width: '162px', height: '51px' }}
             />
           </Box>
-          <Box>
-            <img
-              src="/images/partners/wyre-logo.png"
-              alt="Wyre logo"
-              style={{ width: '123px', height: '32px' }}
-            />
-          </Box>
         </Box>
       </Container>
     </Box>
