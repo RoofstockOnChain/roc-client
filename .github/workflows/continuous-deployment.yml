@@ -21,7 +21,7 @@ jobs:
       - name: Upload
         uses: actions/upload-pages-artifact@v1
         with:
-          path: build
+          path: dist
   DeployDevelopment:
     name: Deploy
     runs-on: ubuntu-latest

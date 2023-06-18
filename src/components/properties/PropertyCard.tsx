@@ -3,11 +3,11 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Link,
   styled,
   Typography,
 } from '@mui/material';
-import { Property } from '../../models/Property';
+import { Property } from '@/models/Property';
+import Link from 'next/link';
 
 const StyledCard = styled(Card)`
   height: 100%;

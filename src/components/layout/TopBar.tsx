@@ -8,7 +8,6 @@ import {
   Drawer,
   Hidden,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemButton,
@@ -19,12 +18,13 @@ import {
   styled,
   Toolbar,
 } from '@mui/material';
-import { config } from '../../config';
+import { config } from '@/config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
+import Link from 'next/link';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;

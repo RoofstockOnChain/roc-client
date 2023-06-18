@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -10,24 +9,31 @@ import {
   Tab,
   Typography,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import ReactMarkdown from 'react-markdown';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useProperty } from '../hooks/useProperty';
-import { Loading } from '../components/Loading';
-import { MarketSection } from '../components/properties/MarketSection';
-import { NeighborhoodSection } from '../components/properties/NeighborhoodSection';
-import { PropertyDocuments } from '../components/properties/PropertyDocuments';
-import { PropertyImages } from '../components/properties/PropertyImages';
-import { PropertyManagementSection } from '../components/properties/PropertyManagementSection';
-import { VideoTour } from '../components/properties/VideoTour';
+import { useProperty } from '@/hooks/useProperty';
+import { Loading } from '@/components/Loading';
+import { MarketSection } from '@/components/properties/MarketSection';
+import { NeighborhoodSection } from '@/components/properties/NeighborhoodSection';
+import { PropertyDocuments } from '@/components/properties/PropertyDocuments';
+import { PropertyImages } from '@/components/properties/PropertyImages';
+import { PropertyManagementSection } from '@/components/properties/PropertyManagementSection';
+import { VideoTour } from '@/components/properties/VideoTour';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { Property } from '@/models/Property';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useProperties } from '@/hooks/useProperties';
 
-export const Detail: FC = () => {
+interface PropertyDetailProps {
+  property: Property;
+  isLoading: boolean;
+}
+
+const PropertyDetail: FC<PropertyDetailProps> = ({ property, isLoading }) => {
   const [selectedTab, setSelectedTab] = useState<'images' | 'documents'>(
     'images'
   );
-  const { contractAddress, token } = useParams();
-  const { property, isLoading } = useProperty(contractAddress!, token!);
 
   if (!property) {
     return <Loading />;
@@ -35,9 +41,9 @@ export const Detail: FC = () => {
 
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Roofstock onChain - {property.name}</title>
-      </Helmet>
+      </Head>
       <Container maxWidth="xl">
         {isLoading && <Loading />}
         {!isLoading && (
@@ -103,3 +109,34 @@ export const Detail: FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps<PropertyDetailProps> = ({
+  params,
+}) => {
+  const { property, isLoading } = useProperty(
+    params!.contractAddress as string,
+    params!.token as string
+  );
+  return {
+    props: {
+      property,
+      isLoading,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const { properties } = useProperties();
+
+  return {
+    paths: properties.map((x) => ({
+      params: {
+        contractAddress: x.contractAddress,
+        token: x.token,
+      },
+    })),
+    fallback: true,
+  };
+};
+
+export default PropertyDetail;

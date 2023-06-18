@@ -1,15 +1,17 @@
 import { FC } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { MembershipCta, MembershipDescription } from '../components/membership';
+import { MembershipCta, MembershipDescription } from '@/components/membership';
+import Head from 'next/head';
 
-export const Membership: FC = () => {
+const Membership: FC = () => {
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Roofstock onChain - Membership</title>
-      </Helmet>
+      </Head>
       <MembershipCta showLearnMoreButton={false} />
       <MembershipDescription />
     </>
   );
 };
+
+export default Membership;
