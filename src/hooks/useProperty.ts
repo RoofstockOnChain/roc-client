@@ -1,4 +1,4 @@
-import { properties } from '../data/properties';
+import { properties } from '@/data/properties';
 
 export const useProperty = (contractAddress: string, token: string) => {
   const property = properties.filter(

@@ -8,7 +8,6 @@ import {
   Drawer,
   Hidden,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemButton,
@@ -19,12 +18,14 @@ import {
   styled,
   Toolbar,
 } from '@mui/material';
-import { config } from '../../config';
+import { config } from '@/config';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
+import Link from 'next/link';
+import { ClientOnly } from '@/components/nextjs/ClientOnly';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -131,22 +132,24 @@ export const TopBar = () => {
               </MenuItem>
             </Menu>
             <Box textAlign="end" width="100%">
-              {!isConnected && (
-                <StyledButton
-                  variant="outlined"
-                  onClick={async () => await open()}
-                >
-                  Connect Wallet
-                </StyledButton>
-              )}
-              {isConnected && (
-                <StyledButton
-                  variant="outlined"
-                  onClick={async () => await disconnectAsync()}
-                >
-                  Disconnect
-                </StyledButton>
-              )}
+              <ClientOnly>
+                {!isConnected && (
+                  <StyledButton
+                    variant="outlined"
+                    onClick={async () => await open()}
+                  >
+                    Connect Wallet
+                  </StyledButton>
+                )}
+                {isConnected && (
+                  <StyledButton
+                    variant="outlined"
+                    onClick={async () => await disconnectAsync()}
+                  >
+                    Disconnect
+                  </StyledButton>
+                )}
+              </ClientOnly>
             </Box>
           </Hidden>
           <Hidden mdUp>

@@ -1,22 +1,27 @@
 import { Box, Container, Grid, styled, Typography } from '@mui/material';
 import { FC } from 'react';
-import { PropertyCard } from '../components/properties/PropertyCard';
-import { Helmet } from 'react-helmet-async';
-import { useProperties } from '../hooks/useProperties';
-import { Loading } from '../components/Loading';
+import { PropertyCard } from '@/components/properties/PropertyCard';
+import { useProperties } from '@/hooks/useProperties';
+import { Loading } from '@/components/Loading';
+import Head from 'next/head';
+import { Property } from '@/models/Property';
+import { GetStaticProps } from 'next';
 
 const Orange = styled('span')`
   color: ${(props) => props.theme.palette.custom.orange};
 `;
 
-export const List: FC = () => {
-  const { properties, isLoading } = useProperties();
+interface PropertiesProps {
+  properties: Property[];
+  isLoading: boolean;
+}
 
+const Properties: FC<PropertiesProps> = ({ properties, isLoading }) => {
   return (
     <>
-      <Helmet>
+      <Head>
         <title>Roofstock onChain - Properties</title>
-      </Helmet>
+      </Head>
       <Container maxWidth="xl">
         <Box
           display="flex"
@@ -46,3 +51,16 @@ export const List: FC = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps<PropertiesProps> = () => {
+  const { properties, isLoading } = useProperties();
+
+  return {
+    props: {
+      properties,
+      isLoading,
+    },
+  };
+};
+
+export default Properties;

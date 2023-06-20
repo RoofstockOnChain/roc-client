@@ -1,1 +1,13 @@
+# production
 build
+dist
+
+# next.js
+.next
+out
+
+# ide
+.idea
+
+# typescript
+next-env.d.ts
