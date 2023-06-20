@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useMembershipToken } from '../../hooks/useMembershipToken';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
+import { ClientOnly } from '@/components/nextjs/ClientOnly';
 
 interface MembershipCtaProps {
   showLearnMoreButton?: boolean;
@@ -38,24 +39,26 @@ export const MembershipCta: FC<MembershipCtaProps> = ({
                 flexDirection={{ xs: 'column', sm: 'row' }}
                 gap="1rem"
               >
-                {!isConnected && (
-                  <Button
-                    variant="contained"
-                    onClick={async () => await open()}
-                    size="large"
-                  >
-                    Connect Wallet
-                  </Button>
-                )}
-                {isConnected && !isMember && (
-                  <Button
-                    variant="contained"
-                    onClick={async () => await mint()}
-                    size="large"
-                  >
-                    Mint membership token
-                  </Button>
-                )}
+                <ClientOnly>
+                  {!isConnected && (
+                    <Button
+                      variant="contained"
+                      onClick={async () => await open()}
+                      size="large"
+                    >
+                      Connect Wallet
+                    </Button>
+                  )}
+                  {isConnected && !isMember && (
+                    <Button
+                      variant="contained"
+                      onClick={async () => await mint()}
+                      size="large"
+                    >
+                      Mint membership token
+                    </Button>
+                  )}
+                </ClientOnly>
                 {showLearnMoreButton && (
                   <Box>
                     <Button
