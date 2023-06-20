@@ -135,7 +135,7 @@ export const getStaticPaths: GetStaticPaths = () => {
         token: x.token,
       },
     })),
-    fallback: true,
+    fallback: false,
   };
 };
 
