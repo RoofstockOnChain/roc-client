@@ -9,7 +9,7 @@ const Document: FC = () => {
           name="description"
           content="Buy and sell single-family homes in minutes."
         />
-        <meta property="og:url" content="%PUBLIC_URL%" />
+        <meta property="og:url" content="https://onchain.roofstock.com" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Roofstock onChain" />
         <meta
@@ -18,18 +18,18 @@ const Document: FC = () => {
         />
         <meta
           property="og:image"
-          content="%PUBLIC_URL%/images/og-image.png"
+          content="https://onchain.roofstock.com/images/og-image.png"
           data-rh="true"
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="%PUBLIC_URL%" />
-        <meta property="twitter:url" content="%PUBLIC_URL%" />
+        <meta property="twitter:domain" content="https://onchain.roofstock.com" />
+        <meta property="twitter:url" content="https://onchain.roofstock.com" />
         <meta name="twitter:title" content="Roofstock onChain" />
         <meta
           name="twitter:description"
           content="Buy and sell single-family homes in minutes."
         />
-        <meta name="twitter:image" content="%PUBLIC_URL%/images/og-image.png" />
+        <meta name="twitter:image" content="https://onchain.roofstock.com/images/og-image.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
