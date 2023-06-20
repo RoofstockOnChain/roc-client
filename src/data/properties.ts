@@ -11,7 +11,7 @@ The main level features all updated flooring, a combination of wood laminate and
       
 The sprawling master suite comes equipped with a double vanity, soaking tub, and huge walk-in closet. Less than a 5 minute drive to restaurants, groceries, Walmart, Lowes, and more.`,
     imageUrl:
-      'https://roofstock-cdn4.azureedge.net/public/onChain/149%20Cottage%20Lake%20Way/149%20Cottage%20Lake%20Way-350x350.png',
+      'https://ipfs.io/ipfs/Qmcnu2r6QfSr7QcprG15ScsAFG89q4r9XbD3Grf6t7qbtq/hoc-images/149-Cottage-Lake-Way.png',
     attributes: [
       {
         trait_type: 'Property Type',
@@ -287,7 +287,7 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
     description:
       'A beautiful home in the serene subdivision of The Reserve at Lakewood Estates community. Home has a fully renovated kitchen, new carpet and LVP flooring throughout. Home features an open floor concept with natural lighting and all bedrooms on the upper level. Additional laundry room located upstairs between the secondary bedrooms. Home comes completely repainted with new light fixtures.',
     imageUrl:
-      'https://devrspubcontent.blob.core.windows.net/public/onChain/80%20Colser/80-Colser_700x700.png',
+      'https://ipfs.io/ipfs/Qmcnu2r6QfSr7QcprG15ScsAFG89q4r9XbD3Grf6t7qbtq/hoc-images/80-Colser-Drive.png',
     attributes: [
       {
         trait_type: 'Property Type',
@@ -510,7 +510,7 @@ The sprawling master suite comes equipped with a double vanity, soaking tub, and
     description:
       'A charming home with 3 bedrooms and 2 baths in the heart of Harvest, AL! This home offers vinyl wood flooring and lots of natural light throughout. The kitchen features matching appliances and plenty of cabinet and counter space. The primary bedroom has a full ensuite bathroom. Spacious backyard, great for relaxing or entertaining!',
     imageUrl:
-      'https://devrspubcontent.blob.core.windows.net/public/onChain/205%20Cloverbrook/205-Cloverbrook_350x350.png',
+      'https://ipfs.io/ipfs/Qmcnu2r6QfSr7QcprG15ScsAFG89q4r9XbD3Grf6t7qbtq/hoc-images/205-Cloverbrook-Drive.png',
     attributes: [
       {
         trait_type: 'Property Type',
