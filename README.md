@@ -20,20 +20,20 @@
 - [x] Video Tour
 - [x] 3D Walkthrough
 - [x] Update property descriptions
-- [ ] Mint button
+- [x] Mint button
 
 **Post Release**
 
-- [ ] Update NFT Image for 149 Cottage Lake Way
+- [x] Update NFT Image for 149 Cottage Lake Way
 
 - [ ] Homes onChain
   - [ ] Get All Properties
   - [ ] Get Property Details
-- [ ] Connect Wallet
-  - [ ] Connect
-  - [ ] Is Wallet Connected
-  - [ ] Get Wallet Address
-  - [ ] Logout
+- [x] Connect Wallet
+  - [x] Connect
+  - [x] Is Wallet Connected
+  - [x] Get Wallet Address
+  - [x] Logout
 - [ ] Styling
   - [ ] Profile Page
 - [ ] Membership Token
@@ -47,7 +47,7 @@
     - [ ] Are Documents Signed
 - [ ] SEO
   - [ ] Google Analytics
-  - [ ] Open Graph
+  - [x] Open Graph
   - [ ] Twitter Pixel
 - [ ] Homes onChain Administration
   - [ ] Mint
