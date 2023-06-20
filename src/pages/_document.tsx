@@ -22,14 +22,20 @@ const Document: FC = () => {
           data-rh="true"
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="https://onchain.roofstock.com" />
+        <meta
+          property="twitter:domain"
+          content="https://onchain.roofstock.com"
+        />
         <meta property="twitter:url" content="https://onchain.roofstock.com" />
         <meta name="twitter:title" content="Roofstock onChain" />
         <meta
           name="twitter:description"
           content="Buy and sell single-family homes in minutes."
         />
-        <meta name="twitter:image" content="https://onchain.roofstock.com/images/og-image.png" />
+        <meta
+          name="twitter:image"
+          content="https://onchain.roofstock.com/images/og-image.png"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
