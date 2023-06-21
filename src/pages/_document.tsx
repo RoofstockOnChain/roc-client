@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 import React, { FC } from 'react';
+import Script from 'next/script';
 
 const Document: FC = () => {
   return (
@@ -45,6 +46,22 @@ const Document: FC = () => {
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
           rel="stylesheet"
+        />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-MX3VKB200C"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MX3VKB200C');
+          `,
+          }}
         />
       </Head>
       <body>
