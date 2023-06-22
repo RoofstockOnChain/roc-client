@@ -42,7 +42,7 @@ const PropertyDetail: FC<PropertyDetailProps> = ({ property, isLoading }) => {
   return (
     <>
       <Head>
-        <title>Roofstock onChain - {property.name}</title>
+        <title>{`Roofstock onChain - ${property.name}`}</title>
       </Head>
       <Container maxWidth="xl">
         {isLoading && <Loading />}
