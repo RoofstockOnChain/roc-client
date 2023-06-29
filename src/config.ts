@@ -1,5 +1,6 @@
 export const config: RocClientConfig = {
-  verifiedSmartContract: process.env.NEXT_PUBLIC_VERIFIED_SMART_CONTRACT!,
+  homeOnChainContractAddress:
+    process.env.NEXT_PUBLIC_HOME_ON_CHAIN_CONTRACT_ADDRESS!,
   marketplaceUrl: process.env.NEXT_PUBLIC_MARKETPLACE_URL!,
   faqsUrl: process.env.NEXT_PUBLIC_FAQS_URL!,
   howItWorksUrl: process.env.NEXT_PUBLIC_HOW_IT_WORKS_URL!,
@@ -8,10 +9,11 @@ export const config: RocClientConfig = {
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
   roofstockMembershipContractAddress: process.env
     .NEXT_PUBLIC_ROOFSTOCK_MEMBERSHIP_CONTRACT_ADDRESS! as `0x${string}`,
+  alchemyApiKey: process.env.ALCHEMY_API_KEY!,
 };
 
 type RocClientConfig = {
-  verifiedSmartContract: string;
+  homeOnChainContractAddress: string;
   marketplaceUrl: string;
   faqsUrl: string;
   howItWorksUrl: string;
@@ -19,4 +21,5 @@ type RocClientConfig = {
   rsOnChainTwitterUrl: string;
   walletConnectProjectId: string;
   roofstockMembershipContractAddress: `0x${string}`;
+  alchemyApiKey: string;
 };
