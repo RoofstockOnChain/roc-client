@@ -26,9 +26,9 @@
 
 - [x] Update NFT Image for 149 Cottage Lake Way
 
-- [ ] Homes onChain
-  - [ ] Get All Properties
-  - [ ] Get Property Details
+- [x] Homes onChain
+  - [x] Get All Properties
+  - [x] Get Property Details
 - [x] Connect Wallet
   - [x] Connect
   - [x] Is Wallet Connected
@@ -37,8 +37,8 @@
 - [ ] Styling
   - [ ] Profile Page
 - [ ] Membership Token
-  - [ ] Mint
-  - [ ] Is Member
+  - [x] Mint
+  - [x] Is Member
   - [ ] Identity Verification
     - [ ] Jumio
     - [ ] Is Identity Verified
@@ -46,7 +46,7 @@
     - [ ] Sign Documents
     - [ ] Are Documents Signed
 - [ ] SEO
-  - [ ] Google Analytics
+  - [x] Google Analytics
   - [x] Open Graph
   - [ ] Twitter Pixel
 - [ ] Homes onChain Administration
