@@ -45,10 +45,10 @@
   - [ ] Document Verification
     - [ ] Sign Documents
     - [ ] Are Documents Signed
-- [ ] SEO
+- [x] SEO
   - [x] Google Analytics
   - [x] Open Graph
-  - [ ] Twitter Pixel
+  - [x] Twitter Pixel
 - [ ] Homes onChain Administration
   - [ ] Mint
   - [ ] Burn
