@@ -39,7 +39,7 @@ const DividerStyled = styled(Divider)`
 `;
 
 export const Footer: FC = () => {
-  const { verifiedSmartContract } = config;
+  const { homeOnChainContractAddress } = config;
 
   return (
     <FooterInner component="footer">
@@ -115,7 +115,7 @@ export const Footer: FC = () => {
         <Box paddingBottom="3rem" paddingTop="3rem" textAlign="center">
           <Typography variant="body1">
             Verified smart contract address:{' '}
-            <ContractAddress>{verifiedSmartContract}</ContractAddress>
+            <ContractAddress>{homeOnChainContractAddress}</ContractAddress>
           </Typography>
         </Box>
         <DividerStyled />

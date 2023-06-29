@@ -21,7 +21,7 @@ import { VideoTour } from '@/components/properties/VideoTour';
 import Head from 'next/head';
 import { Property } from '@/models/Property';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { properties } from '@/data/properties';
+import { getProperties, getProperty } from '@/services/PropertiesService';
 
 interface PropertyDetailProps {
   property: Property;
@@ -104,13 +104,25 @@ const PropertyDetail: FC<PropertyDetailProps> = ({ property }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<PropertyDetailProps> = ({
+export const getStaticProps: GetStaticProps<PropertyDetailProps> = async ({
   params,
 }) => {
-  const property = properties.filter(
-    (x) =>
-      x.contractAddress === params!.contractAddress && x.token === params!.token
-  )[0];
+  if (!params || !params.contractAddress || !params.token) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const property = await getProperty(
+    params.contractAddress.toString(),
+    params.token.toString()
+  );
+
+  if (!property) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
@@ -119,12 +131,14 @@ export const getStaticProps: GetStaticProps<PropertyDetailProps> = ({
   };
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const properties = await getProperties();
+
   return {
-    paths: properties.map((x) => ({
+    paths: properties.map((property) => ({
       params: {
-        contractAddress: x.contractAddress,
-        token: x.token,
+        contractAddress: property.contractAddress,
+        token: property.token,
       },
     })),
     fallback: false,

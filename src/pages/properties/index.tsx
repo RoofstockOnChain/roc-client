@@ -4,7 +4,7 @@ import { PropertyCard } from '@/components/properties/PropertyCard';
 import Head from 'next/head';
 import { Property } from '@/models/Property';
 import { GetStaticProps } from 'next';
-import { properties } from '@/data/properties';
+import { getProperties } from '@/services/PropertiesService';
 
 const Orange = styled('span')`
   color: ${(props) => props.theme.palette.custom.orange};
@@ -47,7 +47,9 @@ const Properties: FC<PropertiesProps> = ({ properties }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<PropertiesProps> = () => {
+export const getStaticProps: GetStaticProps<PropertiesProps> = async () => {
+  const properties = await getProperties();
+
   return {
     props: {
       properties,
