@@ -26,6 +26,8 @@ import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
 import Link from 'next/link';
 import { ClientOnly } from '@/components/nextjs/ClientOnly';
+import { useFeatureFlags } from '@/hooks/useFeatureFlags';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const StyledAppBar = styled(AppBar)`
   background-color: #151920;
@@ -69,13 +71,17 @@ const StyledDivider = styled(Divider)`
 `;
 
 export const TopBar = () => {
+  const { isProfileEnabled } = useFeatureFlags();
   const { howItWorksUrl, faqsUrl, learnUrl } = config;
   const [learnMenuAnchorEl, setLearnMenuAnchorEl] =
     useState<HTMLElement | null>();
   const learnMenuOpen = Boolean(learnMenuAnchorEl);
+  const [profileMenuAnchorEl, setProfileMenuAnchorEl] =
+    useState<HTMLElement | null>();
+  const profileMenuOpen = Boolean(profileMenuAnchorEl);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
   const { marketplaceUrl } = config;
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { open } = useWeb3Modal();
   const { disconnectAsync } = useDisconnect();
 
@@ -142,12 +148,46 @@ export const TopBar = () => {
                   </StyledButton>
                 )}
                 {isConnected && (
-                  <StyledButton
-                    variant="outlined"
-                    onClick={async () => await disconnectAsync()}
-                  >
-                    Disconnect
-                  </StyledButton>
+                  <>
+                    <IconButton
+                      onClick={(event) =>
+                        setProfileMenuAnchorEl(event.currentTarget)
+                      }
+                    >
+                      <AccountCircleIcon />
+                    </IconButton>
+                    <Menu
+                      anchorEl={profileMenuAnchorEl}
+                      open={profileMenuOpen}
+                      onClose={() => setProfileMenuAnchorEl(null)}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                    >
+                      {isProfileEnabled && (
+                        <MenuItem
+                          component={Link}
+                          href="/profile"
+                          onClick={() => setProfileMenuAnchorEl(null)}
+                        >
+                          Profile
+                        </MenuItem>
+                      )}
+                      <MenuItem
+                        onClick={async () => {
+                          await disconnectAsync();
+                          setProfileMenuAnchorEl(null);
+                        }}
+                      >
+                        Disconnect
+                      </MenuItem>
+                    </Menu>
+                  </>
                 )}
               </ClientOnly>
             </Box>
@@ -214,6 +254,13 @@ export const TopBar = () => {
                     <StyledListItemText primary="Learn" />
                   </ListItemButton>
                 </ListItem>
+                {isConnected && isProfileEnabled && (
+                  <ListItem disablePadding>
+                    <ListItemButton href="/profile">
+                      <StyledListItemText primary="Profile" />
+                    </ListItemButton>
+                  </ListItem>
+                )}
               </List>
               <Stack padding="1rem">
                 {!isConnected && (
@@ -229,13 +276,15 @@ export const TopBar = () => {
                   </StyledButton>
                 )}
                 {isConnected && (
-                  <StyledButton
-                    variant="outlined"
-                    onClick={async () => await disconnectAsync()}
-                    fullWidth
-                  >
-                    Disconnect
-                  </StyledButton>
+                  <>
+                    <StyledButton
+                      variant="outlined"
+                      onClick={async () => await disconnectAsync()}
+                      fullWidth
+                    >
+                      Disconnect
+                    </StyledButton>
+                  </>
                 )}
               </Stack>
             </StyledDrawer>

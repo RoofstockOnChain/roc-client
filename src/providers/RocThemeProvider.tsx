@@ -98,6 +98,16 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           },
         },
       },
+      MuiModal: {
+        styleOverrides: {
+          root: {
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            padding: '1rem',
+          },
+        },
+      },
       MuiToolbar: {
         styleOverrides: {
           root: {
