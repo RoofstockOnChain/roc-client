@@ -1,14 +1,9 @@
 import { FC } from 'react';
 import { RoofstockOnChainModal } from '@/components/RoofstockOnChainModal';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Button, styled, Typography } from '@mui/material';
-
-const StyledButton = styled(Button)`
-  border-color: #fff !important;
-  color: #fff;
-  text-transform: none;
-  white-space: nowrap;
-`;
+import { Button, Stack, Typography } from '@mui/material';
+import { config } from '@/config';
+import Link from 'next/link';
 
 interface VerifyIdentityModalProps {
   open: boolean;
@@ -25,22 +20,32 @@ export const VerifyIdentityModal: FC<VerifyIdentityModalProps> = ({
       open={open}
       onClose={onClose}
       footer={
-        <StyledButton
+        <Button
+          component={Link}
+          href={config.quadrataVerifyIdentityLink}
+          target="_blank"
           variant="outlined"
           fullWidth
           endIcon={<OpenInNewIcon />}
           onClick={() => {
-            // TODO: Open Quadrata in new tab
             onClose();
           }}
         >
           Verify Identity with Quadrata
-        </StyledButton>
+        </Button>
       }
     >
-      <Typography variant="body1" paddingY="1rem">
-        You will verify your identity with Quadrata . . .
-      </Typography>
+      <Stack display="flex" alignContent="center">
+        <Typography
+          variant="body1"
+          paddingY="1rem"
+          maxWidth="500px"
+          textAlign="center"
+        >
+          You will verify your identity with Quadrata. Click the link below and
+          follow the steps to verify your identity.
+        </Typography>
+      </Stack>
     </RoofstockOnChainModal>
   );
 };

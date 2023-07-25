@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useRoofstockOnChainKyc } from '@/hooks/useRoofstockOnChainKyc';
 import {
   Box,
@@ -39,6 +39,13 @@ export const Membership: FC = () => {
     useState<boolean>(false);
   const [downloadDocumentsModalOpen, setDownloadDocumentsModalOpen] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      await refresh();
+    }, 10 * 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>

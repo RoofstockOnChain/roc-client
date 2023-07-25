@@ -58,12 +58,20 @@ export const RocThemeProvider: FC<RocThemeProviderProps> = ({ children }) => {
           root: {
             textTransform: 'initial',
           },
+          textPrimary: {
+            color: '#fff',
+            whiteSpace: 'nowrap',
+          },
           containedPrimary: {
             backgroundColor: '#fff',
             color: '#232A35',
             '&:hover': {
               backgroundColor: '#fff',
             },
+          },
+          outlinedPrimary: {
+            borderColor: '#fff',
+            color: '#fff',
           },
         },
       },

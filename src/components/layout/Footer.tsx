@@ -17,11 +17,6 @@ const FooterInner = styled(Box)`
   color: #fff;
 `;
 
-const StyledButton = styled(Button)`
-  border-color: #fff !important;
-  color: #fff;
-`;
-
 const ContractAddress = styled('span')`
   background: linear-gradient(90deg, #fa8e36 1.54%, #ce8dc7 96.4%);
   background-clip: text;
@@ -65,14 +60,15 @@ export const Footer: FC = () => {
               alignItems="center"
               sx={{ justifyContent: { xs: 'center', md: 'start' } }}
             >
-              <StyledButton
+              <Button
                 href="mailto:onchain@roofstock.com"
+                target="_blank"
                 startIcon={<EmailIcon />}
                 variant="outlined"
                 size="large"
               >
                 Contact our team
-              </StyledButton>
+              </Button>
             </Box>
             <Box
               display="flex"

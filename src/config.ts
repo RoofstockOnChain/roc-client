@@ -28,6 +28,7 @@ export const config: RocClientConfig = {
       url: 'https://ipfs.io/ipfs/QmUWMB55arnbjQvmdNFcdVEwm3VfAi8XFnNMzKmYqVAFcW/hoc-documents/forms/token-admin-agreement.pdf',
     },
   ],
+  quadrataVerifyIdentityLink: 'https://www.google.com', // TODO: Update this with the actual link
 };
 
 type RocClientConfig = {
@@ -41,9 +42,10 @@ type RocClientConfig = {
   roofstockMembershipContractAddress: `0x${string}`;
   alchemyApiKey: string;
   documents: Document[];
+  quadrataVerifyIdentityLink: string;
 };
 
-type Document = {
+export type Document = {
   name: string;
   url: string;
 };

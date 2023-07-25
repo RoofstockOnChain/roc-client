@@ -44,13 +44,6 @@ const DividerStyled = styled(Divider)`
   background-color: #fff;
 `;
 
-const StyledButton = styled(Button)`
-  border-color: #fff !important;
-  color: #fff;
-  text-transform: none;
-  white-space: nowrap;
-`;
-
 const StyledIconButton = styled(IconButton)`
   color: #fff;
 `;
@@ -111,16 +104,14 @@ export const TopBar = () => {
               paddingLeft="2rem"
               paddingRight="2rem"
             >
-              <StyledButton href="/properties">View Homes onChain</StyledButton>
-              <StyledButton href={marketplaceUrl}>
-                Buy on Marketplace
-              </StyledButton>
-              <StyledButton
+              <Button href="/properties">View Homes onChain</Button>
+              <Button href={marketplaceUrl}>Buy on Marketplace</Button>
+              <Button
                 endIcon={<ArrowDropDownIcon />}
                 onClick={(event) => setLearnMenuAnchorEl(event.currentTarget)}
               >
                 Learn
-              </StyledButton>
+              </Button>
             </Stack>
             <Menu
               anchorEl={learnMenuAnchorEl}
@@ -140,12 +131,9 @@ export const TopBar = () => {
             <Box textAlign="end" width="100%">
               <ClientOnly>
                 {!isConnected && (
-                  <StyledButton
-                    variant="outlined"
-                    onClick={async () => await open()}
-                  >
+                  <Button variant="outlined" onClick={async () => await open()}>
                     Connect Wallet
-                  </StyledButton>
+                  </Button>
                 )}
                 {isConnected && (
                   <>
@@ -264,7 +252,7 @@ export const TopBar = () => {
               </List>
               <Stack padding="1rem">
                 {!isConnected && (
-                  <StyledButton
+                  <Button
                     variant="outlined"
                     onClick={async () => {
                       await open();
@@ -273,17 +261,17 @@ export const TopBar = () => {
                     fullWidth
                   >
                     Connect Wallet
-                  </StyledButton>
+                  </Button>
                 )}
                 {isConnected && (
                   <>
-                    <StyledButton
+                    <Button
                       variant="outlined"
                       onClick={async () => await disconnectAsync()}
                       fullWidth
                     >
                       Disconnect
-                    </StyledButton>
+                    </Button>
                   </>
                 )}
               </Stack>
