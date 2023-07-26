@@ -30,7 +30,7 @@ export const config: RocClientConfig = {
   ],
   quadrataVerifyIdentityLink: 'https://www.google.com', // TODO: Update this with the actual link
   roofstockOnChainKycContractAddress:
-    '0x5D1AB054b6497b5102f056dF92Bd7853f50cAC7b', // TODO: Update this value
+    '0x6A89e1ddFfbc184d5619fb38E3d8e72D28351e60', // TODO: Update this value
 };
 
 type RocClientConfig = {
