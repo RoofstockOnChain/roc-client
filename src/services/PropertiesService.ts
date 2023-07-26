@@ -44,7 +44,7 @@ export const getProperty = async (
     imageUrl: response.media.length > 0 ? response.media[0].gateway : undefined,
     attributes: response.rawMetadata?.attributes ?? [],
     images:
-      response.rawMetadata?.images.map(
+      response.rawMetadata?.images?.map(
         (image: any) =>
           ({
             imageUrl: convertIpfsToHttps(image.image_url),
@@ -52,7 +52,7 @@ export const getProperty = async (
           } as Image)
       ) ?? [],
     documents:
-      response.rawMetadata?.documents.map((document: any) => ({
+      response.rawMetadata?.documents?.map((document: any) => ({
         category: document.category,
         name: document.name,
         documentType: document.document_type,
