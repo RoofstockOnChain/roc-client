@@ -29,6 +29,8 @@ export const config: RocClientConfig = {
     },
   ],
   quadrataVerifyIdentityLink: 'https://www.google.com', // TODO: Update this with the actual link
+  roofstockOnChainKycContractAddress:
+    '0x5D1AB054b6497b5102f056dF92Bd7853f50cAC7b', // TODO: Update this value
 };
 
 type RocClientConfig = {
@@ -43,6 +45,7 @@ type RocClientConfig = {
   alchemyApiKey: string;
   documents: Document[];
   quadrataVerifyIdentityLink: string;
+  roofstockOnChainKycContractAddress: `0x${string}`;
 };
 
 export type Document = {

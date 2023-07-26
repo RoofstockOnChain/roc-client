@@ -50,6 +50,10 @@
   - [x] Open Graph
   - [x] Twitter Pixel
 - [ ] Homes onChain Administration
-  - [ ] Mint
-  - [ ] Burn
-  - [ ] Metadata Editor
+  - [ ] Mint token
+  - [ ] Burn token
+  - [ ] Edit metadata
+- [ ] Roofstock onChain KYC Administration
+  - [ ] Add Verified Address
+  - [ ] Remove Verified Address
+  - [ ] Check Recipient
