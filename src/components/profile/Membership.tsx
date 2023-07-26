@@ -62,62 +62,68 @@ export const Membership: FC = () => {
           }
         />
         <CardContent>
-          {isAllowed && (
-            <Box display="flex" flexDirection="column" justifyContent="center">
-              <Box display="flex" justifyContent="center">
-                <img
-                  src="/images/roofstock-onchain-membership-token.gif"
-                  alt="Spinning Roofstock onChain Membership token"
-                  height="500px"
-                />
+          <>
+            {isAllowed && (
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+              >
+                <Box display="flex" justifyContent="center">
+                  <img
+                    src="/images/roofstock-onchain-membership-token.gif"
+                    alt="Spinning Roofstock onChain Membership token"
+                    height="500px"
+                  />
+                </Box>
+                <Typography variant="h5" textAlign="center">
+                  Congratulations, you are ready to purchase a Web3 Home.
+                </Typography>
               </Box>
-              <Typography variant="h5" textAlign="center">
-                Congratulations, you are ready to purchase a Web3 Home.
-              </Typography>
-            </Box>
-          )}
-          {!isAllowed && (
-            <List>
-              <StyledListItem
-                secondaryAction={
-                  <>
-                    {isIdentityVerified && (
-                      <Chip label="Complete" color="success" />
-                    )}
-                    {!isIdentityVerified && (
-                      <StyledButton
-                        variant="outlined"
-                        onClick={() => setVerifyIdentityModalOpen(true)}
-                      >
-                        Start
-                      </StyledButton>
-                    )}
-                  </>
-                }
-              >
-                <ListItemText>Verify your Identity</ListItemText>
-              </StyledListItem>
-              <StyledListItem
-                secondaryAction={
-                  <>
-                    {isDocumentsAcknowledged && (
-                      <Chip label="Complete" color="success" />
-                    )}
-                    {!isDocumentsAcknowledged && (
-                      <StyledButton
-                        variant="outlined"
-                        onClick={() => setDownloadDocumentsModalOpen(true)}
-                      >
-                        Start
-                      </StyledButton>
-                    )}
-                  </>
-                }
-              >
-                <ListItemText>Download & Acknowledge Documents</ListItemText>
-              </StyledListItem>
-            </List>
-          )}
+            )}
+            {!isAllowed && (
+              <List>
+                <StyledListItem
+                  secondaryAction={
+                    <>
+                      {isIdentityVerified && (
+                        <Chip label="Complete" color="success" />
+                      )}
+                      {!isIdentityVerified && (
+                        <StyledButton
+                          variant="outlined"
+                          onClick={() => setVerifyIdentityModalOpen(true)}
+                        >
+                          Start
+                        </StyledButton>
+                      )}
+                    </>
+                  }
+                >
+                  <ListItemText>Verify your Identity</ListItemText>
+                </StyledListItem>
+                <StyledListItem
+                  secondaryAction={
+                    <>
+                      {isDocumentsAcknowledged && (
+                        <Chip label="Complete" color="success" />
+                      )}
+                      {!isDocumentsAcknowledged && (
+                        <StyledButton
+                          variant="outlined"
+                          onClick={() => setDownloadDocumentsModalOpen(true)}
+                        >
+                          Start
+                        </StyledButton>
+                      )}
+                    </>
+                  }
+                >
+                  <ListItemText>Download & Acknowledge Documents</ListItemText>
+                </StyledListItem>
+              </List>
+            )}
+          </>
         </CardContent>
       </Card>
       <VerifyIdentityModal
