@@ -1,15 +1,22 @@
-import { useAccount, useContractRead, useContractWrite } from 'wagmi';
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  useNetwork,
+} from 'wagmi';
 import { roofstockOnChainKycAbi } from '../abis/RoofstockOnChainKycAbi';
 import { config } from '@/config';
 
 export const useRoofstockOnChainKyc = () => {
   const { address } = useAccount();
+  const { chain } = useNetwork();
+  const isMainnet = chain?.id === 1;
   const { data: isAllowed, refetch: isAllowedRefetch } = useContractRead({
     address: config.roofstockOnChainKycContractAddress,
     abi: roofstockOnChainKycAbi,
     functionName: 'isAllowed',
     args: [address],
-    enabled: Boolean(address),
+    enabled: Boolean(address) && isMainnet,
   });
   const { data: isIdentityVerified, refetch: isIdentityVerifiedRefetch } =
     useContractRead({
@@ -17,7 +24,7 @@ export const useRoofstockOnChainKyc = () => {
       abi: roofstockOnChainKycAbi,
       functionName: 'isIdentityVerified',
       args: [address],
-      enabled: Boolean(address),
+      enabled: Boolean(address) && isMainnet,
     });
   const {
     data: isDocumentsAcknowledged,

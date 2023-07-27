@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useRoofstockOnChainKyc } from '@/hooks/useRoofstockOnChainKyc';
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -17,6 +18,7 @@ import {
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { DownloadDocumentsModal } from '@/components/profile/modals/DownloadDocumentsModal';
 import { VerifyIdentityModal } from '@/components/profile/modals/VerifyIdentityModal';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 const StyledListItem = styled(ListItem)`
   border: 1px solid #fff;
@@ -33,6 +35,9 @@ const StyledButton = styled(Button)`
 `;
 
 export const Membership: FC = () => {
+  const { chain } = useNetwork();
+  const isMainnet = chain?.id === 1;
+  const { switchNetwork } = useSwitchNetwork();
   const { isAllowed, isIdentityVerified, isDocumentsAcknowledged, refresh } =
     useRoofstockOnChainKyc();
   const [verifyIdentityModalOpen, setVerifyIdentityModalOpen] =
@@ -63,6 +68,26 @@ export const Membership: FC = () => {
         />
         <CardContent>
           <>
+            {!isMainnet && (
+              <Alert
+                severity="warning"
+                action={
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => {
+                      if (switchNetwork) {
+                        switchNetwork(1);
+                      }
+                    }}
+                  >
+                    Switch to Mainnet
+                  </Button>
+                }
+              >
+                Not Connected to Mainnet
+              </Alert>
+            )}
             {isAllowed && (
               <Box
                 display="flex"
@@ -93,6 +118,7 @@ export const Membership: FC = () => {
                         <StyledButton
                           variant="outlined"
                           onClick={() => setVerifyIdentityModalOpen(true)}
+                          disabled={!isMainnet}
                         >
                           Start
                         </StyledButton>
@@ -112,6 +138,7 @@ export const Membership: FC = () => {
                         <StyledButton
                           variant="outlined"
                           onClick={() => setDownloadDocumentsModalOpen(true)}
+                          disabled={!isMainnet}
                         >
                           Start
                         </StyledButton>
