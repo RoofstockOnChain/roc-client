@@ -56,6 +56,7 @@ export const Membership: FC = () => {
     <>
       <Card>
         <CardHeader
+          title="Membership"
           action={
             <>
               {!isAllowed && (

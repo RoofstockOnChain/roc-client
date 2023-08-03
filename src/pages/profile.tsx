@@ -1,19 +1,20 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/navigation';
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
+import { Box, Card, Container, Grid, styled, Tab } from '@mui/material';
 import { Membership } from '@/components/profile/Membership';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { MyHomes } from '@/components/profile/MyHomes';
+
+const StyledTabPanel = styled(TabPanel)`
+  padding: 0;
+`;
 
 const Profile: FC = () => {
+  const [selectedTab, setSelectedTab] = useState<'my-homes' | 'membership'>(
+    'my-homes'
+  );
   const router = useRouter();
   const { isConnected } = useAccount();
 
@@ -46,18 +47,27 @@ const Profile: FC = () => {
       >
         <Container maxWidth="xl">
           <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
-              <Card>
-                <List>
-                  <ListItem>
-                    <ListItemText primary="Membership" />
-                  </ListItem>
-                </List>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={9}>
-              <Membership />
-            </Grid>
+            <TabContext value={selectedTab}>
+              <Grid item xs={12} md={3}>
+                <Card>
+                  <TabList
+                    onChange={(_, newValue) => setSelectedTab(newValue)}
+                    orientation="vertical"
+                  >
+                    <Tab label="My Homes" value="my-homes" />
+                    <Tab label="Membership" value="membership" />
+                  </TabList>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={9}>
+                <StyledTabPanel value="my-homes">
+                  <MyHomes />
+                </StyledTabPanel>
+                <StyledTabPanel value="membership">
+                  <Membership />
+                </StyledTabPanel>
+              </Grid>
+            </TabContext>
           </Grid>
         </Container>
       </Box>

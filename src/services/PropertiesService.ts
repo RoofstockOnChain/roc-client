@@ -1,5 +1,5 @@
 import { Property } from '@/models/Property';
-import { Alchemy, Network } from 'alchemy-sdk';
+import { Alchemy, Network, Nft, OwnedNft } from 'alchemy-sdk';
 import { config } from '@/config';
 import { convertIpfsToHttps } from '@/helpers/IpfsHelper';
 import { Image } from '@/models/Image';
@@ -16,35 +16,42 @@ export const getProperties = async (): Promise<Property[]> => {
     config.homeOnChainContractAddress
   );
 
-  return response.nfts.map(
-    (nft) =>
-      ({
-        contractAddress: nft.contract.address,
-        token: nft.tokenId,
-        name: nft.rawMetadata?.name,
-        imageUrl: nft.media.length > 0 ? nft.media[0].gateway : undefined,
-      } as Property)
-  );
+  return response.nfts.map(nftToProperty);
 };
 
 export const getProperty = async (
   contractAddress: string,
   token: string
 ): Promise<Property> => {
-  const response = await getAlchemy().nft.getNftMetadata(
-    contractAddress,
-    token
-  );
+  const nft = await getAlchemy().nft.getNftMetadata(contractAddress, token);
 
+  return nftToProperty(nft);
+};
+
+export const getMyProperties = async (
+  walletAddress: `0x${string}` | undefined
+): Promise<Property[]> => {
+  if (!walletAddress) {
+    return [];
+  }
+
+  const response = await getAlchemy().nft.getNftsForOwner(walletAddress, {
+    contractAddresses: [config.homeOnChainContractAddress],
+  });
+
+  return response.ownedNfts.map(nftToProperty);
+};
+
+const nftToProperty = (nft: Nft | OwnedNft): Property => {
   return {
-    contractAddress: response.contract.address,
-    token: response?.tokenId,
-    name: response.rawMetadata?.name,
-    description: response.rawMetadata?.description,
-    imageUrl: response.media.length > 0 ? response.media[0].gateway : undefined,
-    attributes: response.rawMetadata?.attributes ?? [],
+    contractAddress: nft.contract.address,
+    token: nft?.tokenId,
+    name: nft.rawMetadata?.name,
+    description: nft.rawMetadata?.description,
+    imageUrl: nft.media.length > 0 ? nft.media[0].gateway : undefined,
+    attributes: nft.rawMetadata?.attributes ?? [],
     images:
-      response.rawMetadata?.images?.map(
+      nft.rawMetadata?.images?.map(
         (image: any) =>
           ({
             imageUrl: convertIpfsToHttps(image.image_url),
@@ -52,13 +59,13 @@ export const getProperty = async (
           } as Image)
       ) ?? [],
     documents:
-      response.rawMetadata?.documents?.map((document: any) => ({
+      nft.rawMetadata?.documents?.map((document: any) => ({
         category: document.category,
         name: document.name,
         documentType: document.document_type,
         documentUrl: convertIpfsToHttps(document.document_url),
       })) ?? [],
-    videoWalkthroughUrl: response.rawMetadata?.video_walkthrough_url ?? null,
-    threeDTourUrl: response.rawMetadata?.three_d_tour_url ?? null,
+    videoWalkthroughUrl: nft.rawMetadata?.video_walkthrough_url ?? null,
+    threeDTourUrl: nft.rawMetadata?.three_d_tour_url ?? null,
   } as Property;
 };
