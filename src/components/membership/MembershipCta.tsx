@@ -1,9 +1,9 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
-import { useMembershipToken } from '../../hooks/useMembershipToken';
 import { useAccount } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
 import { ClientOnly } from '@/components/nextjs/ClientOnly';
+import { useRoofstockOnChainKyc } from '@/hooks/useRoofstockOnChainKyc';
 
 interface MembershipCtaProps {
   showLearnMoreButton?: boolean;
@@ -14,7 +14,7 @@ export const MembershipCta: FC<MembershipCtaProps> = ({
 }) => {
   const { isConnected } = useAccount();
   const { open } = useWeb3Modal();
-  const { isMember, mint } = useMembershipToken();
+  const { isAllowed } = useRoofstockOnChainKyc();
 
   return (
     <Box
@@ -49,12 +49,8 @@ export const MembershipCta: FC<MembershipCtaProps> = ({
                       Connect Wallet
                     </Button>
                   )}
-                  {isConnected && !isMember && (
-                    <Button
-                      variant="contained"
-                      onClick={async () => await mint()}
-                      size="large"
-                    >
+                  {isConnected && !isAllowed && (
+                    <Button variant="contained" size="large" href="/profile">
                       Mint membership token
                     </Button>
                   )}

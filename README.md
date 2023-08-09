@@ -39,12 +39,11 @@
 - [ ] Membership Token
   - [x] Mint
   - [x] Is Member
-  - [ ] Identity Verification
-    - [ ] Jumio
-    - [ ] Is Identity Verified
-  - [ ] Document Verification
-    - [ ] Sign Documents
-    - [ ] Are Documents Signed
+  - [x] Identity Verification
+    - [x] Is Identity Verified
+  - [x] Document Verification
+    - [x] Sign Documents
+    - [x] Are Documents Signed
 - [x] SEO
   - [x] Google Analytics
   - [x] Open Graph
