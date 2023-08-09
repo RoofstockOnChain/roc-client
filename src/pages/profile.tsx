@@ -13,7 +13,7 @@ const StyledTabPanel = styled(TabPanel)`
 
 const Profile: FC = () => {
   const [selectedTab, setSelectedTab] = useState<'my-homes' | 'membership'>(
-    'my-homes'
+    'membership'
   );
   const router = useRouter();
   const { isConnected } = useAccount();
@@ -54,17 +54,17 @@ const Profile: FC = () => {
                     onChange={(_, newValue) => setSelectedTab(newValue)}
                     orientation="vertical"
                   >
-                    <Tab label="My Homes" value="my-homes" />
                     <Tab label="Membership" value="membership" />
+                    <Tab label="My Homes" value="my-homes" />
                   </TabList>
                 </Card>
               </Grid>
               <Grid item xs={12} md={9}>
-                <StyledTabPanel value="my-homes">
-                  <MyHomes />
-                </StyledTabPanel>
                 <StyledTabPanel value="membership">
                   <Membership />
+                </StyledTabPanel>
+                <StyledTabPanel value="my-homes">
+                  <MyHomes />
                 </StyledTabPanel>
               </Grid>
             </TabContext>
