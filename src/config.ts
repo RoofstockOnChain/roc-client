@@ -7,8 +7,6 @@ export const config: RocClientConfig = {
   learnUrl: process.env.NEXT_PUBLIC_LEARN_URL!,
   rsOnChainTwitterUrl: process.env.NEXT_PUBLIC_RS_ON_CHAIN_TWITTER_URL!,
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
-  roofstockMembershipContractAddress: process.env
-    .NEXT_PUBLIC_ROOFSTOCK_MEMBERSHIP_CONTRACT_ADDRESS! as `0x${string}`,
   alchemyApiKey: process.env.ALCHEMY_API_KEY!,
   documents: [
     {
@@ -28,9 +26,10 @@ export const config: RocClientConfig = {
       url: 'https://ipfs.io/ipfs/QmUWMB55arnbjQvmdNFcdVEwm3VfAi8XFnNMzKmYqVAFcW/hoc-documents/forms/token-admin-agreement.pdf',
     },
   ],
-  quadrataVerifyIdentityLink: 'https://www.google.com', // TODO: Update this with the actual link
-  roofstockOnChainKycContractAddress:
-    '0x6A89e1ddFfbc184d5619fb38E3d8e72D28351e60', // TODO: Update this value
+  quadrataVerifyIdentityLink:
+    process.env.NEXT_PUBLIC_QUADRATA_VERIFY_IDENTITY_LINK!,
+  roofstockOnChainKycContractAddress: process.env
+    .NEXT_PUBLIC_ROOFSTOCK_ON_CHAIN_KYC_CONTRACT_ADDRESS! as `0x${string}`,
 };
 
 type RocClientConfig = {
@@ -41,7 +40,6 @@ type RocClientConfig = {
   learnUrl: string;
   rsOnChainTwitterUrl: string;
   walletConnectProjectId: string;
-  roofstockMembershipContractAddress: `0x${string}`;
   alchemyApiKey: string;
   documents: Document[];
   quadrataVerifyIdentityLink: string;

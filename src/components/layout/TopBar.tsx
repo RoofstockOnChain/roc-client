@@ -26,7 +26,6 @@ import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/react';
 import Link from 'next/link';
 import { ClientOnly } from '@/components/nextjs/ClientOnly';
-import { useFeatureFlags } from '@/hooks/useFeatureFlags';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const StyledAppBar = styled(AppBar)`
@@ -64,7 +63,6 @@ const StyledDivider = styled(Divider)`
 `;
 
 export const TopBar = () => {
-  const { isProfileEnabled } = useFeatureFlags();
   const { howItWorksUrl, faqsUrl, learnUrl } = config;
   const [learnMenuAnchorEl, setLearnMenuAnchorEl] =
     useState<HTMLElement | null>();
@@ -157,15 +155,13 @@ export const TopBar = () => {
                         horizontal: 'right',
                       }}
                     >
-                      {isProfileEnabled && (
-                        <MenuItem
-                          component={Link}
-                          href="/profile"
-                          onClick={() => setProfileMenuAnchorEl(null)}
-                        >
-                          Profile
-                        </MenuItem>
-                      )}
+                      <MenuItem
+                        component={Link}
+                        href="/profile"
+                        onClick={() => setProfileMenuAnchorEl(null)}
+                      >
+                        Profile
+                      </MenuItem>
                       <MenuItem
                         onClick={async () => {
                           await disconnectAsync();
@@ -242,7 +238,7 @@ export const TopBar = () => {
                     <StyledListItemText primary="Learn" />
                   </ListItemButton>
                 </ListItem>
-                {isConnected && isProfileEnabled && (
+                {isConnected && (
                   <ListItem disablePadding>
                     <ListItemButton href="/profile">
                       <StyledListItemText primary="Profile" />
