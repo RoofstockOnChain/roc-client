@@ -31,6 +31,7 @@ export const PropertyDocuments: FC<PropertyDocumentsProps> = ({
   return (
     <List disablePadding>
       <>
+        {documentGroups.length === 0 && <>No documents found</>}
         {documentGroups.map((documentGroup, documentGroupIndex) => (
           <Fragment key={documentGroupIndex}>
             <ListSubheader>{documentGroup.category}</ListSubheader>

@@ -33,6 +33,7 @@ export const PropertyImages: FC<PropertyImagesProps> = ({
           ></iframe>
         </Grid>
       )}
+      {images.length === 0 && <>No images found</>}
       {images.map((image, index) => (
         <Grid key={index} item xs={12} md={3}>
           <img
