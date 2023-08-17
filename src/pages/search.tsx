@@ -8,6 +8,8 @@ import {
   Container,
   Divider,
   Grid,
+  MenuItem,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -17,6 +19,7 @@ import { useListingRecommendationEngine } from '@/hooks/useListingRecommendation
 
 const Search: FC = () => {
   const { listing, getNextListing } = useListingRecommendationEngine();
+  const [market, setMarket] = useState<string>('columbia-sc');
   const [likes, setLikes] = useState<string>('');
   const [dislikes, setDislikes] = useState<string>('');
 
@@ -47,6 +50,9 @@ const Search: FC = () => {
                 <Card style={{ height: '100%' }}>
                   <CardContent>
                     <Stack spacing={2}>
+                      <Select value={market} label="Market" disabled>
+                        <MenuItem value="columbia-sc">Columbia, SC</MenuItem>
+                      </Select>
                       <Typography>
                         Why did we recommend this property?
                       </Typography>
