@@ -51,7 +51,11 @@ const Search: FC = () => {
                         Why did we recommend this property?
                       </Typography>
                       <Divider />
-                      <Typography>This property is . . .</Typography>
+                      <Typography>
+                        This is a random selection based on your basic filters.
+                        As we learn more about what you are looking for,
+                        recommendations will improve.
+                      </Typography>
                     </Stack>
                   </CardContent>
                 </Card>
@@ -78,7 +82,7 @@ const Search: FC = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button fullWidth variant="contained" onClick={() => next()}>
-                  Next
+                  See Next Property Based on Feedback
                 </Button>
               </Grid>
             </Grid>
