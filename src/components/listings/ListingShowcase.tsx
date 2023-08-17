@@ -19,6 +19,7 @@ export const ListingShowcase: FC<ListingShowcaseProps> = ({ listing }) => {
             <img
               src={listing.mainImageUrl}
               alt={`${listing.address1}, ${listing.city}, ${listing.state} ${listing.zip}`}
+              height="500px"
               width="100%"
             />
           </Grid>
