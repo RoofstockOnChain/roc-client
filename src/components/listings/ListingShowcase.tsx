@@ -1,26 +1,13 @@
 import { FC } from 'react';
 import numeral from 'numeral';
 import { Listing } from '@/models/Listing';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Typography } from '@mui/material';
 
 interface ListingShowcaseProps {
   listing: Listing;
-  onNextClick: () => void;
 }
 
-export const ListingShowcase: FC<ListingShowcaseProps> = ({
-  listing,
-  onNextClick,
-}) => {
+export const ListingShowcase: FC<ListingShowcaseProps> = ({ listing }) => {
   return (
     <Card>
       <CardHeader
@@ -70,14 +57,6 @@ export const ListingShowcase: FC<ListingShowcaseProps> = ({
                 {numeral(listing.listingPrice).format('$0,0')}
               </Typography>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField multiline rows={5} fullWidth label="Feedback" />
-          </Grid>
-          <Grid item xs={12}>
-            <Button fullWidth variant="outlined" onClick={onNextClick}>
-              Next
-            </Button>
           </Grid>
         </Grid>
       </CardContent>
