@@ -1,16 +1,16 @@
 export type Listing = {
-  mlsListingId: number;
+  mlsListingId: string;
   address1: string;
   city: string;
   state: string;
   zip: string;
   mainImageUrl: string;
-  listingDescription: string;
+  listingDescription?: string;
   bedrooms: number;
   bathrooms: number;
-  homeSizeSquareFoot: number;
-  lotSizeSquareFoot: number;
-  propertyType: 'House' | 'Apartment';
+  homeSizeSquareFoot?: number;
+  lotSizeSquareFoot?: number;
+  propertyType?: 'House' | 'Apartment';
   yearBuilt: number;
   listingPrice: number;
 };
