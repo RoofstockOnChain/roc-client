@@ -1,6 +1,17 @@
 import { FC, useState } from 'react';
 import Head from 'next/head';
-import { Box, Button, Container, Grid, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { ListingShowcase } from '@/components/listings/ListingShowcase';
 import { useListingRecommendationEngine } from '@/hooks/useListingRecommendationEngine';
 
@@ -25,7 +36,25 @@ const Search: FC = () => {
           {listing && (
             <Grid container spacing={2}>
               <Grid item xs={12}>
+                <Stack direction="row" justifyContent="end">
+                  <Button variant="outlined">Clear Data and Restart</Button>
+                </Stack>
+              </Grid>
+              <Grid item xs={10}>
                 <ListingShowcase listing={listing} />
+              </Grid>
+              <Grid item xs={2}>
+                <Card style={{ height: '100%' }}>
+                  <CardContent>
+                    <Stack spacing={2}>
+                      <Typography>
+                        Why did we recommend this property?
+                      </Typography>
+                      <Divider />
+                      <Typography>This property is . . .</Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -48,7 +77,7 @@ const Search: FC = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button fullWidth variant="outlined" onClick={() => next()}>
+                <Button fullWidth variant="contained" onClick={() => next()}>
                   Next
                 </Button>
               </Grid>
