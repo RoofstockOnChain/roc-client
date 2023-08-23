@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Listing } from '@/models/Listing';
+import {
+  addListingFeedbackForUser,
+  clearListingFeedbackForUser,
+  getListingFeedbackForUser,
+  ListingFeedback,
+} from '@/services/ListingFeedbackService';
+import { getRecommendedMlsListingWithExplanation } from '@/services/RecommendationService';
 
 export const useListingRecommendationEngine = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,60 +44,4 @@ export const useListingRecommendationEngine = () => {
     clearListingRecommendations,
     loading,
   };
-};
-
-const listingFeedbackLocalStorageKey = 'listing-feedback';
-
-const addListingFeedbackForUser = (listingFeedback: ListingFeedback) => {
-  if (
-    listingFeedback.pros.trim() !== '' ||
-    listingFeedback.cons.trim() !== ''
-  ) {
-    const listingFeedbackForUser = getListingFeedbackForUser();
-    listingFeedbackForUser.push(listingFeedback);
-    localStorage.setItem(
-      listingFeedbackLocalStorageKey,
-      JSON.stringify(listingFeedbackForUser)
-    );
-  }
-};
-
-const getListingFeedbackForUser = (): ListingFeedback[] => {
-  const listingFeedbackLocalStorage = localStorage.getItem(
-    listingFeedbackLocalStorageKey
-  );
-  return listingFeedbackLocalStorage
-    ? JSON.parse(listingFeedbackLocalStorage)
-    : [];
-};
-
-const clearListingFeedbackForUser = () => {
-  localStorage.removeItem(listingFeedbackLocalStorageKey);
-};
-
-const getRecommendedMlsListingWithExplanation = async (
-  listingFeedbackForUser: ListingFeedback[]
-): Promise<ListingWithExplanation> => {
-  const response = await fetch('/api/recommend', {
-    method: 'POST',
-    body: JSON.stringify({
-      market: 'Columbia, SC',
-      desiredPrice: 250000,
-      bedrooms: '3',
-      bathrooms: '2',
-      listingFeedbackForUser: listingFeedbackForUser,
-    }),
-  });
-  return (await response.json()) as ListingWithExplanation;
-};
-
-type ListingFeedback = {
-  mlsListingId: string;
-  pros: string;
-  cons: string;
-};
-
-type ListingWithExplanation = {
-  listing: Listing;
-  explanation: string;
 };
