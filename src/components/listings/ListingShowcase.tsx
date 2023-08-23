@@ -23,36 +23,36 @@ export const ListingShowcase: FC<ListingShowcaseProps> = ({ listing }) => {
               width="100%"
             />
           </Grid>
-          <Grid container item xs={12} md={6}>
+          <Grid container item xs={12} md={6} spacing={2}>
             <Grid item xs={12}>
               <Typography>Description</Typography>
               <Typography>{listing.listingDescription}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Bedrooms</Typography>
               <Typography>{listing.bedrooms}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Bathrooms</Typography>
               <Typography>{listing.bathrooms}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Home Size</Typography>
               <Typography>
                 {numeral(listing.homeSizeSquareFoot).format()} sq ft
               </Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Lot Size</Typography>
               <Typography>
                 {numeral(listing.lotSizeSquareFoot).format()} sq ft
               </Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Year Built</Typography>
               <Typography>{listing.yearBuilt}</Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography>Listing Price</Typography>
               <Typography>
                 {numeral(listing.listingPrice).format('$0,0')}
