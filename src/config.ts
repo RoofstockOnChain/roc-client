@@ -30,6 +30,7 @@ export const config: RocClientConfig = {
     process.env.NEXT_PUBLIC_QUADRATA_VERIFY_IDENTITY_LINK!,
   roofstockOnChainKycContractAddress: process.env
     .NEXT_PUBLIC_ROOFSTOCK_ON_CHAIN_KYC_CONTRACT_ADDRESS! as `0x${string}`,
+  openAiApiKey: process.env.OPEN_AI_API_KEY!,
 };
 
 type RocClientConfig = {
@@ -44,6 +45,7 @@ type RocClientConfig = {
   documents: Document[];
   quadrataVerifyIdentityLink: string;
   roofstockOnChainKycContractAddress: `0x${string}`;
+  openAiApiKey: string;
 };
 
 export type Document = {

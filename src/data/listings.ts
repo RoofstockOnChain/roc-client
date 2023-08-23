@@ -450,20 +450,6 @@ export const listings: Listing[] = [
     listingPrice: 279900.0,
   },
   {
-    mlsListingId: '7339a878-955a-4412-be33-49ec85',
-    address1: '1830 Mabron Road',
-    city: 'Columbia',
-    state: 'SC',
-    zip: '29209',
-    mainImageUrl:
-      'https://drive.google.com/drive/folders/1N61v17DBTgquQBirC611UdqLCIhyTQnr',
-    bedrooms: 3.0,
-    bathrooms: 2.0,
-    homeSizeSquareFoot: 1451,
-    yearBuilt: 1963,
-    listingPrice: 212000.0,
-  },
-  {
     mlsListingId: '559207',
     address1: '4100 Highland Park',
     city: 'Columbia',

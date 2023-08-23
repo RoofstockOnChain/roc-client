@@ -16,17 +16,28 @@ import {
 } from '@mui/material';
 import { ListingShowcase } from '@/components/listings/ListingShowcase';
 import { useListingRecommendationEngine } from '@/hooks/useListingRecommendationEngine';
+import { Loading } from '@/components/Loading';
 
 const Search: FC = () => {
-  const { listing, getNextListing } = useListingRecommendationEngine();
+  const {
+    listing,
+    getNextListing,
+    explanation,
+    clearListingRecommendations,
+    loading,
+  } = useListingRecommendationEngine();
   const [market, setMarket] = useState<string>('columbia-sc');
   const [likes, setLikes] = useState<string>('');
   const [dislikes, setDislikes] = useState<string>('');
 
-  const next = () => {
+  const next = async () => {
+    await getNextListing({
+      mlsListingId: listing?.mlsListingId!,
+      pros: likes,
+      cons: dislikes,
+    });
     setLikes('');
     setDislikes('');
-    getNextListing();
   };
 
   return (
@@ -40,57 +51,73 @@ const Search: FC = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Stack direction="row" justifyContent="end">
-                  <Button variant="outlined">Clear Data and Restart</Button>
+                  <Button
+                    variant="outlined"
+                    onClick={async () => await clearListingRecommendations()}
+                  >
+                    Clear Data and Restart
+                  </Button>
                 </Stack>
               </Grid>
-              <Grid item xs={10}>
-                <ListingShowcase listing={listing} />
-              </Grid>
-              <Grid item xs={2}>
-                <Card style={{ height: '100%' }}>
-                  <CardContent>
-                    <Stack spacing={2}>
-                      <Select value={market} label="Market" disabled>
-                        <MenuItem value="columbia-sc">Columbia, SC</MenuItem>
-                      </Select>
-                      <Typography>
-                        Why did we recommend this property?
-                      </Typography>
-                      <Divider />
-                      <Typography>
-                        This is a random selection based on your basic filters.
-                        As we learn more about what you are looking for,
-                        recommendations will improve.
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  multiline
-                  rows={4}
-                  fullWidth
-                  label="Tell us what you like about this property"
-                  value={likes}
-                  onChange={(e) => setLikes(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  multiline
-                  rows={4}
-                  fullWidth
-                  label="Tell us what you dislike about this property"
-                  value={dislikes}
-                  onChange={(e) => setDislikes(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button fullWidth variant="contained" onClick={() => next()}>
-                  See Next Property Based on Feedback
-                </Button>
-              </Grid>
+              {loading && (
+                <Grid item xs={12}>
+                  <Loading />
+                </Grid>
+              )}
+              {!loading && (
+                <>
+                  <Grid item xs={9}>
+                    <ListingShowcase listing={listing} />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Card style={{ height: '100%' }}>
+                      <CardContent>
+                        <Stack spacing={2}>
+                          <Select value={market} label="Market" disabled>
+                            <MenuItem value="columbia-sc">
+                              Columbia, SC
+                            </MenuItem>
+                          </Select>
+                          <Typography>
+                            Why did we recommend this property?
+                          </Typography>
+                          <Divider />
+                          <Typography>{explanation}</Typography>
+                        </Stack>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      multiline
+                      rows={4}
+                      fullWidth
+                      label="Tell us what you like about this property"
+                      value={likes}
+                      onChange={(e) => setLikes(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      multiline
+                      rows={4}
+                      fullWidth
+                      label="Tell us what you dislike about this property"
+                      value={dislikes}
+                      onChange={(e) => setDislikes(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={() => next()}
+                    >
+                      See Next Property Based on Feedback
+                    </Button>
+                  </Grid>
+                </>
+              )}
             </Grid>
           )}
         </Box>
