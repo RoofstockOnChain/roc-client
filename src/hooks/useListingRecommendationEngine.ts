@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Listing } from '@/models/Listing';
 
 export const useListingRecommendationEngine = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [listing, setListing] = useState<Listing>();
   const [explanation, setExplanation] = useState<string>(
     'This is a random selection based on your basic filters. As we learn more about what you are looking for, recommendations will improve.'
