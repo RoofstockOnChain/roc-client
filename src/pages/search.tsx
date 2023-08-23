@@ -66,10 +66,10 @@ const Search: FC = () => {
               )}
               {!loading && (
                 <>
-                  <Grid item xs={9}>
+                  <Grid item xs={12} md={9}>
                     <ListingShowcase listing={listing} />
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={12} md={3}>
                     <Card style={{ height: '100%' }}>
                       <CardContent>
                         <Stack spacing={2}>
