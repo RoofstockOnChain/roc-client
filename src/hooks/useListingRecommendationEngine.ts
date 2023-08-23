@@ -8,7 +8,19 @@ import {
 } from '@/services/ListingFeedbackService';
 import { getRecommendedMlsListingWithExplanation } from '@/services/RecommendationService';
 
-export const useListingRecommendationEngine = () => {
+interface ListingRecommendationEngineProps {
+  market: string;
+  bedrooms: number;
+  bathrooms: number;
+  desiredPrice: number;
+}
+
+export const useListingRecommendationEngine = ({
+  market,
+  bedrooms,
+  bathrooms,
+  desiredPrice,
+}: ListingRecommendationEngineProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [listing, setListing] = useState<Listing>();
   const [explanation, setExplanation] = useState<string>(
@@ -22,7 +34,13 @@ export const useListingRecommendationEngine = () => {
     }
     const listingFeedbackForUser = getListingFeedbackForUser();
     const recommendedMlsListingWithExplanation =
-      await getRecommendedMlsListingWithExplanation(listingFeedbackForUser);
+      await getRecommendedMlsListingWithExplanation(
+        market,
+        bedrooms,
+        bathrooms,
+        desiredPrice,
+        listingFeedbackForUser
+      );
     setListing(recommendedMlsListingWithExplanation.listing);
     setExplanation(recommendedMlsListingWithExplanation.explanation);
     setLoading(false);
@@ -35,7 +53,7 @@ export const useListingRecommendationEngine = () => {
 
   useEffect(() => {
     getNextListing();
-  }, []);
+  }, [market, bedrooms, bathrooms, desiredPrice]);
 
   return {
     listing,

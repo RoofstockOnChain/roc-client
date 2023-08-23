@@ -7,7 +7,9 @@ import {
   CardContent,
   Container,
   Divider,
+  FormControl,
   Grid,
+  InputLabel,
   MenuItem,
   Select,
   Stack,
@@ -19,14 +21,22 @@ import { useListingRecommendationEngine } from '@/hooks/useListingRecommendation
 import { Loading } from '@/components/Loading';
 
 const Search: FC = () => {
+  const [market, setMarket] = useState<string>('Columbia, SC');
+  const [bedrooms, setBedrooms] = useState<number>(3);
+  const [bathrooms, setBathrooms] = useState<number>(2);
+  const [desiredPrice, setDesiredPrice] = useState<number>(220000);
   const {
     listing,
     getNextListing,
     explanation,
     clearListingRecommendations,
     loading,
-  } = useListingRecommendationEngine();
-  const [market, setMarket] = useState<string>('columbia-sc');
+  } = useListingRecommendationEngine({
+    market,
+    bedrooms,
+    bathrooms,
+    desiredPrice,
+  });
   const [likes, setLikes] = useState<string>('');
   const [dislikes, setDislikes] = useState<string>('');
 
@@ -49,15 +59,47 @@ const Search: FC = () => {
         <Box padding="1rem">
           {listing && (
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Stack direction="row" justifyContent="end">
-                  <Button
-                    variant="outlined"
-                    onClick={async () => await clearListingRecommendations()}
-                  >
-                    Clear Data and Restart
-                  </Button>
-                </Stack>
+              <Grid item xs={12} md={2}>
+                <FormControl fullWidth>
+                  <InputLabel>Market</InputLabel>
+                  <Select size="small" value={market} disabled>
+                    <MenuItem value="Columbia, SC">Columbia, SC</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormControl fullWidth>
+                  <InputLabel>Bedrooms</InputLabel>
+                  <Select size="small" value={bedrooms} disabled>
+                    <MenuItem value={3}>3</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <FormControl fullWidth>
+                  <InputLabel>Bathrooms</InputLabel>
+                  <Select size="small" value={bathrooms} disabled>
+                    <MenuItem value={2}>2</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <TextField
+                  size="small"
+                  label="Desired Price"
+                  value={desiredPrice}
+                  disabled
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Button
+                  variant="outlined"
+                  onClick={async () => await clearListingRecommendations()}
+                  fullWidth
+                >
+                  Clear Data and Restart
+                </Button>
               </Grid>
               {loading && (
                 <Grid item xs={12}>
@@ -73,11 +115,6 @@ const Search: FC = () => {
                     <Card style={{ height: '100%' }}>
                       <CardContent>
                         <Stack spacing={2}>
-                          <Select value={market} label="Market" disabled>
-                            <MenuItem value="columbia-sc">
-                              Columbia, SC
-                            </MenuItem>
-                          </Select>
                           <Typography>
                             Why did we recommend this property?
                           </Typography>
