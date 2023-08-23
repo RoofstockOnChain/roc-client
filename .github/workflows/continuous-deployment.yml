@@ -18,7 +18,3 @@ jobs:
         run: npm install --legacy-peer-deps
       - name: Build
         run: npm run build
-      - name: Upload
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: dist
