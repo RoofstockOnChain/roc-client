@@ -39,14 +39,14 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
       {
         role: 'system',
-        content: `Please recommend an investment property for the user. Format it as JSON with the following properties:
+        content: `Recommend an investment property for the user. Format it as JSON with the following properties:
             - mlsListingId
             - explanation
           `,
       },
       {
         role: 'system',
-        content: `Please exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
+        content: `Exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
           ', '
         )}`,
       },
@@ -55,7 +55,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         content: initialUserInstruction,
       },
     ],
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
   };
 
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {
