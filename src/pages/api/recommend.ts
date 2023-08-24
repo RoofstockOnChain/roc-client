@@ -8,14 +8,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     apiKey: config.openAiApiKey,
   });
 
-  const listingFeedbackForUser =
-    request.body.listingFeedbackForUser ?? ([] as ListingFeedback[]);
-  const market = request.body.market;
-  const desiredPrice = request.body.desiredPrice;
-  const bedrooms = request.body.bedrooms;
-  const bathrooms = request.body.bathrooms;
-  const mlsListingIdsToExclude =
-    request.body.mlsListingIdsToExclude ?? ([] as string[]);
+  const requestBody = JSON.parse(request.body);
+  const listingFeedbackForUser = (requestBody.listingFeedbackForUser ??
+    []) as ListingFeedback[];
+  const market = requestBody.market;
+  const desiredPrice = requestBody.desiredPrice;
+  const bedrooms = requestBody.bedrooms;
+  const bathrooms = requestBody.bathrooms;
+  const mlsListingIdsToExclude = (requestBody.mlsListingIdsToExclude ??
+    []) as string[];
+  const tone = (requestBody.tone ?? 'professional') as string;
 
   let initialUserInstruction = 'I am looking for an investment property.';
   if (market) {
@@ -39,7 +41,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
       {
         role: 'system',
-        content: `Recommend an investment property for the user. Format it as JSON with the following properties:
+        content: `Recommend an investment property for the user. The user can give feedback about some of the properties. Consider this in your response. Use a ${tone} tone. Format it as JSON with the following properties:
             - mlsListingId
             - explanation
           `,
@@ -55,7 +57,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         content: initialUserInstruction,
       },
     ],
-    model: 'gpt-4',
+    model: 'gpt-4-0613',
   };
 
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {

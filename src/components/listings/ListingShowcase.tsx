@@ -19,15 +19,16 @@ export const ListingShowcase: FC<ListingShowcaseProps> = ({ listing }) => {
             <img
               src={listing.mainImageUrl}
               alt={`${listing.address1}, ${listing.city}, ${listing.state} ${listing.zip}`}
-              height="500px"
               width="100%"
             />
           </Grid>
           <Grid container item xs={12} md={6} spacing={2}>
-            <Grid item xs={12}>
-              <Typography>Description</Typography>
-              <Typography>{listing.listingDescription}</Typography>
-            </Grid>
+            {listing.listingDescription && (
+              <Grid item xs={12}>
+                <Typography>Description</Typography>
+                <Typography>{listing.listingDescription}</Typography>
+              </Grid>
+            )}
             <Grid item xs={12} md={6}>
               <Typography>Bedrooms</Typography>
               <Typography>{listing.bedrooms}</Typography>

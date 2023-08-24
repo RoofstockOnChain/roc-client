@@ -6,7 +6,8 @@ export const getRecommendedMlsListingWithExplanation = async (
   bedrooms: number,
   bathrooms: number,
   desiredPrice: number,
-  listingFeedbackForUser: ListingFeedback[]
+  listingFeedbackForUser: ListingFeedback[],
+  tone: string
 ): Promise<ListingWithExplanation> => {
   const response = await fetch('/api/recommend', {
     method: 'POST',
@@ -17,6 +18,7 @@ export const getRecommendedMlsListingWithExplanation = async (
       bathrooms,
       listingFeedbackForUser: listingFeedbackForUser,
       mlsListingIdsToExclude: listingFeedbackForUser.map((x) => x.mlsListingId),
+      tone,
     }),
   });
   return (await response.json()) as ListingWithExplanation;

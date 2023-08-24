@@ -13,6 +13,7 @@ interface ListingRecommendationEngineProps {
   bedrooms: number;
   bathrooms: number;
   desiredPrice: number;
+  tone: string;
 }
 
 export const useListingRecommendationEngine = ({
@@ -20,6 +21,7 @@ export const useListingRecommendationEngine = ({
   bedrooms,
   bathrooms,
   desiredPrice,
+  tone,
 }: ListingRecommendationEngineProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [listing, setListing] = useState<Listing>();
@@ -39,7 +41,8 @@ export const useListingRecommendationEngine = ({
         bedrooms,
         bathrooms,
         desiredPrice,
-        listingFeedbackForUser
+        listingFeedbackForUser,
+        tone
       );
     setListing(recommendedMlsListingWithExplanation.listing);
     setExplanation(recommendedMlsListingWithExplanation.explanation);
@@ -53,7 +56,7 @@ export const useListingRecommendationEngine = ({
 
   useEffect(() => {
     getNextListing();
-  }, [market, bedrooms, bathrooms, desiredPrice]);
+  }, [market, bedrooms, bathrooms, desiredPrice, tone]);
 
   return {
     listing,

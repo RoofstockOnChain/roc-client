@@ -23,9 +23,10 @@ import { ViewFavoritesModal } from '@/components/search/ViewFavoritesModal';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<string>('Columbia, SC');
-  const [bedrooms, setBedrooms] = useState<number>(4);
+  const [bedrooms, setBedrooms] = useState<number>(3);
   const [bathrooms, setBathrooms] = useState<number>(2);
-  const [desiredPrice, setDesiredPrice] = useState<number>(320000);
+  const [desiredPrice, setDesiredPrice] = useState<number>(250000);
+  const [tone, setTone] = useState<string>('professional');
   const {
     listing,
     getNextListing,
@@ -37,6 +38,7 @@ const Search: FC = () => {
     bedrooms,
     bathrooms,
     desiredPrice,
+    tone,
   });
   const [feedback, setFeedback] = useState<string>('');
   const [viewFavoritesModalOpen, setViewFavoritesModalOpen] =
@@ -69,7 +71,11 @@ const Search: FC = () => {
             <Grid item xs={12} md={2}>
               <FormControl fullWidth>
                 <InputLabel>Bedrooms</InputLabel>
-                <Select size="small" value={bedrooms} disabled>
+                <Select
+                  size="small"
+                  value={bedrooms}
+                  onChange={(e) => setBathrooms(Number(e.target.value))}
+                >
                   <MenuItem value={3}>3</MenuItem>
                   <MenuItem value={4}>4</MenuItem>
                 </Select>
@@ -78,7 +84,11 @@ const Search: FC = () => {
             <Grid item xs={12} md={2}>
               <FormControl fullWidth>
                 <InputLabel>Bathrooms</InputLabel>
-                <Select size="small" value={bathrooms} disabled>
+                <Select
+                  size="small"
+                  value={bathrooms}
+                  onChange={(e) => setBathrooms(Number(e.target.value))}
+                >
                   <MenuItem value={2}>2</MenuItem>
                 </Select>
               </FormControl>
@@ -88,26 +98,40 @@ const Search: FC = () => {
                 size="small"
                 label="Desired Price"
                 value={desiredPrice}
-                disabled
+                onChange={(e) => setDesiredPrice(Number(e.target.value))}
                 fullWidth
+                type="number"
               />
             </Grid>
             <Grid item xs={12} md={2}>
+              <FormControl fullWidth>
+                <InputLabel>Tone</InputLabel>
+                <Select
+                  size="small"
+                  value={tone}
+                  onChange={(e) => setTone(e.target.value)}
+                >
+                  <MenuItem value="professional">Professional</MenuItem>
+                  <MenuItem value="comedic">Comedic</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={1}>
               <Button
                 variant="outlined"
                 onClick={async () => setViewFavoritesModalOpen(true)}
                 fullWidth
               >
-                View Favorites
+                Favorites
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={1}>
               <Button
                 variant="outlined"
                 onClick={async () => await clearListingRecommendations()}
                 fullWidth
               >
-                Clear Data and Restart
+                Restart
               </Button>
             </Grid>
             {loading && (

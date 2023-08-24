@@ -70,7 +70,7 @@ export const listings: Listing[] = [
     mainImageUrl:
       'https://property-static-images.s3-accelerate.amazonaws.com/google-715005630.jpg',
     bedrooms: 4.0,
-    bathrooms: 2.1,
+    bathrooms: 2.0,
     homeSizeSquareFoot: 2052,
     lotSizeSquareFoot: 6951,
     yearBuilt: 2004,
