@@ -16,6 +16,7 @@ export const getRecommendedMlsListingWithExplanation = async (
       bedrooms,
       bathrooms,
       listingFeedbackForUser: listingFeedbackForUser,
+      mlsListingIdsToExclude: listingFeedbackForUser.map((x) => x.mlsListingId),
     }),
   });
   return (await response.json()) as ListingWithExplanation;

@@ -1,10 +1,7 @@
 const listingFeedbackLocalStorageKey = 'listing-feedback';
 
 export const addListingFeedbackForUser = (listingFeedback: ListingFeedback) => {
-  if (
-    listingFeedback.pros.trim() !== '' ||
-    listingFeedback.cons.trim() !== ''
-  ) {
+  if (listingFeedback.feedback.trim() !== '') {
     const listingFeedbackForUser = getListingFeedbackForUser();
     listingFeedbackForUser.push(listingFeedback);
     localStorage.setItem(
@@ -29,6 +26,5 @@ export const clearListingFeedbackForUser = () => {
 
 export type ListingFeedback = {
   mlsListingId: string;
-  pros: string;
-  cons: string;
+  feedback: string;
 };

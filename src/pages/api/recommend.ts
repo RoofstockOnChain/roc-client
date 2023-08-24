@@ -14,6 +14,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const desiredPrice = request.body.desiredPrice;
   const bedrooms = request.body.bedrooms;
   const bathrooms = request.body.bathrooms;
+  const mlsListingIdsToExclude =
+    request.body.mlsListingIdsToExclude ?? ([] as string[]);
 
   let initialUserInstruction = 'I am looking for an investment property.';
   if (market) {
@@ -43,6 +45,12 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           `,
       },
       {
+        role: 'system',
+        content: `Please exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
+          ', '
+        )}`,
+      },
+      {
         role: 'user',
         content: initialUserInstruction,
       },
@@ -53,7 +61,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {
     params.messages.push({
       role: 'user',
-      content: `Feedback for MLS Listing ID ${listingFeedback.mlsListingId}\\n\\nPros: ${listingFeedback.pros}\\n\\nCons: ${listingFeedback.cons}`,
+      content: `Feedback for MLS Listing ID ${listingFeedback.mlsListingId}: ${listingFeedback.feedback}`,
     });
   });
 
@@ -84,6 +92,5 @@ export default handler;
 
 type ListingFeedback = {
   mlsListingId: string;
-  pros: string;
-  cons: string;
+  feedback: string;
 };

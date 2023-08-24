@@ -19,12 +19,13 @@ import {
 import { ListingShowcase } from '@/components/listings/ListingShowcase';
 import { useListingRecommendationEngine } from '@/hooks/useListingRecommendationEngine';
 import { Loading } from '@/components/Loading';
+import { ViewFavoritesModal } from '@/components/search/ViewFavoritesModal';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<string>('Columbia, SC');
-  const [bedrooms, setBedrooms] = useState<number>(3);
+  const [bedrooms, setBedrooms] = useState<number>(4);
   const [bathrooms, setBathrooms] = useState<number>(2);
-  const [desiredPrice, setDesiredPrice] = useState<number>(220000);
+  const [desiredPrice, setDesiredPrice] = useState<number>(320000);
   const {
     listing,
     getNextListing,
@@ -37,17 +38,16 @@ const Search: FC = () => {
     bathrooms,
     desiredPrice,
   });
-  const [likes, setLikes] = useState<string>('');
-  const [dislikes, setDislikes] = useState<string>('');
+  const [feedback, setFeedback] = useState<string>('');
+  const [viewFavoritesModalOpen, setViewFavoritesModalOpen] =
+    useState<boolean>(false);
 
   const next = async () => {
     await getNextListing({
       mlsListingId: listing?.mlsListingId!,
-      pros: likes,
-      cons: dislikes,
+      feedback,
     });
-    setLikes('');
-    setDislikes('');
+    setFeedback('');
   };
 
   return (
@@ -71,6 +71,7 @@ const Search: FC = () => {
                 <InputLabel>Bedrooms</InputLabel>
                 <Select size="small" value={bedrooms} disabled>
                   <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -91,7 +92,16 @@ const Search: FC = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={2}>
+              <Button
+                variant="outlined"
+                onClick={async () => setViewFavoritesModalOpen(true)}
+                fullWidth
+              >
+                View Favorites
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={2}>
               <Button
                 variant="outlined"
                 onClick={async () => await clearListingRecommendations()}
@@ -128,19 +138,9 @@ const Search: FC = () => {
                     multiline
                     rows={4}
                     fullWidth
-                    label="Tell us what you like about this property"
-                    value={likes}
-                    onChange={(e) => setLikes(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    multiline
-                    rows={4}
-                    fullWidth
-                    label="Tell us what you dislike about this property"
-                    value={dislikes}
-                    onChange={(e) => setDislikes(e.target.value)}
+                    label="Tell us what you like and dislike about this property"
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -153,6 +153,10 @@ const Search: FC = () => {
           </Grid>
         </Box>
       </Container>
+      <ViewFavoritesModal
+        open={viewFavoritesModalOpen}
+        onClose={() => setViewFavoritesModalOpen(false)}
+      />
     </>
   );
 };
