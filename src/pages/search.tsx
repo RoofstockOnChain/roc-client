@@ -63,7 +63,7 @@ const Search: FC = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Alert severity="warning">
-                RoofusAI is in beta. He is not yet to be used to find the
+                RoofusAI is in alpha. He is not yet ready to be used to find the
                 investment property of your dreams.
               </Alert>
             </Grid>
