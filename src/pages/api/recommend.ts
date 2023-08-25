@@ -76,7 +76,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     completion?.choices.length > 0 &&
     completion?.choices[0].message?.content
   ) {
-    console.log(completion.choices[0].message.content)
     const listingRecommendation = JSON.parse(
       completion.choices[0].message.content
     );
