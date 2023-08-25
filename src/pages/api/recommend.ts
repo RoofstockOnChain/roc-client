@@ -83,18 +83,24 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     completion?.choices.length > 0 &&
     completion?.choices[0].message?.content
   ) {
-    const listingRecommendation = JSON.parse(
-      completion.choices[0].message.content
-    );
-    const recommendedMlsListingId = listingRecommendation.mlsListingId;
-    const recommendedMlsListing = getListingByMlsListingId(
-      recommendedMlsListingId
-    );
+    try {
+      const listingRecommendation = JSON.parse(
+        completion.choices[0].message.content
+      );
+      const recommendedMlsListingId = listingRecommendation.mlsListingId;
+      const recommendedMlsListing = getListingByMlsListingId(
+        recommendedMlsListingId
+      );
 
-    response.status(200).json({
-      listing: recommendedMlsListing,
-      explanation: listingRecommendation.explanation,
-    });
+      response.status(200).json({
+        listing: recommendedMlsListing,
+        explanation: listingRecommendation.explanation,
+      });
+    } catch (ex) {
+      response.status(500).json({
+        openAiResponse: completion?.choices[0].message?.content,
+      });
+    }
   }
 };
 
