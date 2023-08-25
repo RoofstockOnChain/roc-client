@@ -22,7 +22,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const getListingData = () => JSON.stringify(listings.slice(0, 40));
 
   let systemPrompt = getListingData();
+  systemPrompt += "You are RoofusAI, an AI assistant whose goal is to help users find the best investment property from the system's dataset based on their feedback.";
   systemPrompt += "Primarily consider the user's feedback in your response.";
+  systemPrompt += "Refer to the property by it's address.";
   systemPrompt += `Use a ${tone} tone.`;
 
   const params: OpenAI.Chat.CompletionCreateParams = {

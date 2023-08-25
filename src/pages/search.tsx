@@ -149,7 +149,7 @@ const Search: FC = () => {
                     <CardContent>
                       <Stack spacing={2}>
                         <Typography>
-                          Why did we recommend this property?
+                          Why did RoofusAI recommend this property?
                         </Typography>
                         <Divider />
                         <Typography>{explanation}</Typography>
