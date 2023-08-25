@@ -21,19 +21,17 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
   const getListingData = () => JSON.stringify(listings.slice(0, 40));
 
+  let systemPrompt = getListingData();
+  systemPrompt += "Primarily consider the user's feedback in your response.";
+  systemPrompt += `Use a ${tone} tone.`;
+  systemPrompt +=
+    'The resulting JSON object should be in this format: { mlsListingId: string, explanation: string }';
+
   const params: OpenAI.Chat.CompletionCreateParams = {
     messages: [
       {
         role: 'system',
-        content: getListingData(),
-      },
-      {
-        role: 'system',
-        content: `Primarily consider the user's feedback in your response.`,
-      },
-      {
-        role: 'system',
-        content: `Use a ${tone} tone.`,
+        content: systemPrompt,
       },
     ],
     model: 'gpt-4',
@@ -71,11 +69,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     content: initialUserInstruction,
   });
 
-  params.messages.push({
-    role: 'user',
-    content: `The resulting JSON object should be in this format: { mlsListingId: string, explanation: string }`,
-  });
-
   const completion = (await openAi.chat.completions.create(
     params
   )) as OpenAI.Chat.ChatCompletion;
@@ -83,6 +76,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     completion?.choices.length > 0 &&
     completion?.choices[0].message?.content
   ) {
+    console.log(completion.choices[0].message.content)
     const listingRecommendation = JSON.parse(
       completion.choices[0].message.content
     );
