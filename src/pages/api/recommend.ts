@@ -57,7 +57,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         content: initialUserInstruction,
       },
     ],
-    model: 'gpt-4-0613',
+    model: 'gpt-4',
   };
 
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {
