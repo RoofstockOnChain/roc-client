@@ -24,8 +24,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   let systemPrompt = getListingData();
   systemPrompt += "Primarily consider the user's feedback in your response.";
   systemPrompt += `Use a ${tone} tone.`;
-  systemPrompt +=
-    'The resulting JSON object should be in this format: { mlsListingId: string, explanation: string }';
 
   const params: OpenAI.Chat.CompletionCreateParams = {
     messages: [
@@ -67,6 +65,12 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   params.messages.push({
     role: 'user',
     content: initialUserInstruction,
+  });
+
+  params.messages.push({
+    role: 'user',
+    content:
+      'The response should be only a JSON object in this format: { mlsListingId: string, explanation: string }',
   });
 
   const completion = (await openAi.chat.completions.create(
