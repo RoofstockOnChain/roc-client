@@ -19,42 +19,21 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     []) as string[];
   const tone = (requestBody.tone ?? 'professional') as string;
 
-  let initialUserInstruction = 'I am looking for an investment property.';
-  if (market) {
-    initialUserInstruction += ` Property should be in the ${market} market.`;
-  }
-  if (desiredPrice) {
-    initialUserInstruction += ` Property should be in about $${desiredPrice}.`;
-  }
-  if (bedrooms) {
-    initialUserInstruction += ` Property should have ${bedrooms} bedrooms.`;
-  }
-  if (bathrooms) {
-    initialUserInstruction += ` Property should have ${bathrooms} bathrooms.`;
-  }
+  const getListingData = () => JSON.stringify(listings.slice(0, 40));
 
   const params: OpenAI.Chat.CompletionCreateParams = {
     messages: [
       {
         role: 'system',
-        content: JSON.stringify(listings.slice(0, 40)),
+        content: getListingData(),
       },
       {
         role: 'system',
-        content: `Recommend an investment property for the user. The user can give feedback about some of the properties. Consider this in your response. Use a ${tone} tone. Format it as JSON with the following properties:
-            - mlsListingId
-            - explanation
-          `,
+        content: `Primarily consider the user's feedback in your response.`,
       },
       {
         role: 'system',
-        content: `Exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
-          ', '
-        )}`,
-      },
-      {
-        role: 'user',
-        content: initialUserInstruction,
+        content: `Use a ${tone} tone.`,
       },
     ],
     model: 'gpt-4',
@@ -67,10 +46,43 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     });
   });
 
+  params.messages.push({
+    role: 'user',
+    content: `Exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
+      ', '
+    )}`,
+  });
+
+  let initialUserInstruction = 'Recommend a single investment property for me.';
+  if (market) {
+    initialUserInstruction += ` Property should be in the ${market} market.`;
+  }
+  if (desiredPrice) {
+    initialUserInstruction += ` Property should be in about $${desiredPrice}.`;
+  }
+  if (bedrooms) {
+    initialUserInstruction += ` Property should have ${bedrooms} bedrooms.`;
+  }
+  if (bathrooms) {
+    initialUserInstruction += ` Property should have ${bathrooms} bathrooms.`;
+  }
+  params.messages.push({
+    role: 'user',
+    content: initialUserInstruction,
+  });
+
+  params.messages.push({
+    role: 'user',
+    content: `The resulting JSON object should be in this format: { mlsListingId: string, explanation: string }`,
+  });
+
   const completion = (await openAi.chat.completions.create(
     params
   )) as OpenAI.Chat.ChatCompletion;
-  if (completion.choices.length > 0 && completion.choices[0].message.content) {
+  if (
+    completion?.choices.length > 0 &&
+    completion?.choices[0].message?.content
+  ) {
     const listingRecommendation = JSON.parse(
       completion.choices[0].message.content
     );
