@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import Head from 'next/head';
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -60,6 +61,12 @@ const Search: FC = () => {
       <Container maxWidth="xl">
         <Box padding="1rem">
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Alert severity="warning">
+                RoofusAI is in beta. He is not yet to be used to find the
+                investment property of your dreams.
+              </Alert>
+            </Grid>
             <Grid item xs={12} md={2}>
               <FormControl fullWidth>
                 <InputLabel>Market</InputLabel>
