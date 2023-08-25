@@ -74,7 +74,7 @@ const Search: FC = () => {
                 <Select
                   size="small"
                   value={bedrooms}
-                  onChange={(e) => setBathrooms(Number(e.target.value))}
+                  onChange={(e) => setBedrooms(Number(e.target.value))}
                 >
                   <MenuItem value={3}>3</MenuItem>
                   <MenuItem value={4}>4</MenuItem>
