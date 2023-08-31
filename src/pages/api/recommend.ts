@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import OpenAI from 'openai/index';
 import { config } from '@/config';
 import { listings } from '@/data/listings';
+import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const openAi = new OpenAI({
-    apiKey: config.openAiApiKey,
-  });
+  const openAiClient = new OpenAIClient(
+    config.azureOpenAiEndpoint,
+    new AzureKeyCredential(config.azureOpenAiApiKey)
+  );
 
   const requestBody = JSON.parse(request.body);
   const listingFeedbackForUser = (requestBody.listingFeedbackForUser ??
@@ -28,24 +29,21 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   systemPrompt += "Refer to the property by it's address.";
   systemPrompt += `Use a ${tone} tone.`;
 
-  const params: OpenAI.Chat.CompletionCreateParams = {
-    messages: [
-      {
-        role: 'system',
-        content: systemPrompt,
-      },
-    ],
-    model: 'gpt-4',
-  };
+  const messages = [
+    {
+      role: 'system',
+      content: systemPrompt,
+    },
+  ];
 
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {
-    params.messages.push({
+    messages.push({
       role: 'user',
       content: `Feedback for MLS Listing ID ${listingFeedback.mlsListingId}: ${listingFeedback.feedback}`,
     });
   });
 
-  params.messages.push({
+  messages.push({
     role: 'user',
     content: `Exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
       ', '
@@ -65,20 +63,21 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   if (bathrooms) {
     initialUserInstruction += ` Property should have ${bathrooms} bathrooms.`;
   }
-  params.messages.push({
+  messages.push({
     role: 'user',
     content: initialUserInstruction,
   });
 
-  params.messages.push({
+  messages.push({
     role: 'user',
     content:
       'The response should be only a JSON object in this format: { mlsListingId: string, explanation: string }',
   });
 
-  const completion = (await openAi.chat.completions.create(
-    params
-  )) as OpenAI.Chat.ChatCompletion;
+  const completion = await openAiClient.getChatCompletions(
+    config.azureOpenAiDeploymentId,
+    messages
+  );
   if (
     completion?.choices.length > 0 &&
     completion?.choices[0].message?.content

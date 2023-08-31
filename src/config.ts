@@ -30,7 +30,9 @@ export const config: RocClientConfig = {
     process.env.NEXT_PUBLIC_QUADRATA_VERIFY_IDENTITY_LINK!,
   roofstockOnChainKycContractAddress: process.env
     .NEXT_PUBLIC_ROOFSTOCK_ON_CHAIN_KYC_CONTRACT_ADDRESS! as `0x${string}`,
-  openAiApiKey: process.env.OPEN_AI_API_KEY!,
+  azureOpenAiEndpoint: process.env.AZURE_OPEN_AI_ENDPOINT!,
+  azureOpenAiApiKey: process.env.AZURE_OPEN_AI_API_KEY!,
+  azureOpenAiDeploymentId: process.env.AZURE_OPEN_AI_DEPLOYMENT_ID!,
 };
 
 type RocClientConfig = {
@@ -45,7 +47,9 @@ type RocClientConfig = {
   documents: Document[];
   quadrataVerifyIdentityLink: string;
   roofstockOnChainKycContractAddress: `0x${string}`;
-  openAiApiKey: string;
+  azureOpenAiEndpoint: string;
+  azureOpenAiApiKey: string;
+  azureOpenAiDeploymentId: string;
 };
 
 export type Document = {
