@@ -6,7 +6,7 @@ export type Listing = {
   zip: string;
   mainImageUrl: string;
   listingDescription?: string;
-  bedrooms: number;
+  bedrooms: number | null;
   bathrooms: number;
   homeSizeSquareFoot?: number;
   lotSizeSquareFoot?: number | null;
