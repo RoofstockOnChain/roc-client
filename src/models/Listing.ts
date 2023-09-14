@@ -9,7 +9,7 @@ export type Listing = {
   bedrooms: number;
   bathrooms: number;
   homeSizeSquareFoot?: number;
-  lotSizeSquareFoot?: number;
+  lotSizeSquareFoot?: number | null;
   propertyType?: 'House' | 'Apartment';
   yearBuilt: number;
   listingPrice: number;

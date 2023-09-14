@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '@/config';
 import { listings } from '@/data/listings';
 import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
+import { OpenAiPromptBuilder } from '@/helpers/OpenAiPromptBuilder';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const openAiClient = new OpenAIClient(
@@ -20,63 +21,55 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     []) as string[];
   const tone = (requestBody.tone ?? 'professional') as string;
 
-  const getListingData = () => JSON.stringify(listings.slice(0, 40));
-
-  let systemPrompt = getListingData();
-  systemPrompt +=
-    "You are RoofusAI, an AI assistant whose goal is to help users find the best investment property from the system's dataset based on their feedback.";
-  systemPrompt += "Primarily consider the user's feedback in your response.";
-  systemPrompt += "Refer to the property by it's address.";
-  systemPrompt += `Use a ${tone} tone.`;
-
-  const messages = [
-    {
-      role: 'system',
-      content: systemPrompt,
-    },
-  ];
+  var openAiPromptBuilder = new OpenAiPromptBuilder();
+  openAiPromptBuilder.addSystemMessage(
+    'You are RoofusAI, an AI assistant whose goal is to help users find the best investment property from the dataset based on their feedback.'
+  );
 
   listingFeedbackForUser.forEach((listingFeedback: ListingFeedback) => {
-    messages.push({
-      role: 'user',
-      content: `Feedback for MLS Listing ID ${listingFeedback.mlsListingId}: ${listingFeedback.feedback}`,
-    });
+    openAiPromptBuilder.addUserMessage(
+      `Feedback for  id ${listingFeedback.mlsListingId}: ${listingFeedback.feedback}`
+    );
   });
 
-  messages.push({
-    role: 'user',
-    content: `Exclude properties with the following MLS Listing IDs: ${mlsListingIdsToExclude.join(
-      ', '
-    )}`,
-  });
+  if (mlsListingIdsToExclude.length > 0) {
+    const commaSeparatedMlsListingIds = mlsListingIdsToExclude.join(', ');
+    openAiPromptBuilder.addUserMessage(
+      `Don't recommend properties with the following ids: ${commaSeparatedMlsListingIds}`
+    );
+  }
 
-  let initialUserInstruction = 'Recommend a single investment property for me.';
-  if (market) {
-    initialUserInstruction += ` Property should be in the ${market} market.`;
-  }
-  if (desiredPrice) {
-    initialUserInstruction += ` Property should be in about $${desiredPrice}.`;
-  }
-  if (bedrooms) {
-    initialUserInstruction += ` Property should have ${bedrooms} bedrooms.`;
-  }
-  if (bathrooms) {
-    initialUserInstruction += ` Property should have ${bathrooms} bathrooms.`;
-  }
-  messages.push({
-    role: 'user',
-    content: initialUserInstruction,
-  });
+  openAiPromptBuilder.addUserMessage(
+    `Recommend the best single investment property for me from the dataset. Property should be in the ${market} market. Property should be listed for about $${desiredPrice}. Property should have about ${bedrooms} bedrooms. Property should have about ${bathrooms} bathrooms.
 
-  messages.push({
-    role: 'user',
-    content:
-      'The response should be only a JSON object in this format: { mlsListingId: string, explanation: string }',
-  });
+    \`\`\`
+    Format the response in only JSON with the following structure:
+    {
+      "id": "12345",
+      "explanation: "The property at 342 Rare St looks like it would be a good fit for you for an investment property. It has 3 bedrooms and 4 bathrooms. It is larger than 456 Bell Ave and thus fits what you are looking for."
+    }
+    \`\`\`
+    `
+  );
 
+  const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
     config.azureOpenAiDeploymentId,
-    messages
+    messages,
+    {
+      azureExtensionOptions: {
+        extensions: [
+          {
+            type: 'AzureCognitiveSearch',
+            parameters: {
+              endpoint: config.azureSearchServiceEndpoint,
+              key: config.azureSearchServiceApiKey,
+              indexName: config.azureSearchServiceIndex,
+            },
+          },
+        ],
+      },
+    }
   );
   if (
     completion?.choices.length > 0 &&
@@ -86,7 +79,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       const listingRecommendation = JSON.parse(
         completion.choices[0].message.content
       );
-      const recommendedMlsListingId = listingRecommendation.mlsListingId;
+      const recommendedMlsListingId = listingRecommendation.id;
       const recommendedMlsListing = getListingByMlsListingId(
         recommendedMlsListingId
       );
@@ -97,6 +90,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       });
     } catch (ex) {
       response.status(500).json({
+        openAiRequest: messages,
         openAiResponse: completion?.choices[0].message?.content,
       });
     }

@@ -33,6 +33,9 @@ export const config: RocClientConfig = {
   azureOpenAiEndpoint: process.env.AZURE_OPEN_AI_ENDPOINT!,
   azureOpenAiApiKey: process.env.AZURE_OPEN_AI_API_KEY!,
   azureOpenAiDeploymentId: process.env.AZURE_OPEN_AI_DEPLOYMENT_ID!,
+  azureSearchServiceEndpoint: process.env.AZURE_SEARCH_SERVICE_ENDPOINT!,
+  azureSearchServiceApiKey: process.env.AZURE_SEARCH_SERVICE_API_KEY!,
+  azureSearchServiceIndex: process.env.AZURE_SEARCH_SERVICE_INDEX!,
 };
 
 type RocClientConfig = {
@@ -50,6 +53,9 @@ type RocClientConfig = {
   azureOpenAiEndpoint: string;
   azureOpenAiApiKey: string;
   azureOpenAiDeploymentId: string;
+  azureSearchServiceEndpoint: string;
+  azureSearchServiceApiKey: string;
+  azureSearchServiceIndex: string;
 };
 
 export type Document = {
