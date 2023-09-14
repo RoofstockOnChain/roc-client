@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { config } from '@/config';
-import { listings } from '@/data/listings';
 import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
 import { OpenAiPromptBuilder } from '@/helpers/OpenAiPromptBuilder';
+import { Listing } from '@/models/Listing';
+import { getListing } from '@/services/ListingService';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const openAiClient = new OpenAIClient(
@@ -79,10 +80,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       const listingRecommendation = JSON.parse(
         completion.choices[0].message.content
       );
-      const recommendedMlsListingId = listingRecommendation.id;
-      const recommendedMlsListing = getListingByMlsListingId(
-        recommendedMlsListingId
-      );
+      const recommendedMlsListing = await getListing(listingRecommendation.id);
 
       response.status(200).json({
         listing: recommendedMlsListing,
@@ -95,10 +93,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       });
     }
   }
-};
-
-const getListingByMlsListingId = (mlsListingId: string) => {
-  return listings.find((x) => x.mlsListingId == mlsListingId);
 };
 
 export default handler;

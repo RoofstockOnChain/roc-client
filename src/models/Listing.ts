@@ -7,7 +7,7 @@ export type Listing = {
   mainImageUrl: string;
   listingDescription?: string;
   bedrooms: number | null;
-  bathrooms: number;
+  bathrooms: number | null;
   homeSizeSquareFoot?: number;
   lotSizeSquareFoot?: number | null;
   propertyType?: 'House' | 'Apartment';

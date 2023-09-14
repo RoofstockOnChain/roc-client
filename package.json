@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@azure/openai": "^1.0.0-beta.5",
+    "@azure/search-documents": "^11.3.2",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
