@@ -59,11 +59,42 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         - buyBoxOverview: An over of the user's buy box as you understand it.`
     );
 
+    const schema = {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          description: 'The ID of the recommended property',
+        },
+        explanation: {
+          type: 'string',
+          description: `An explanation as to why this property was recommended in a ${tone} tone. Don't include any document references.`,
+        },
+        confidence: {
+          type: 'string',
+          description:
+            'A confidence score (0-100) on how confident you are that you understand the type of property the user is looking for.',
+        },
+        buyBoxOverview: {
+          type: 'string',
+          description: "An over of the user's buy box as you understand it.",
+        },
+      },
+    };
+
     const messages = openAiPromptBuilder.generateMessages();
     const completion = await openAiClient.getChatCompletions(
       config.azureOpenAiDeploymentId,
       messages,
       {
+        functions: [
+          {
+            name: 'formatResponse',
+            description: 'Formats the response.',
+            parameters: schema,
+          },
+        ],
+        functionCall: { name: 'formatResponse' },
         azureExtensionOptions: {
           extensions: [
             {
