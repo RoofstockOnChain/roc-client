@@ -266,10 +266,12 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
 
   useEffect(() => {
     if (listingsMap && listings?.length > 0) {
-      const listingPositions = listings.map((x) => ({
-        latitude: x.latitude,
-        longitude: x.longitude,
-      }));
+      const listingPositions = listings
+        .filter((x) => x.latitude && x.longitude)
+        .map((x) => ({
+          latitude: x.latitude!,
+          longitude: x.longitude!,
+        }));
       const mapBounds = getMapBounds(listingPositions);
       if (mapBounds) {
         listingsMap.fitBounds(mapBounds, { padding: 50 });
@@ -336,13 +338,15 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
                 mapboxAccessToken={mapboxAccessToken}
                 mapStyle="mapbox://styles/mapbox/streets-v12"
               >
-                {listings.map((listing, index) => (
-                  <Marker
-                    key={index}
-                    latitude={listing.latitude}
-                    longitude={listing.longitude}
-                  />
-                ))}
+                {listings
+                  .filter((x) => x.latitude && x.longitude)
+                  .map((listing, index) => (
+                    <Marker
+                      key={index}
+                      latitude={listing.latitude!}
+                      longitude={listing.longitude!}
+                    />
+                  ))}
               </Map>
             </MapWrapper>
           </Grid>
