@@ -63,7 +63,7 @@ const StyledDivider = styled(Divider)`
 `;
 
 export const TopBar = () => {
-  const { howItWorksUrl, faqsUrl, learnUrl } = config;
+  const { howItWorksUrl, faqsUrl, learnUrl, showSearchLink } = config;
   const [learnMenuAnchorEl, setLearnMenuAnchorEl] =
     useState<HTMLElement | null>();
   const learnMenuOpen = Boolean(learnMenuAnchorEl);
@@ -110,6 +110,7 @@ export const TopBar = () => {
               >
                 Learn
               </Button>
+              {showSearchLink && <Button href="/search">Search</Button>}
             </Stack>
             <Menu
               anchorEl={learnMenuAnchorEl}
@@ -238,6 +239,13 @@ export const TopBar = () => {
                     <StyledListItemText primary="Learn" />
                   </ListItemButton>
                 </ListItem>
+                {showSearchLink && (
+                  <ListItem disablePadding>
+                    <ListItemButton href="/search">
+                      <StyledListItemText primary="Search" />
+                    </ListItemButton>
+                  </ListItem>
+                )}
                 {isConnected && (
                   <ListItem disablePadding>
                     <ListItemButton href="/profile">

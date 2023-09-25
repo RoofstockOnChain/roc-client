@@ -12,6 +12,7 @@ import { AppProps } from 'next/app';
 import { TopBar } from '@/components/layout/TopBar';
 import { Footer } from '@/components/layout/Footer';
 import '../styles/global.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Analytics } from '@vercel/analytics/react';
 
 const { chains, publicClient } = configureChains(

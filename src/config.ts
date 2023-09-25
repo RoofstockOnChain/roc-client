@@ -36,6 +36,10 @@ export const config: RocClientConfig = {
   azureSearchServiceEndpoint: process.env.AZURE_SEARCH_SERVICE_ENDPOINT!,
   azureSearchServiceApiKey: process.env.AZURE_SEARCH_SERVICE_API_KEY!,
   azureSearchServiceIndex: process.env.AZURE_SEARCH_SERVICE_INDEX!,
+  showSearchLink: process.env.NEXT_PUBLIC_SHOW_SEARCH_LINK
+    ? process.env.NEXT_PUBLIC_SHOW_SEARCH_LINK === 'true'
+    : false,
+  mapboxAccessToken: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN!,
 };
 
 type RocClientConfig = {
@@ -56,6 +60,8 @@ type RocClientConfig = {
   azureSearchServiceEndpoint: string;
   azureSearchServiceApiKey: string;
   azureSearchServiceIndex: string;
+  showSearchLink: boolean;
+  mapboxAccessToken: string;
 };
 
 export type Document = {

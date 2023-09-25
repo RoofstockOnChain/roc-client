@@ -10,17 +10,11 @@ import { getRecommendedMlsListingWithExplanation } from '@/services/Recommendati
 
 interface ListingRecommendationEngineProps {
   market: string;
-  bedrooms: number;
-  bathrooms: number;
-  desiredPrice: number;
   tone: string;
 }
 
 export const useListingRecommendationEngine = ({
   market,
-  bedrooms,
-  bathrooms,
-  desiredPrice,
   tone,
 }: ListingRecommendationEngineProps) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,9 +32,6 @@ export const useListingRecommendationEngine = ({
     const recommendedMlsListingWithExplanation =
       await getRecommendedMlsListingWithExplanation(
         market,
-        bedrooms,
-        bathrooms,
-        desiredPrice,
         listingFeedbackForUser,
         tone
       );
@@ -56,7 +47,7 @@ export const useListingRecommendationEngine = ({
 
   useEffect(() => {
     getNextListing();
-  }, [market, bedrooms, bathrooms, desiredPrice, tone]);
+  }, [market, tone]);
 
   return {
     listing,

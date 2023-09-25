@@ -30,7 +30,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
     const openAiPromptBuilder = new OpenAiPromptBuilder();
     openAiPromptBuilder.addSystemMessage(
-      `You are RoofusAI, an AI assistant whose goal is to help users find the best investment property from the provided dataset based on their feedback.`
+      `You are RoofusAI, an AI assistant whose goal is to help users identify their buy box by asking for feedback about properties.`
     );
 
     listingFeedbackForUser.forEach((listingFeedback) => {
@@ -40,23 +40,18 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     });
 
     openAiPromptBuilder.addUserMessage(
-      `Recommend a single investment property for me from the provided dataset that I might be interested in purchasing.
+      `Recommend the best potential investment property for me from the provided dataset based on my feedback and criteria.
     
-      My ideal criteria:
+      My criteria:
       - Should be in the ${market} market.
-      - Should be listed for about $${desiredPrice}.
-      - Should have about ${bedrooms} bedrooms.
-      - Should have about ${bathrooms} bathrooms.
-      
-      The recommended property does not need to match all of this criteria
-      
-      Don't recommend a property that I have already provided feedback for.
-      
-      Provide your response in only JSON object with the following fields:
+
+      If you can't find a property that matches my criteria, pick a random property.
+
+      Respond in JSON format with the following fields:
         - id: The ID of the recommended property.
         - explanation: An explanation as to why this property was recommended in a ${tone} tone. Don't include any document references.
         - confidence: A confidence score (0-100) on how confident you are that you understand the type of property the user is looking for.
-        - buyBoxOverview: An over of the user's buy box as you understand it.`
+        - buyBoxOverview: An overview of the user's buy box as you understand it.`
     );
 
     const schema = {
@@ -87,14 +82,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       config.azureOpenAiDeploymentId,
       messages,
       {
-        functions: [
-          {
-            name: 'formatResponse',
-            description: 'Formats the response.',
-            parameters: schema,
-          },
-        ],
-        functionCall: { name: 'formatResponse' },
         azureExtensionOptions: {
           extensions: [
             {
