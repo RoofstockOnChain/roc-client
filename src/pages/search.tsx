@@ -30,13 +30,17 @@ import { useListings } from '@/hooks/useListings';
 import { Listing } from '@/models/Listing';
 import numeral from 'numeral';
 import { getMapBounds } from '@/helpers/MapHelper';
-import { LngLatBounds } from 'mapbox-gl';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const Search: FC = () => {
-  const [mode, setMode] = useState<
-    'cta' | 'buy-box-builder' | 'search-results'
-  >('cta');
-  const [market, setMarket] = useState<string>('Columbia, SC');
+  const [mode, setMode] = useLocalStorage('search-mode', 'cta');
+  const [market] = useState<string>('Columbia, SC');
+
+  const setModeState = (mode: 'cta' | 'buy-box-builder' | 'search-results') => {
+    setMode(mode);
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -46,19 +50,22 @@ const Search: FC = () => {
       <Stack spacing={2}>
         {mode === 'cta' && (
           <SearchCta
-            onStartBuyBoxBuilder={() => setMode('buy-box-builder')}
-            onSkipBuyBoxBuilder={() => setMode('search-results')}
+            onStartBuyBoxBuilder={() => setModeState('buy-box-builder')}
+            onSkipBuyBoxBuilder={() => setModeState('search-results')}
           />
         )}
         {mode === 'buy-box-builder' && (
           <BuyBoxBuilder
             market={market}
-            onRestart={() => setMode('cta')}
-            onSkip={() => setMode('search-results')}
+            onRestart={() => setModeState('cta')}
+            onSkip={() => setModeState('search-results')}
           />
         )}
         {mode === 'search-results' && (
-          <SearchResults market={market} onRestart={() => setMode('cta')} />
+          <SearchResults
+            market={market}
+            onRestart={() => setModeState('cta')}
+          />
         )}
       </Stack>
     </>
@@ -283,53 +290,17 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
     <>
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
-          <Grid item xs={12} md={2}>
-            <FormControl fullWidth>
-              <InputLabel>Market</InputLabel>
-              <Select size="small" value={market} disabled>
-                <MenuItem value="Columbia, SC">Columbia, SC</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <FormControl fullWidth>
-              <InputLabel>Bedrooms</InputLabel>
-              <Select
-                size="small"
-                value={bedrooms}
-                onChange={(e) => setBedrooms(Number(e.target.value))}
-              >
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <FormControl fullWidth>
-              <InputLabel>Bathrooms</InputLabel>
-              <Select
-                size="small"
-                value={bathrooms}
-                onChange={(e) => setBathrooms(Number(e.target.value))}
-              >
-                <MenuItem value={2}>2</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <TextField
-              size="small"
-              label="Desired Price"
-              value={desiredPrice}
-              onChange={(e) => setDesiredPrice(Number(e.target.value))}
-              fullWidth
-              type="number"
+          <Grid item xs={12}>
+            <ListingFilter
+              market={market}
+              bedrooms={bedrooms}
+              setBedrooms={setBedrooms}
+              bathrooms={bathrooms}
+              setBathrooms={setBathrooms}
+              desiredPrice={desiredPrice}
+              setDesiredPrice={setDesiredPrice}
+              onRestart={onRestart}
             />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Button variant="outlined" fullWidth onClick={() => onRestart()}>
-              Try the BuyBox Builder
-            </Button>
           </Grid>
           <Grid item xs={12} md={6}>
             <MapWrapper>
@@ -377,6 +348,81 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
   );
 };
 
+interface ListingFilterProps {
+  market: string;
+  bedrooms: number;
+  setBedrooms: (bedrooms: number) => void;
+  bathrooms: number;
+  setBathrooms: (bathrooms: number) => void;
+  desiredPrice: number;
+  setDesiredPrice: (desiredPrice: number) => void;
+  onRestart: () => void;
+}
+
+const ListingFilter: FC<ListingFilterProps> = ({
+  market,
+  bedrooms,
+  setBedrooms,
+  bathrooms,
+  setBathrooms,
+  desiredPrice,
+  setDesiredPrice,
+  onRestart,
+}) => {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={2}>
+        <FormControl fullWidth>
+          <InputLabel>Market</InputLabel>
+          <Select size="small" value={market} disabled>
+            <MenuItem value="Columbia, SC">Columbia, SC</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <FormControl fullWidth>
+          <InputLabel>Bedrooms</InputLabel>
+          <Select
+            size="small"
+            value={bedrooms}
+            onChange={(e) => setBedrooms(Number(e.target.value))}
+          >
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <FormControl fullWidth>
+          <InputLabel>Bathrooms</InputLabel>
+          <Select
+            size="small"
+            value={bathrooms}
+            onChange={(e) => setBathrooms(Number(e.target.value))}
+          >
+            <MenuItem value={2}>2</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <TextField
+          size="small"
+          label="Desired Price"
+          value={desiredPrice}
+          onChange={(e) => setDesiredPrice(Number(e.target.value))}
+          fullWidth
+          type="number"
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Button variant="outlined" fullWidth onClick={() => onRestart()}>
+          Try the BuyBox Builder
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
+
 interface ListingCardProps {
   listing: Listing;
 }
@@ -388,7 +434,7 @@ const ListingCard: FC<ListingCardProps> = ({ listing }) => {
         component="img"
         image={listing.mainImageUrl}
         alt={listing.address1}
-        height="184px"
+        height="182px"
       />
       <CardContent>
         <Typography>{numeral(listing.listingPrice).format('$0,0')}</Typography>
