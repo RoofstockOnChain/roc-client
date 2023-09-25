@@ -72,8 +72,6 @@ const Search: FC = () => {
   );
 };
 
-const StyledTypography = styled(Typography)``;
-
 interface SearchCtaProps {
   onStartBuyBoxBuilder: () => void;
   onSkipBuyBoxBuilder: () => void;
@@ -94,7 +92,7 @@ const SearchCta: FC<SearchCtaProps> = ({
     >
       <Container maxWidth="xl">
         <Box width={{ sm: '70%' }} paddingTop="100px" paddingBottom="100px">
-          <StyledTypography variant="h3">
+          <Typography variant="h3">
             <TypeAnimation
               sequence={[
                 "I'm looking for 2 bed, 1 bath homes around 200K",
@@ -102,7 +100,7 @@ const SearchCta: FC<SearchCtaProps> = ({
               ]}
               repeat={Infinity}
             />
-          </StyledTypography>
+          </Typography>
           <Box paddingTop="1rem">
             <Button variant="outlined" onClick={onStartBuyBoxBuilder}>
               Try it now
@@ -252,6 +250,11 @@ const MapWrapper = styled(Box)`
   width: 100%;
 `;
 
+const StyledStack = styled(Stack)`
+  height: 900px;
+  overflow-y: auto;
+`;
+
 interface SearchResultsProps {
   market: string;
   onRestart: () => void;
@@ -290,58 +293,62 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
     <>
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
-          <Grid item xs={12}>
-            <ListingFilter
-              market={market}
-              bedrooms={bedrooms}
-              setBedrooms={setBedrooms}
-              bathrooms={bathrooms}
-              setBathrooms={setBathrooms}
-              desiredPrice={desiredPrice}
-              setDesiredPrice={setDesiredPrice}
-              onRestart={onRestart}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <MapWrapper>
-              <Map
-                id="listingsMap"
-                mapboxAccessToken={mapboxAccessToken}
-                mapStyle="mapbox://styles/mapbox/streets-v12"
-              >
-                {listings
-                  .filter((x) => x.latitude && x.longitude)
-                  .map((listing, index) => (
-                    <Marker
-                      key={index}
-                      latitude={listing.latitude!}
-                      longitude={listing.longitude!}
-                    />
-                  ))}
-              </Map>
-            </MapWrapper>
-          </Grid>
-          <Grid container item xs={12} md={6} spacing={1}>
-            {loading && (
+          {loading && (
+            <Grid item xs={12}>
+              <Loading />
+            </Grid>
+          )}
+          {!loading && (
+            <>
               <Grid item xs={12}>
-                <Loading />
+                <ListingFilter
+                  market={market}
+                  bedrooms={bedrooms}
+                  setBedrooms={setBedrooms}
+                  bathrooms={bathrooms}
+                  setBathrooms={setBathrooms}
+                  desiredPrice={desiredPrice}
+                  setDesiredPrice={setDesiredPrice}
+                  onRestart={onRestart}
+                />
               </Grid>
-            )}
-            {!loading && (
-              <>
-                {listings.map((listing, index) => (
-                  <Grid key={index} item xs={12} md={6}>
-                    <ListingCard listing={listing} />
+              <Grid item xs={12} md={6}>
+                <MapWrapper>
+                  <Map
+                    id="listingsMap"
+                    mapboxAccessToken={mapboxAccessToken}
+                    mapStyle="mapbox://styles/mapbox/streets-v12"
+                    initialViewState={{
+                      latitude: 37.0902,
+                      longitude: -95.7129,
+                      zoom: 4,
+                    }}
+                  >
+                    {listings
+                      .filter((x) => x.latitude && x.longitude)
+                      .map((listing, index) => (
+                        <Marker
+                          key={index}
+                          latitude={listing.latitude!}
+                          longitude={listing.longitude!}
+                        />
+                      ))}
+                  </Map>
+                </MapWrapper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <StyledStack>
+                  <Grid container spacing={2}>
+                    {listings.map((listing, index) => (
+                      <Grid key={index} item xs={12} md={6}>
+                        <ListingCard listing={listing} />
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
-                {listings.length === 0 && (
-                  <Grid item xs={12}>
-                    No results found.
-                  </Grid>
-                )}
-              </>
-            )}
-          </Grid>
+                </StyledStack>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Container>
     </>
@@ -434,7 +441,7 @@ const ListingCard: FC<ListingCardProps> = ({ listing }) => {
         component="img"
         image={listing.mainImageUrl}
         alt={listing.address1}
-        height="182px"
+        height="200px"
       />
       <CardContent>
         <Typography>{numeral(listing.listingPrice).format('$0,0')}</Typography>

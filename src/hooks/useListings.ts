@@ -20,7 +20,7 @@ export const useListings = ({
   const getListings = async () => {
     setLoading(true);
     const searchParams = new URLSearchParams({
-      take: '6',
+      take: '12',
       skip: '0',
       market,
       bedrooms: bedrooms.toString(),
