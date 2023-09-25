@@ -14,6 +14,7 @@ import { Footer } from '@/components/layout/Footer';
 import '../styles/global.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Analytics } from '@vercel/analytics/react';
+import { MapProvider } from 'react-map-gl';
 
 const { chains, publicClient } = configureChains(
   [mainnet],
@@ -35,15 +36,17 @@ const ethereumClient = new EthereumClient(wagmiConfig, chains);
 const App: FC<AppProps> = ({ Component, pageProps }) => (
   <>
     <RocThemeProvider>
-      <WagmiConfig config={wagmiConfig}>
-        <TopBar />
-        <Component {...pageProps} />
-        <Footer />
-        <Web3Modal
-          projectId={config.walletConnectProjectId}
-          ethereumClient={ethereumClient}
-        />
-      </WagmiConfig>
+      <MapProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <TopBar />
+          <Component {...pageProps} />
+          <Footer />
+          <Web3Modal
+            projectId={config.walletConnectProjectId}
+            ethereumClient={ethereumClient}
+          />
+        </WagmiConfig>
+      </MapProvider>
     </RocThemeProvider>
     <Analytics />
   </>

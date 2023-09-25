@@ -13,4 +13,6 @@ export type Listing = {
   propertyType?: 'House' | 'Apartment';
   yearBuilt: number;
   listingPrice: number;
+  latitude: number;
+  longitude: number;
 };

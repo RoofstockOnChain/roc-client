@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Head from 'next/head';
 import {
   Box,
@@ -24,11 +24,13 @@ import { useListingRecommendationEngine } from '@/hooks/useListingRecommendation
 import { Loading } from '@/components/Loading';
 import { getListingFeedbackForUser } from '@/services/ListingFeedbackService';
 import { TypeAnimation } from 'react-type-animation';
-import { Map } from 'react-map-gl';
+import { Map, Marker, useMap } from 'react-map-gl';
 import { config } from '@/config';
 import { useListings } from '@/hooks/useListings';
 import { Listing } from '@/models/Listing';
 import numeral from 'numeral';
+import { getMapBounds } from '@/helpers/MapHelper';
+import { LngLatBounds } from 'mapbox-gl';
 
 const Search: FC = () => {
   const [mode, setMode] = useState<
@@ -250,6 +252,7 @@ interface SearchResultsProps {
 
 const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
   const { mapboxAccessToken } = config;
+  const { listingsMap } = useMap();
   const [bedrooms, setBedrooms] = useState<number>(3);
   const [bathrooms, setBathrooms] = useState<number>(2);
   const [desiredPrice, setDesiredPrice] = useState<number>(250000);
@@ -260,6 +263,19 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
     bathrooms,
     desiredPrice,
   });
+
+  useEffect(() => {
+    if (listingsMap && listings?.length > 0) {
+      const listingPositions = listings.map((x) => ({
+        latitude: x.latitude,
+        longitude: x.longitude,
+      }));
+      const mapBounds = getMapBounds(listingPositions);
+      if (mapBounds) {
+        listingsMap.fitBounds(mapBounds, { padding: 50 });
+      }
+    }
+  }, [listingsMap, listings]);
 
   return (
     <>
@@ -316,9 +332,18 @@ const SearchResults: FC<SearchResultsProps> = ({ market, onRestart }) => {
           <Grid item xs={12} md={6}>
             <MapWrapper>
               <Map
+                id="listingsMap"
                 mapboxAccessToken={mapboxAccessToken}
-                mapStyle="mapbox://styles/mapbox/dark-v11"
-              />
+                mapStyle="mapbox://styles/mapbox/streets-v12"
+              >
+                {listings.map((listing, index) => (
+                  <Marker
+                    key={index}
+                    latitude={listing.latitude}
+                    longitude={listing.longitude}
+                  />
+                ))}
+              </Map>
             </MapWrapper>
           </Grid>
           <Grid container item xs={12} md={6} spacing={1}>
