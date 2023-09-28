@@ -6,26 +6,13 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     take,
     skip,
     market,
-    bedrooms,
-    bathrooms,
-    desiredPrice,
   }: {
     take?: number;
     skip?: number;
     market?: string;
-    bedrooms?: number;
-    bathrooms?: number;
-    desiredPrice?: number;
   } = request.query;
 
-  const listings = await getListings(
-    take,
-    skip,
-    market,
-    bedrooms,
-    bathrooms,
-    desiredPrice
-  );
+  const listings = await getListings(take, skip, market);
 
   response.status(200).json(listings);
 };

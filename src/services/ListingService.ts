@@ -4,14 +4,9 @@ import { listings } from '@/data/listings';
 export const getListings = async (
   take?: number,
   skip?: number,
-  market?: string,
-  bedrooms?: number,
-  bathrooms?: number,
-  desiredPrice?: number
+  market?: string
 ): Promise<Listing[]> => {
-  const filteredListings = listings
-    .filter((x) => x.bedrooms == bedrooms)
-    .filter((x) => x.bathrooms == bathrooms);
+  const filteredListings = listings.filter((x) => x.market == market);
 
   if (take && skip) {
     return filteredListings.slice(skip, take);

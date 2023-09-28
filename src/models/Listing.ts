@@ -8,11 +8,12 @@ export type Listing = {
   listingDescription?: string;
   bedrooms: number | null;
   bathrooms: number | null;
-  homeSizeSquareFoot?: number;
+  homeSizeSquareFoot?: number | null;
   lotSizeSquareFoot?: number | null;
   propertyType?: 'House' | 'Apartment';
   yearBuilt: number;
   listingPrice: number;
   latitude?: number | null;
   longitude?: number | null;
+  market: string;
 };

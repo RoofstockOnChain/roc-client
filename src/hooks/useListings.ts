@@ -3,17 +3,9 @@ import { useEffect, useState } from 'react';
 
 interface ListingsProps {
   market: string;
-  bedrooms: number;
-  bathrooms: number;
-  desiredPrice: number;
 }
 
-export const useListings = ({
-  market,
-  bedrooms,
-  bathrooms,
-  desiredPrice,
-}: ListingsProps) => {
+export const useListings = ({ market }: ListingsProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [listings, setListings] = useState<Listing[]>([]);
 
@@ -23,9 +15,6 @@ export const useListings = ({
       take: '12',
       skip: '0',
       market,
-      bedrooms: bedrooms.toString(),
-      bathrooms: bathrooms.toString(),
-      desiredPrice: desiredPrice.toString(),
     });
     const response = await fetch(`/api/listings?${searchParams}`);
     const listings = (await response.json()) as Listing[];
@@ -35,7 +24,7 @@ export const useListings = ({
 
   useEffect(() => {
     getListings();
-  }, [market, bedrooms, bathrooms, desiredPrice]);
+  }, [market]);
 
   return {
     loading,
