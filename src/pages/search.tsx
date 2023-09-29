@@ -23,6 +23,7 @@ import numeral from 'numeral';
 import { getMapBounds } from '@/helpers/MapHelper';
 import { markets } from '@/data/markets';
 import { Market } from '@/models/Market';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<Market>();
@@ -106,11 +107,11 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
-  const [feedback, setFeedback] = useState<string>('');
+  const [feedback, setFeedback] = useLocalStorage('feedback', '');
 
   const { listings, explanation, loading, refresh } = useListings({
     market: market.name,
-    feedback,
+    feedback: feedback ?? '',
   });
 
   const search = async () => {
@@ -167,6 +168,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                       <TextField
                         label="Feedback"
                         size="small"
+                        autoFocus
                         fullWidth
                         multiline
                         value={feedback}
@@ -181,9 +183,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={4}>
-                    <Typography color="#fff">
-                      {explanation}
-                    </Typography>
+                    <Typography color="#fff">{explanation}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
