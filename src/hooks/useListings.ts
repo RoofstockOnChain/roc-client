@@ -3,22 +3,27 @@ import { useEffect, useState } from 'react';
 
 interface ListingsProps {
   market: string;
+  feedback: string;
 }
 
-export const useListings = ({ market }: ListingsProps) => {
+export const useListings = ({ market, feedback }: ListingsProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [listings, setListings] = useState<Listing[]>([]);
+  const [explanation, setExplanation] = useState<string>('');
 
   const getListings = async () => {
     setLoading(true);
     const searchParams = new URLSearchParams({
-      take: '12',
-      skip: '0',
       market,
+      feedback,
     });
     const response = await fetch(`/api/listings?${searchParams}`);
-    const listings = (await response.json()) as Listing[];
-    setListings(listings);
+    const listingRecommendations = (await response.json()) as {
+      listings: Listing[];
+      explanation: string;
+    };
+    setListings(listingRecommendations.listings);
+    setExplanation(listingRecommendations.explanation);
     setLoading(false);
   };
 
@@ -29,5 +34,7 @@ export const useListings = ({ market }: ListingsProps) => {
   return {
     loading,
     listings,
+    explanation,
+    refresh: getListings,
   };
 };

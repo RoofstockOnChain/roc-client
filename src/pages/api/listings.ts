@@ -1,20 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getListings } from '@/services/ListingService';
+import { getListingRecommendations } from '@/services/ListingRecommendationService';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
-    take,
-    skip,
     market,
+    feedback,
   }: {
-    take?: number;
-    skip?: number;
     market?: string;
+    feedback?: string;
   } = request.query;
 
-  const listings = await getListings(take, skip, market);
+  const listingRecommendations = await getListingRecommendations(
+    market,
+    feedback
+  );
 
-  response.status(200).json(listings);
+  const listings = await getListings(listingRecommendations.listingIds);
+
+  response.status(200).json({
+    listings,
+    explanation: listingRecommendations.explanation,
+  });
 };
 
 export default handler;

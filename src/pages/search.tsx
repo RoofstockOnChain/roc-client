@@ -106,10 +106,16 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
+  const [feedback, setFeedback] = useState<string>('');
 
-  const { listings, loading } = useListings({
+  const { listings, loading, refresh } = useListings({
     market: market.name,
+    feedback,
   });
+
+  const search = async () => {
+    await refresh();
+  };
 
   useEffect(() => {
     if (listingsMap && listings?.length > 0) {
@@ -138,7 +144,43 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
           {!loading && (
             <>
               <Grid item xs={12}>
-                <ListingFilter market={market} setMarket={setMarket} />
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Autocomplete
+                      size="small"
+                      options={markets}
+                      fullWidth
+                      renderInput={(params) => (
+                        <TextField {...params} label="Market" />
+                      )}
+                      value={market}
+                      getOptionLabel={(option) => option.displayName}
+                      onChange={(_, newValue) => {
+                        if (newValue) {
+                          setMarket(newValue);
+                        }
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Stack direction="row" spacing={2}>
+                      <TextField
+                        label="Feedback"
+                        size="small"
+                        fullWidth
+                        multiline
+                        value={feedback}
+                        onChange={(e) => setFeedback(e.target.value)}
+                      />
+                      <Button
+                        variant="outlined"
+                        onClick={async () => await search()}
+                      >
+                        Search
+                      </Button>
+                    </Stack>
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item xs={12} md={6}>
                 <MapWrapper>
@@ -180,33 +222,6 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
         </Grid>
       </Container>
     </>
-  );
-};
-
-interface ListingFilterProps {
-  market: Market;
-  setMarket: (market: Market) => void;
-}
-
-const ListingFilter: FC<ListingFilterProps> = ({ market, setMarket }) => {
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Autocomplete
-          size="small"
-          options={markets}
-          fullWidth
-          renderInput={(params) => <TextField {...params} label="Market" />}
-          value={market}
-          getOptionLabel={(option) => option.displayName}
-          onChange={(_, newValue) => {
-            if (newValue) {
-              setMarket(newValue);
-            }
-          }}
-        />
-      </Grid>
-    </Grid>
   );
 };
 

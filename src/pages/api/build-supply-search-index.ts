@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { SearchClient } from '@azure/search-documents';
 import { AzureKeyCredential } from '@azure/openai';
 import { config } from '@/config';
-import { getListings } from '@/services/ListingService';
+import { getAllListings } from '@/services/ListingService';
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   try {
@@ -11,7 +11,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       config.azureSearchServiceIndex,
       new AzureKeyCredential(config.azureSearchServiceApiKey)
     );
-    const listings = await getListings();
+    const listings = await getAllListings();
     const searchableListings = listings.map((x) => ({
       id: x.mlsListingId,
       address1: x.address1,
@@ -25,7 +25,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       lotSizeSquareFoot: x.lotSizeSquareFoot,
       yearBuilt: x.yearBuilt,
       listingPrice: x.listingPrice,
-      listingDescription: `Id: ${x.mlsListingId}. This property in the Columbia, SC market and the address is ${x.address1}. It is listed for ${x.listingPrice}. This property has ${x.bedrooms} bedrooms, ${x.bathrooms} bathrooms, and was built in ${x.yearBuilt}`,
+      market: x.market,
+      listingDescription: `Id: ${x.mlsListingId}. This property in the ${x.market} market and the address is ${x.address1}. It is listed for ${x.listingPrice}. This property has ${x.bedrooms} bedrooms, ${x.bathrooms} bathrooms, and was built in ${x.yearBuilt}`,
     }));
     await searchClient.uploadDocuments(searchableListings);
     response.status(200).json({

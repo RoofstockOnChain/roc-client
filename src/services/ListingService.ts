@@ -1,18 +1,16 @@
 import { Listing } from '@/models/Listing';
 import { listings } from '@/data/listings';
 
-export const getListings = async (
-  take?: number,
-  skip?: number,
-  market?: string
-): Promise<Listing[]> => {
-  const filteredListings = listings.filter((x) => x.market == market);
+export const getAllListings = async (): Promise<Listing[]> => {
+  return listings;
+};
 
-  if (take && skip) {
-    return filteredListings.slice(skip, take);
-  } else {
-    return filteredListings;
-  }
+export const getListings = async (listingIds: string[]): Promise<Listing[]> => {
+  return Promise.all(
+    listingIds.map(async (listingId) => {
+      return await getListing(listingId);
+    })
+  );
 };
 
 export const getListing = async (mlsListingId: string): Promise<Listing> => {
