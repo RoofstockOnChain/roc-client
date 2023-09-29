@@ -7,8 +7,11 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Chip,
   Container,
+  Divider,
   Grid,
+  IconButton,
   Stack,
   styled,
   TextField,
@@ -23,8 +26,8 @@ import numeral from 'numeral';
 import { getMapBounds } from '@/helpers/MapHelper';
 import { markets } from '@/data/markets';
 import { Market } from '@/models/Market';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { TypeAnimation } from 'react-type-animation';
+import SendIcon from '@mui/icons-material/Send';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<Market>();
@@ -131,12 +134,12 @@ const CriteriaExample: FC = () => {
 };
 
 const MapWrapper = styled(Box)`
-  height: 900px;
+  height: 600px;
   width: 100%;
 `;
 
 const StyledStack = styled(Stack)`
-  height: 900px;
+  height: 600px;
   overflow-y: auto;
 `;
 
@@ -144,19 +147,34 @@ interface SearchResultsProps {
   market: Market;
 }
 
+type Message = {
+  role: string;
+  text: string;
+};
+
 const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
-  const [criteria, setCriteria] = useLocalStorage('criteria', '');
+  const [message, setMessage] = useState<string>('');
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'system',
+      text: 'Hello, I am RoofusAI, your AI powered real estate assistant. Tell me what you are looking for.',
+    },
+  ]);
 
   const { listings, explanation, loading, refresh } = useListings({
     market: market.name,
-    criteria: criteria ?? '',
+    criteria: messages
+      .filter((x) => x.role === 'user')
+      .map((x) => x.text)
+      .join(' '),
   });
 
-  const search = async () => {
-    await refresh();
+  const addMessage = async () => {
+    setMessages([...messages, { role: 'user', text: message }]);
+    setMessage('');
   };
 
   useEffect(() => {
@@ -174,10 +192,64 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
     }
   }, [listingsMap, listings]);
 
+  useEffect(() => {
+    refresh();
+  }, [messages]);
+
   return (
     <>
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
+          <Grid item xs={12}>
+            <Stack spacing={2}>
+              <Stack
+                spacing={1}
+                style={{ maxHeight: '200px', overflowY: 'auto' }}
+              >
+                {messages.map((message, index) => (
+                  <Stack
+                    key={index}
+                    direction="row"
+                    justifyContent={message.role === 'user' ? 'start' : 'end'}
+                  >
+                    <Chip label={message.text} />
+                  </Stack>
+                ))}
+              </Stack>
+              <Divider variant="middle" />
+              <Stack direction="row">
+                <Chip
+                  variant="outlined"
+                  label="We suggest starting with the basics like bedrooms, bathrooms, square footage and budget"
+                />
+              </Stack>
+              <Stack direction="row" spacing={1}>
+                <TextField
+                  fullWidth
+                  multiline
+                  placeholder="Tell us what you are looking for..."
+                  helperText="Press Enter or Go to proceed"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+                <Box>
+                  <IconButton
+                    size="large"
+                    color="primary"
+                    onClick={addMessage}
+                    disabled={!message}
+                    style={{
+                      backgroundColor: '#FBE35A',
+                      borderRadius: '5px',
+                      color: 'inherit',
+                    }}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </Box>
+              </Stack>
+            </Stack>
+          </Grid>
           {loading && (
             <Grid item xs={12}>
               <Loading />
@@ -185,49 +257,6 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
           )}
           {!loading && (
             <>
-              <Grid item xs={12}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
-                    <Autocomplete
-                      size="small"
-                      options={markets}
-                      fullWidth
-                      renderInput={(params) => (
-                        <TextField {...params} label="Market" />
-                      )}
-                      value={market}
-                      getOptionLabel={(option) => option.displayName}
-                      onChange={(_, newValue) => {
-                        if (newValue) {
-                          setMarket(newValue);
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Stack direction="row" spacing={2}>
-                      <TextField
-                        label="Criteria"
-                        size="small"
-                        autoFocus
-                        fullWidth
-                        multiline
-                        value={criteria}
-                        onChange={(e) => setCriteria(e.target.value)}
-                      />
-                      <Button
-                        variant="outlined"
-                        onClick={async () => await search()}
-                      >
-                        Search
-                      </Button>
-                    </Stack>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Typography color="#fff">{explanation}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
               <Grid item xs={12} md={6}>
                 <MapWrapper>
                   <Map
@@ -286,9 +315,10 @@ const ListingCard: FC<ListingCardProps> = ({ listing }) => {
       />
       <CardContent>
         <Typography>{numeral(listing.listingPrice).format('$0,0')}</Typography>
-        <Typography fontSize="0.8rem" textTransform="uppercase">
+        <Typography fontSize="0.8rem">
           {listing.bedrooms} Beds | {listing.bathrooms} Baths |{' '}
-          {numeral(listing.homeSizeSquareFoot).format()} Sq. Ft.
+          {numeral(listing.homeSizeSquareFoot).format()} Sq. Ft. | Built in{' '}
+          {listing.yearBuilt}
         </Typography>
         <Typography fontSize="0.7rem">
           {listing.address1}, {listing.city}, {listing.state} {listing.zip}
