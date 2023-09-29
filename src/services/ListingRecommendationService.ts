@@ -90,7 +90,7 @@ const parseChoice = (choice: string) => {
         '21945844',
       ],
       explanation:
-        'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC.',
+        'You are looking for a 3 bedroom, 2 bathroom property in Indianapolis, IN.',
     };
   }
 };

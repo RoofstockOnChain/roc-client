@@ -24,6 +24,7 @@ import { getMapBounds } from '@/helpers/MapHelper';
 import { markets } from '@/data/markets';
 import { Market } from '@/models/Market';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { TypeAnimation } from 'react-type-animation';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<Market>();
@@ -34,7 +35,12 @@ const Search: FC = () => {
         <title>Roofstock onChain - Search</title>
       </Head>
       <Stack spacing={2}>
-        {!market && <SearchCta markets={markets} selectMarket={setMarket} />}
+        {!market && (
+          <>
+            <SearchCta markets={markets} selectMarket={setMarket} />
+            <CriteriaExample />
+          </>
+        )}
         {market && <SearchResults market={market} />}
       </Stack>
     </>
@@ -65,25 +71,60 @@ const SearchCta: FC<SearchCtaProps> = ({ markets, selectMarket }) => {
       }}
     >
       <Container maxWidth="xl">
-        <Box paddingTop="100px" paddingBottom="100px">
-          <Stack direction="row" spacing={2}>
-            <Autocomplete
-              options={markets}
-              fullWidth
-              renderInput={(params) => <TextField {...params} label="Market" />}
-              getOptionLabel={(option) => option.displayName}
-              onChange={(_, newValue) => {
-                if (newValue) {
-                  setMarket(newValue);
-                }
-              }}
-              style={{ maxWidth: '600px' }}
+        <Grid container spacing={2} paddingY="100px">
+          <Grid item xs={12}>
+            <Typography variant="h1">Meet RoofusAI!</Typography>
+            <Typography variant="subtitle1" paddingY="20px">
+              RoofusAI is an AI powered real estate assistant. You can have a
+              chat with him about what you are looking for.
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Stack direction="row" spacing={2}>
+              <Autocomplete
+                options={markets}
+                fullWidth
+                renderInput={(params) => (
+                  <TextField {...params} label="Market" />
+                )}
+                getOptionLabel={(option) => option.displayName}
+                onChange={(_, newValue) => {
+                  if (newValue) {
+                    setMarket(newValue);
+                  }
+                }}
+                style={{ maxWidth: '600px' }}
+              />
+              <Button variant="contained" onClick={search} disabled={!market}>
+                Search
+              </Button>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+const CriteriaExample: FC = () => {
+  return (
+    <Box style={{ backgroundColor: '#FBE35A', marginTop: 0 }}>
+      <Container maxWidth="xl">
+        <Stack paddingY="100px">
+          <Typography
+            variant="subtitle1"
+            fontFamily="Roboto Mono"
+            paddingY="20px"
+          >
+            <TypeAnimation
+              sequence={[
+                'I am looking for a 3 bedroom, 2 bathroom house with over 1200 sq ft.',
+                1000,
+                'I am looking for a 3 bedroom, 2 bathroom house with over 1500 sq ft. I prefer newer properties.  My budget is $250K.',
+              ]}
             />
-            <Button variant="contained" onClick={search} disabled={!market}>
-              Search
-            </Button>
-          </Stack>
-        </Box>
+          </Typography>
+        </Stack>
       </Container>
     </Box>
   );
