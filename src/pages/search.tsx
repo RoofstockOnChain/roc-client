@@ -60,7 +60,7 @@ const SearchCta: FC<SearchCtaProps> = ({ markets, selectMarket }) => {
       color="#fff"
       sx={{
         background:
-          'linear-gradient(94deg, #93DFC2 0%, #FBE35A 100%), linear-gradient(32deg, #62D4EE 0%, rgba(98, 212, 238, 0) 93%), linear-gradient(117deg, #232A35 0%, rgba(0, 0, 0, 0) 100%)',
+          'linear-gradient(92deg, rgba(147, 223, 194, 0.90) 0%, rgba(255, 247, 91, 0.50) 100%), linear-gradient(122deg, #232A35 0%, rgba(35, 42, 53, 0) 100%), linear-gradient(42deg, rgba(182, 241, 202, 0.70) 0%, rgba(182, 241, 202, 0) 100%)',
       }}
     >
       <Container maxWidth="xl">
@@ -78,7 +78,7 @@ const SearchCta: FC<SearchCtaProps> = ({ markets, selectMarket }) => {
               }}
               style={{ maxWidth: '600px' }}
             />
-            <Button variant="outlined" onClick={search} disabled={!market}>
+            <Button variant="contained" onClick={search} disabled={!market}>
               Search
             </Button>
           </Stack>
@@ -181,7 +181,9 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={4}>
-                    <Typography>Explanation: {explanation}</Typography>
+                    <Typography color="#fff">
+                      Explanation: {explanation}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -243,11 +245,11 @@ const ListingCard: FC<ListingCardProps> = ({ listing }) => {
       />
       <CardContent>
         <Typography>{numeral(listing.listingPrice).format('$0,0')}</Typography>
-        <Typography>
-          {listing.bedrooms} Beds | {listing.bathrooms} Baths|{' '}
+        <Typography fontSize="0.8rem" textTransform="uppercase">
+          {listing.bedrooms} Beds | {listing.bathrooms} Baths |{' '}
           {numeral(listing.homeSizeSquareFoot).format()} Sq. Ft.
         </Typography>
-        <Typography>
+        <Typography fontSize="0.7rem">
           {listing.address1}, {listing.city}, {listing.state} {listing.zip}
         </Typography>
       </CardContent>
