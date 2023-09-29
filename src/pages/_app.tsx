@@ -26,7 +26,7 @@ const wagmiConfig = createConfig({
   publicClient,
   connectors: w3mConnectors({
     projectId: config.walletConnectProjectId,
-    version: 1,
+    version: 2,
     chains,
   }),
 });
