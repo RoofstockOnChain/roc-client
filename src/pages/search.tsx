@@ -181,7 +181,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={4}>
-                    <Typography>Expanation: {explanation}</Typography>
+                    <Typography>Explanation: {explanation}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
