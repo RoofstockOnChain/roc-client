@@ -107,11 +107,11 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
-  const [feedback, setFeedback] = useLocalStorage('feedback', '');
+  const [criteria, setCriteria] = useLocalStorage('criteria', '');
 
   const { listings, explanation, loading, refresh } = useListings({
     market: market.name,
-    feedback: feedback ?? '',
+    criteria: criteria ?? '',
   });
 
   const search = async () => {
@@ -166,13 +166,13 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                   <Grid item xs={12} sm={4}>
                     <Stack direction="row" spacing={2}>
                       <TextField
-                        label="Feedback"
+                        label="Criteria"
                         size="small"
                         autoFocus
                         fullWidth
                         multiline
-                        value={feedback}
-                        onChange={(e) => setFeedback(e.target.value)}
+                        value={criteria}
+                        onChange={(e) => setCriteria(e.target.value)}
                       />
                       <Button
                         variant="outlined"
@@ -215,7 +215,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                 <StyledStack>
                   <Grid container spacing={2}>
                     {listings.map((listing, index) => (
-                      <Grid key={index} item xs={12} md={6}>
+                      <Grid key={index} item xs={12} lg={6}>
                         <ListingCard listing={listing} />
                       </Grid>
                     ))}

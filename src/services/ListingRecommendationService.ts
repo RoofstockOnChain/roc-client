@@ -1,11 +1,16 @@
 import { OpenAiPromptBuilder } from '@/helpers/OpenAiPromptBuilder';
-import { AzureKeyCredential, OpenAIClient } from '@azure/openai';
+import { AzureKeyCredential, ChatMessage, OpenAIClient } from '@azure/openai';
 import { config } from '@/config';
 
 export const getListingRecommendations = async (
   market?: string,
-  feedback: string = 'Listed for about $200K with 3 bedrooms and 2 bathrooms.'
-) => {
+  criteria: string = 'Listed for about $200K with 3 bedrooms and 2 bathrooms.'
+): Promise<{
+  listingIds: string[];
+  explanation: string;
+  openAiRequestMessages: ChatMessage[];
+  openAiResponse: string;
+}> => {
   const openAiClient = new OpenAIClient(
     config.azureOpenAiEndpoint,
     new AzureKeyCredential(config.azureOpenAiApiKey)
@@ -13,20 +18,18 @@ export const getListingRecommendations = async (
 
   const openAiPromptBuilder = new OpenAiPromptBuilder();
   openAiPromptBuilder.addSystemMessage(
-    `You are RoofusAI, an AI assistant whose goal is to help users identify their buy box by asking for feedback about properties.`
+    `You are RoofusAI, an AI assistant whose goal is to help users identify their buy box via text criteria.`
   );
 
-  openAiPromptBuilder.addUserMessage(`
-    Recommend some properties for me from the provided dataset.
+  openAiPromptBuilder.addUserMessage(`Recommend some properties for me from the provided dataset of properties.
     
     My criteria:
       - Should be in the ${market} market.
-      - ${feedback}
+      - ${criteria}
 
     Respond in only JSON format with the following fields:
-      - listingIds - an array of 12 property ids sorted by the one I am most likely to be interested in.
-      - explanation - an overview of what you think my buy box is based on my feedback.
-  `);
+      - listingIds - an array of property ids sorted by the one I am most likely to be interested in.
+      - explanation - an overview of what you think my buy box is based on my feedback.`);
 
   const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
@@ -48,17 +51,23 @@ export const getListingRecommendations = async (
     }
   );
 
+  const choices = completion.choices
+    .filter((x) => x.message?.content)
+    .map((choice) => {
+      return choice.message!.content!;
+    });
+
   try {
     const listingRecommendations = await Promise.all(
-      completion.choices
-        .filter((x) => x.message?.content)
-        .map(async (choice) => {
-          console.log(choice.message!.content!);
-          return JSON.parse(choice.message!.content!) as {
-            listingIds: string[];
-            explanation: string;
-          };
-        })
+      choices.map((choice) => {
+        const parsedContent = JSON.parse(choice);
+        return {
+          listingIds: parsedContent.listingIds,
+          explanation: parsedContent.explanation,
+          openAiRequestMessages: messages,
+          openAiResponse: choice,
+        };
+      })
     );
 
     return listingRecommendations[0];
@@ -78,7 +87,9 @@ export const getListingRecommendations = async (
         '21945844',
       ],
       explanation:
-        'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC',
+        'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC.',
+      openAiRequestMessages: messages,
+      openAiResponse: choices[0],
     };
   }
 };

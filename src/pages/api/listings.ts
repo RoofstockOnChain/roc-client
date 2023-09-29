@@ -5,15 +5,15 @@ import { getListingRecommendations } from '@/services/ListingRecommendationServi
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     market,
-    feedback,
+    criteria,
   }: {
     market?: string;
-    feedback?: string;
+    criteria?: string;
   } = request.query;
 
   const listingRecommendations = await getListingRecommendations(
     market,
-    feedback
+    criteria
   );
 
   const listings = await getListings(listingRecommendations.listingIds);
@@ -21,6 +21,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   response.status(200).json({
     listings,
     explanation: listingRecommendations.explanation,
+    openAiRequestMessages: listingRecommendations.openAiRequestMessages,
+    openAiResponse: listingRecommendations.openAiResponse,
   });
 };
 

@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 
 interface ListingsProps {
   market: string;
-  feedback: string;
+  criteria: string;
 }
 
-export const useListings = ({ market, feedback }: ListingsProps) => {
+export const useListings = ({ market, criteria }: ListingsProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [listings, setListings] = useState<Listing[]>([]);
   const [explanation, setExplanation] = useState<string>('');
@@ -15,7 +15,7 @@ export const useListings = ({ market, feedback }: ListingsProps) => {
     setLoading(true);
     const searchParams = new URLSearchParams({
       market,
-      feedback,
+      criteria,
     });
     const response = await fetch(`/api/listings?${searchParams}`);
     const listingRecommendations = (await response.json()) as {
