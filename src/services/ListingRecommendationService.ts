@@ -57,21 +57,24 @@ export const getListingRecommendations = async (
       return choice.message!.content!;
     });
 
-  try {
-    const listingRecommendations = await Promise.all(
-      choices.map((choice) => {
-        const parsedContent = JSON.parse(choice);
-        return {
-          listingIds: parsedContent.listingIds,
-          explanation: parsedContent.explanation,
-          openAiRequestMessages: messages,
-          openAiResponse: choice,
-        };
-      })
-    );
+  const listingRecommendations = choices.map((choice) => {
+    const parsedChoice = parseChoice(choice);
+    return {
+      listingIds: parsedChoice.listingIds,
+      explanation: parsedChoice.explanation,
+      openAiRequestMessages: messages,
+      openAiResponse: choice,
+    };
+  });
 
-    return listingRecommendations[0];
-  } catch {
+  return listingRecommendations[0];
+};
+
+const parseChoice = (choice: string) => {
+  const hackedChoice = hackChoice(choice);
+  if (isValidChoice(hackedChoice)) {
+    return parseValidatedChoice(hackedChoice);
+  } else {
     // TODO: Remove this fallback
     return {
       listingIds: [
@@ -88,8 +91,29 @@ export const getListingRecommendations = async (
       ],
       explanation:
         'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC.',
-      openAiRequestMessages: messages,
-      openAiResponse: choices[0],
     };
   }
+};
+
+const isValidChoice = (choice: string) => {
+  try {
+    const parsedChoice = JSON.parse(choice) as {
+      listingIds: string[];
+      explanation: string;
+    };
+    return parsedChoice?.listingIds?.length > 0 && parsedChoice?.explanation;
+  } catch {}
+  return false;
+};
+
+const parseValidatedChoice = (choice: string) => {
+  return JSON.parse(choice) as {
+    listingIds: string[];
+    explanation: string;
+  };
+};
+
+const hackChoice = (choice: string) => {
+  // TODO: Hack the choice
+  return choice;
 };

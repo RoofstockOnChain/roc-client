@@ -5,7 +5,9 @@ export const getAllListings = async (): Promise<Listing[]> => {
   return listings;
 };
 
-export const getListings = async (listingIds: string[]): Promise<Listing[]> => {
+export const getListings = async (
+  listingIds: string[] = []
+): Promise<Listing[]> => {
   return Promise.all(
     listingIds.map(async (listingId) => {
       return await getListing(listingId);
