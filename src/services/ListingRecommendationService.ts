@@ -65,7 +65,18 @@ export const getListingRecommendations = async (
   } catch {
     // TODO: Remove this fallback
     return {
-      listingIds: ['21935462', '21877981', '21874030', '21941310', '21911785'],
+      listingIds: [
+        '21945774',
+        '21945133',
+        '21945486',
+        '21944662',
+        '21942309',
+        '21945182',
+        '21945786',
+        '21944946',
+        '21945787',
+        '21945844',
+      ],
       explanation:
         'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC',
     };

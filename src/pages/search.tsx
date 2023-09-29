@@ -247,7 +247,9 @@ const ListingCard: FC<ListingCardProps> = ({ listing }) => {
           {listing.bedrooms} Beds | {listing.bathrooms} Baths|{' '}
           {numeral(listing.homeSizeSquareFoot).format()} Sq. Ft.
         </Typography>
-        <Typography>{listing.address1}</Typography>
+        <Typography>
+          {listing.address1}, {listing.city}, {listing.state} {listing.zip}
+        </Typography>
       </CardContent>
     </Card>
   );
