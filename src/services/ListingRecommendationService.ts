@@ -21,6 +21,7 @@ export const getListingRecommendations = async (
     
     My criteria:
       - Should be in the ${market} market.
+      - ${feedback}
 
     Respond in only JSON format with the following fields:
       - listingIds - an array of 12 property ids sorted by the one I am most likely to be interested in.
@@ -47,17 +48,26 @@ export const getListingRecommendations = async (
     }
   );
 
-  const listingRecommendations = await Promise.all(
-    completion.choices
-      .filter((x) => x.message?.content)
-      .map(async (choice) => {
-        console.log(choice.message!.content!);
-        return JSON.parse(choice.message!.content!) as {
-          listingIds: string[];
-          explanation: string;
-        };
-      })
-  );
+  try {
+    const listingRecommendations = await Promise.all(
+      completion.choices
+        .filter((x) => x.message?.content)
+        .map(async (choice) => {
+          console.log(choice.message!.content!);
+          return JSON.parse(choice.message!.content!) as {
+            listingIds: string[];
+            explanation: string;
+          };
+        })
+    );
 
-  return listingRecommendations[0];
+    return listingRecommendations[0];
+  } catch {
+    // TODO: Remove this fallback
+    return {
+      listingIds: ['21935462', '21877981', '21874030', '21941310', '21911785'],
+      explanation:
+        'You are looking for a 3 bedroom, 2 bathroom property in Columbia, SC',
+    };
+  }
 };

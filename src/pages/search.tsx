@@ -108,7 +108,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const [market, setMarket] = useState<Market>(defaultMarket);
   const [feedback, setFeedback] = useState<string>('');
 
-  const { listings, loading, refresh } = useListings({
+  const { listings, explanation, loading, refresh } = useListings({
     market: market.name,
     feedback,
   });
@@ -145,7 +145,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
             <>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={4}>
                     <Autocomplete
                       size="small"
                       options={markets}
@@ -162,7 +162,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} sm={4}>
                     <Stack direction="row" spacing={2}>
                       <TextField
                         label="Feedback"
@@ -179,6 +179,9 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                         Search
                       </Button>
                     </Stack>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Typography>Expanation: {explanation}</Typography>
                   </Grid>
                 </Grid>
               </Grid>
