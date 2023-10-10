@@ -27,7 +27,7 @@ import { getMapBounds } from '@/helpers/MapHelper';
 import { markets } from '@/data/markets';
 import { Market } from '@/models/Market';
 import { TypeAnimation } from 'react-type-animation';
-import SendIcon from '@mui/icons-material/Send';
+import { Chat } from '@/components/search/Chat';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<Market>();
@@ -147,35 +147,14 @@ interface SearchResultsProps {
   market: Market;
 }
 
-type Message = {
-  role: string;
-  text: string;
-};
-
 const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
-  const [message, setMessage] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'system',
-      text: 'Hello, I am RoofusAI, your AI powered real estate assistant. Tell me what you are looking for.',
-    },
-  ]);
 
-  const { listings, explanation, loading, refresh } = useListings({
+  const { listings, loading, refresh } = useListings({
     market: market.name,
-    criteria: messages
-      .filter((x) => x.role === 'user')
-      .map((x) => x.text)
-      .join(' '),
   });
-
-  const addMessage = async () => {
-    setMessages([...messages, { role: 'user', text: message }]);
-    setMessage('');
-  };
 
   useEffect(() => {
     if (listingsMap && listings?.length > 0) {
@@ -192,63 +171,12 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
     }
   }, [listingsMap, listings]);
 
-  useEffect(() => {
-    refresh();
-  }, [messages]);
-
   return (
     <>
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
           <Grid item xs={12}>
-            <Stack spacing={2}>
-              <Stack
-                spacing={1}
-                style={{ maxHeight: '200px', overflowY: 'auto' }}
-              >
-                {messages.map((message, index) => (
-                  <Stack
-                    key={index}
-                    direction="row"
-                    justifyContent={message.role === 'user' ? 'start' : 'end'}
-                  >
-                    <Chip label={message.text} />
-                  </Stack>
-                ))}
-              </Stack>
-              <Divider variant="middle" />
-              <Stack direction="row">
-                <Chip
-                  variant="outlined"
-                  label="We suggest starting with the basics like bedrooms, bathrooms, square footage and budget"
-                />
-              </Stack>
-              <Stack direction="row" spacing={1}>
-                <TextField
-                  fullWidth
-                  multiline
-                  placeholder="Tell us what you are looking for..."
-                  helperText="Press Enter or Go to proceed"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-                <Box>
-                  <IconButton
-                    size="large"
-                    color="primary"
-                    onClick={addMessage}
-                    disabled={!message}
-                    style={{
-                      backgroundColor: '#FBE35A',
-                      borderRadius: '5px',
-                      color: 'inherit',
-                    }}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </Box>
-              </Stack>
-            </Stack>
+            <Chat />
           </Grid>
           {loading && (
             <Grid item xs={12}>

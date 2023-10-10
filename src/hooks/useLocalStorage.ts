@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export const useLocalStorage = (key: string, initialValue: any) => {
-  const [storedValue, setStoredValue] = useState();
+export const useLocalStorage = (key: string, initialValue?: any) => {
+  const [storedValue, setStoredValue] = useState(initialValue);
 
   const setValue = (value: any) => {
     const valueToStore = value instanceof Function ? value(storedValue) : value;

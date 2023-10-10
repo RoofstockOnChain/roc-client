@@ -3,8 +3,7 @@ import { AzureKeyCredential, ChatMessage, OpenAIClient } from '@azure/openai';
 import { config } from '@/config';
 
 export const getListingRecommendations = async (
-  market?: string,
-  criteria: string = 'Listed for about $200K with 3 bedrooms and 2 bathrooms.'
+  market?: string
 ): Promise<{
   listingIds: string[];
   explanation: string;
@@ -25,7 +24,6 @@ export const getListingRecommendations = async (
     
     My criteria:
       - Should be in the ${market} market.
-      - ${criteria}
 
     Respond in only JSON format with the following fields:
       - listingIds - an array of property ids sorted by the one I am most likely to be interested in.

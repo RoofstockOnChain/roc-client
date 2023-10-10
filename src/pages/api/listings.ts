@@ -5,16 +5,11 @@ import { getListingRecommendations } from '@/services/ListingRecommendationServi
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     market,
-    criteria,
   }: {
-    market?: string;
-    criteria?: string;
-  } = request.query;
+    market: string;
+  } = JSON.parse(request.body);
 
-  const listingRecommendations = await getListingRecommendations(
-    market,
-    criteria
-  );
+  const listingRecommendations = await getListingRecommendations(market);
 
   const listings = await getListings(listingRecommendations.listingIds);
 
