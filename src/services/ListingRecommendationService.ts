@@ -42,6 +42,8 @@ export const getListingRecommendations = async (
               endpoint: config.azureSearchServiceEndpoint,
               key: config.azureSearchServiceApiKey,
               indexName: config.azureSearchServiceIndex,
+              inScope: true,
+              strictness: 1,
             },
           },
         ],

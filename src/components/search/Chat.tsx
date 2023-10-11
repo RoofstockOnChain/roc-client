@@ -1,14 +1,23 @@
 import React, { FC, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import {
   Box,
-  Chip,
   Divider,
   IconButton,
   Stack,
+  styled,
   TextField,
+  Typography,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useAiChat } from '@/hooks/useAiChat';
+
+const ChatBubble = styled(Box)`
+  border: 1px solid grey;
+  border-radius: 10px;
+  color: white;
+  padding: 0 0.25rem;
+`;
 
 export const Chat: FC = () => {
   const [message, setMessage] = useState<string>('');
@@ -30,21 +39,24 @@ export const Chat: FC = () => {
               direction="row"
               justifyContent={message.role === 'user' ? 'start' : 'end'}
             >
-              <Chip label={message.content} />
+              <ChatBubble>
+                <ReactMarkdown>{message.content ?? ''}</ReactMarkdown>
+              </ChatBubble>
             </Stack>
           ))}
       </Stack>
       <Divider variant="middle" />
       <Stack direction="row">
-        <Chip
-          variant="outlined"
-          label="We suggest starting with the basics like bedrooms, bathrooms, square footage and budget"
-        />
+        <ChatBubble>
+          <Typography>
+            We suggest starting with the basics like bedrooms, bathrooms, square
+            footage and budget
+          </Typography>
+        </ChatBubble>
       </Stack>
       <Stack direction="row" spacing={1}>
         <TextField
           fullWidth
-          multiline
           placeholder="Tell us what you are looking for..."
           helperText="Press Enter or Go to proceed"
           value={message}
