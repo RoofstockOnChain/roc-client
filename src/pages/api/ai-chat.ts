@@ -25,21 +25,22 @@ const getOpenAiResponse = async (
 
   const completion = await openAiClient.getChatCompletions(
     config.azureOpenAiDeploymentId,
-    messages
-    // {
-    //   azureExtensionOptions: {
-    //     extensions: [
-    //       {
-    //         type: 'AzureCognitiveSearch',
-    //         parameters: {
-    //           endpoint: config.azureSearchServiceEndpoint,
-    //           key: config.azureSearchServiceApiKey,
-    //           indexName: config.azureSearchServiceIndex,
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }
+    messages,
+    {
+      azureExtensionOptions: {
+        extensions: [
+          {
+            type: 'AzureCognitiveSearch',
+            parameters: {
+              endpoint: config.azureSearchServiceEndpoint,
+              key: config.azureSearchServiceApiKey,
+              indexName: config.azureSearchServiceIndex,
+              inScope: false,
+            },
+          },
+        ],
+      },
+    }
   );
 
   const choices = completion.choices
