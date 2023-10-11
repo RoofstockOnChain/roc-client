@@ -5,6 +5,11 @@ export const useAiChat = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
+      role: 'system',
+      content:
+        'You are an AI powered real estate assistant who will try to find the best property for the user to invest in from the dataset of properties.',
+    },
+    {
       role: 'assistant',
       content:
         'Hello, I am RoofusAI, your AI powered real estate assistant. Tell me what you are looking for.',

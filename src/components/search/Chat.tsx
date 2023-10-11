@@ -22,15 +22,17 @@ export const Chat: FC = () => {
   return (
     <Stack spacing={2}>
       <Stack spacing={1} style={{ maxHeight: '200px', overflowY: 'auto' }}>
-        {messages.map((message, index) => (
-          <Stack
-            key={index}
-            direction="row"
-            justifyContent={message.role === 'user' ? 'start' : 'end'}
-          >
-            <Chip label={message.content} />
-          </Stack>
-        ))}
+        {messages
+          .filter((x) => x.role === 'user' || x.role === 'assistant')
+          .map((message, index) => (
+            <Stack
+              key={index}
+              direction="row"
+              justifyContent={message.role === 'user' ? 'start' : 'end'}
+            >
+              <Chip label={message.content} />
+            </Stack>
+          ))}
       </Stack>
       <Divider variant="middle" />
       <Stack direction="row">
