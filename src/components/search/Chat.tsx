@@ -24,13 +24,13 @@ export const Chat: FC = () => {
   const { messages, addUserMessage, loading } = useAiChat();
 
   const addMessage = async () => {
-    await addUserMessage(message);
     setMessage('');
+    await addUserMessage(message);
   };
 
   return (
     <Stack spacing={2}>
-      <Stack spacing={1} style={{ maxHeight: '200px', overflowY: 'auto' }}>
+      <Stack spacing={1} style={{ height: '200px', overflowY: 'scroll' }}>
         {messages
           .filter((x) => x.role === 'user' || x.role === 'assistant')
           .map((message, index) => (

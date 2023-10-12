@@ -7,7 +7,7 @@ export const useAiChat = () => {
     {
       role: 'system',
       content:
-        'You are an AI powered real estate assistant who will try to find the best property for the user to invest in from the dataset of properties.',
+        'You are an AI powered real estate assistant who will try to find the best property for the user to invest in from the dataset of properties. Never give the property id. Refer to the property by the address.',
     },
     {
       role: 'assistant',
@@ -18,6 +18,7 @@ export const useAiChat = () => {
 
   const addUserMessage = async (message: string) => {
     setLoading(true);
+    setMessages([...messages, { role: 'user', content: message }]);
     const response = await fetch(`/api/ai-chat`, {
       method: 'POST',
       body: JSON.stringify({
