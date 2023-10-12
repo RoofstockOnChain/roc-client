@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { AzureKeyCredential, ChatMessage, OpenAIClient } from '@azure/openai';
-import { config } from '@/config';
+import { config as rocConfig } from '@/config';
+
+export const config = {
+  maxDuration: 30,
+};
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
@@ -19,12 +23,12 @@ const getOpenAiResponse = async (
   messages: ChatMessage[]
 ): Promise<ChatMessage[]> => {
   const openAiClient = new OpenAIClient(
-    config.azureOpenAiEndpoint,
-    new AzureKeyCredential(config.azureOpenAiApiKey)
+    rocConfig.azureOpenAiEndpoint,
+    new AzureKeyCredential(rocConfig.azureOpenAiApiKey)
   );
 
   const completion = await openAiClient.getChatCompletions(
-    config.azureOpenAiDeploymentId,
+    rocConfig.azureOpenAiDeploymentId,
     messages,
     {
       azureExtensionOptions: {
@@ -32,9 +36,9 @@ const getOpenAiResponse = async (
           {
             type: 'AzureCognitiveSearch',
             parameters: {
-              endpoint: config.azureSearchServiceEndpoint,
-              key: config.azureSearchServiceApiKey,
-              indexName: config.azureSearchServiceIndex,
+              endpoint: rocConfig.azureSearchServiceEndpoint,
+              key: rocConfig.azureSearchServiceApiKey,
+              indexName: rocConfig.azureSearchServiceIndex,
               inScope: true,
               strictness: 1,
             },
