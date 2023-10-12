@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getListings } from '@/services/ListingService';
 import { getListingRecommendations } from '@/services/ListingRecommendationService';
 
+export const config = {
+  maxDuration: 30,
+};
+
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     market,
