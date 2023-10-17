@@ -27,11 +27,17 @@ export const Chat: FC = () => {
   const addMessage = async () => {
     setMessage('');
     await addUserMessage(message);
+    scrollToBottomOfChatStack();
+  };
+
+  const scrollToBottomOfChatStack = () => {
     if (chatStackRef?.current) {
-      chatStackRef.current?.scroll({
-        top: chatStackRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+      setTimeout(() => {
+        chatStackRef.current?.scroll({
+          top: chatStackRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 300);
     }
   };
 
@@ -40,7 +46,7 @@ export const Chat: FC = () => {
       <Stack
         ref={chatStackRef}
         spacing={1}
-        style={{ height: '200px', overflowY: 'scroll' }}
+        style={{ height: '300px', overflowY: 'scroll' }}
       >
         {messages
           .filter((x) => x.role === 'user' || x.role === 'assistant')
