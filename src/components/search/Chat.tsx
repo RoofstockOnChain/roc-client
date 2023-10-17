@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import {
   Box,
@@ -20,17 +20,28 @@ const ChatBubble = styled(Box)`
 `;
 
 export const Chat: FC = () => {
+  const chatStackRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<string>('');
   const { messages, addUserMessage, loading } = useAiChat();
 
   const addMessage = async () => {
     setMessage('');
     await addUserMessage(message);
+    if (chatStackRef?.current) {
+      chatStackRef.current?.scroll({
+        top: chatStackRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
     <Stack spacing={2}>
-      <Stack spacing={1} style={{ height: '200px', overflowY: 'scroll' }}>
+      <Stack
+        ref={chatStackRef}
+        spacing={1}
+        style={{ height: '200px', overflowY: 'scroll' }}
+      >
         {messages
           .filter((x) => x.role === 'user' || x.role === 'assistant')
           .map((message, index) => (
