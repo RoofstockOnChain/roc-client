@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { useAiChat } from '@/hooks/useAiChat';
+import { ChatMessage } from '@azure/openai';
 
 const ChatBubble = styled(Box)`
   border: 1px solid grey;
@@ -19,10 +19,15 @@ const ChatBubble = styled(Box)`
   padding: 0 0.25rem;
 `;
 
-export const Chat: FC = () => {
+interface ChatProps {
+  messages: ChatMessage[];
+  addUserMessage: (message: string) => void;
+  loading: boolean;
+}
+
+export const Chat: FC<ChatProps> = ({ messages, addUserMessage, loading }) => {
   const chatStackRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState<string>('');
-  const { messages, addUserMessage, loading } = useAiChat();
 
   const addMessage = async () => {
     setMessage('');

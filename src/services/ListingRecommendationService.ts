@@ -3,11 +3,9 @@ import { AzureKeyCredential, ChatMessage, OpenAIClient } from '@azure/openai';
 import { config } from '@/config';
 
 export const getListingRecommendations = async (
-  market?: string
+  chatMessages: ChatMessage[]
 ): Promise<{
   listingIds: string[];
-  explanation: string;
-  openAiRequestMessages: ChatMessage[];
   openAiResponse: string;
 }> => {
   const openAiClient = new OpenAIClient(
@@ -16,18 +14,10 @@ export const getListingRecommendations = async (
   );
 
   const openAiPromptBuilder = new OpenAiPromptBuilder();
-  openAiPromptBuilder.addSystemMessage(
-    `You are RoofusAI, an AI assistant whose goal is to help users identify their buy box via text criteria.`
+  openAiPromptBuilder.addMessages(chatMessages);
+  openAiPromptBuilder.addUserMessage(
+    'Recommend a list of property ids from the dataset based on the conversation.'
   );
-
-  openAiPromptBuilder.addUserMessage(`Recommend some properties for me from the provided dataset of properties.
-    
-    My criteria:
-      - Should be in the ${market} market.
-
-    Respond in only JSON format with the following fields:
-      - listingIds - an array of property ids sorted by the one I am most likely to be interested in.
-      - explanation - an overview of what you think my buy box is based on my feedback.`);
 
   const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
@@ -61,8 +51,6 @@ export const getListingRecommendations = async (
     const parsedChoice = parseChoice(choice);
     return {
       listingIds: parsedChoice.listingIds,
-      explanation: parsedChoice.explanation,
-      openAiRequestMessages: messages,
       openAiResponse: choice,
     };
   });
@@ -89,8 +77,6 @@ const parseChoice = (choice: string) => {
         '21945787',
         '21945844',
       ],
-      explanation:
-        'You are looking for a 3 bedroom, 2 bathroom property in Indianapolis, IN.',
     };
   }
 };

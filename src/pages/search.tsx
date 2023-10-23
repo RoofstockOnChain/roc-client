@@ -28,6 +28,7 @@ import { markets } from '@/data/markets';
 import { Market } from '@/models/Market';
 import { TypeAnimation } from 'react-type-animation';
 import { Chat } from '@/components/search/Chat';
+import { useAiChat } from '@/hooks/useAiChat';
 
 const Search: FC = () => {
   const [market, setMarket] = useState<Market>();
@@ -151,9 +152,11 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   const { mapboxAccessToken } = config;
   const { listingsMap } = useMap();
   const [market, setMarket] = useState<Market>(defaultMarket);
+  const { messages, addUserMessage, loading: chatLoading } = useAiChat();
 
   const { listings, loading, refresh } = useListings({
     market: market.name,
+    messages,
   });
 
   useEffect(() => {
@@ -176,7 +179,11 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
           <Grid item xs={12}>
-            <Chat />
+            <Chat
+              messages={messages}
+              addUserMessage={addUserMessage}
+              loading={chatLoading}
+            />
           </Grid>
           {loading && (
             <Grid item xs={12}>
