@@ -181,12 +181,13 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
         <Grid container spacing={2} paddingY={1}>
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-              >
-                <Typography variant="subtitle1" color="#fff" fontFamily="Roboto Mono" fontSize="32px">
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Typography
+                  variant="subtitle1"
+                  color="#fff"
+                  fontFamily="Roboto Mono"
+                  fontSize="32px"
+                >
                   Search Properties
                 </Typography>
                 <Chip label="Powered by AI" variant="outlined" />
