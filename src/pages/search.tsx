@@ -179,29 +179,33 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
     <>
       <Container maxWidth="xl">
         <Grid container spacing={2} paddingY={1}>
-          <Grid item xs={12} md={6}>
-            <Stack direction="row" spacing={2} alignItems="center">
-              <Typography variant="subtitle1" color="#fff">
-                Search Properties
-              </Typography>
-              <Chip label="Powered by AI" variant="outlined" />
+          <Grid item xs={12}>
+            <Stack direction="row" justifyContent="space-between">
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+              >
+                <Typography variant="subtitle1" color="#fff" fontFamily="Roboto Mono" fontSize="32px">
+                  Search Properties
+                </Typography>
+                <Chip label="Powered by AI" variant="outlined" />
+              </Stack>
+              <Autocomplete
+                defaultValue={market}
+                options={markets}
+                renderInput={(params) => (
+                  <TextField {...params} label="Market" size="small" />
+                )}
+                getOptionLabel={(option) => option.displayName}
+                onChange={(_, newValue) => {
+                  if (newValue) {
+                    setMarket(newValue);
+                  }
+                }}
+                style={{ width: '200px' }}
+              />
             </Stack>
-          </Grid>
-          <Grid item xs={12} md={6} display="flex" justifyContent="end">
-            <Autocomplete
-              defaultValue={market}
-              options={markets}
-              renderInput={(params) => (
-                <TextField {...params} label="Market" size="small" />
-              )}
-              getOptionLabel={(option) => option.displayName}
-              onChange={(_, newValue) => {
-                if (newValue) {
-                  setMarket(newValue);
-                }
-              }}
-              style={{ width: '200px' }}
-            />
           </Grid>
           <Grid item xs={12}>
             <Chat
