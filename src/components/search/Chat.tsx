@@ -20,7 +20,7 @@ const ChatBubble = styled(Box, {
 })<ChatBubbleProps>`
   p {
     background-color: ${(props) =>
-      props.role === 'user' ? '#fbe35a' : 'gray'};
+      props.role === 'user' ? '#fbe35a' : 'white'};
     border-radius: 16px;
     color: #232a35;
     margin: 0.5rem 0;
