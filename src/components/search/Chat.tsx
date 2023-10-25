@@ -7,16 +7,16 @@ import {
   Stack,
   styled,
   TextField,
-  Typography,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { ChatMessage } from '@azure/openai';
 
 const ChatBubble = styled(Box)`
-  border: 1px solid grey;
-  border-radius: 10px;
-  color: white;
-  padding: 0 0.25rem;
+  background-color: #fbe35a;
+  border-radius: 16px;
+  color: #232a35;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
 `;
 
 interface ChatProps {
@@ -68,14 +68,6 @@ export const Chat: FC<ChatProps> = ({ messages, addUserMessage, loading }) => {
           ))}
       </Stack>
       <Divider variant="middle" />
-      <Stack direction="row">
-        <ChatBubble>
-          <Typography>
-            We suggest starting with the basics like bedrooms, bathrooms, square
-            footage and budget
-          </Typography>
-        </ChatBubble>
-      </Stack>
       <Stack direction="row" spacing={1}>
         <TextField
           fullWidth

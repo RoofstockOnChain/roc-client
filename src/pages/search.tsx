@@ -3,16 +3,12 @@ import Head from 'next/head';
 import {
   Autocomplete,
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
   Chip,
   Container,
-  Divider,
   Grid,
-  IconButton,
-  MenuItem,
   Stack,
   styled,
   TextField,
@@ -52,57 +48,68 @@ const Search: FC = () => {
   );
 };
 
+const StyledAutocomplete = styled(Autocomplete)`
+  background-color: #fbe35a;
+  color: #232a35;
+  font-family: Roboto, serif;
+  .MuiFormControl-root {
+    border: 2px solid #232a35;
+  }
+  .MuiInputBase-input {
+    &::placeholder {
+      color: #232a35;
+      font-weight: 600;
+      opacity: 1;
+    }
+  }
+  .MuiSvgIcon-root {
+    color: #232a35;
+  }
+`;
+
 interface SearchCtaProps {
   markets: Market[];
   selectMarket: (market: Market) => void;
 }
 
 const SearchCta: FC<SearchCtaProps> = ({ markets, selectMarket }) => {
-  const [market, setMarket] = useState<Market>();
-
-  const search = () => {
-    if (market) {
-      selectMarket(market);
-    }
-  };
-
   return (
     <Box
       component="section"
       color="#fff"
       sx={{
         background:
-          'linear-gradient(92deg, rgba(147, 223, 194, 0.90) 0%, rgba(255, 247, 91, 0.50) 100%), linear-gradient(122deg, #232A35 0%, rgba(35, 42, 53, 0) 100%), linear-gradient(42deg, rgba(182, 241, 202, 0.70) 0%, rgba(182, 241, 202, 0) 100%)',
+          'linear-gradient(to right bottom, #232a35, #324857, #3f6878, #4d8b95, #63afac, #6dc2b1, #80d4b1, #9be5ad, #abe899, #c1e983, #dce76d, #fbe35a);',
       }}
     >
       <Container maxWidth="xl">
-        <Grid container spacing={2} paddingY="100px">
+        <Grid container spacing={2} paddingY="100px" maxWidth="700px">
           <Grid item xs={12}>
-            <Typography variant="h1">Meet RoofusAI!</Typography>
-            <Typography variant="subtitle1" paddingY="20px">
+            <Typography variant="h1">Meet RoofusAI</Typography>
+            <Typography variant="subtitle1" paddingY="20px" fontFamily="Roboto">
               RoofusAI is an AI powered real estate assistant. You can have a
               chat with him about what you are looking for.
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Stack direction="row" spacing={2}>
-              <Autocomplete
+              <StyledAutocomplete
                 options={markets}
                 fullWidth
                 renderInput={(params) => (
-                  <TextField {...params} label="Market" />
+                  <TextField
+                    {...params}
+                    placeholder="Start by choosing a market"
+                  />
                 )}
-                getOptionLabel={(option) => option.displayName}
+                getOptionLabel={(option) => (option as Market).displayName}
                 onChange={(_, newValue) => {
                   if (newValue) {
-                    setMarket(newValue);
+                    selectMarket(newValue as Market);
                   }
                 }}
                 style={{ maxWidth: '600px' }}
               />
-              <Button variant="contained" onClick={search} disabled={!market}>
-                Search
-              </Button>
             </Stack>
           </Grid>
         </Grid>
@@ -113,7 +120,7 @@ const SearchCta: FC<SearchCtaProps> = ({ markets, selectMarket }) => {
 
 const CriteriaExample: FC = () => {
   return (
-    <Box style={{ backgroundColor: '#FBE35A', marginTop: 0 }}>
+    <Box style={{ backgroundColor: '#232A35', color: '#FBE35A', marginTop: 0 }}>
       <Container maxWidth="xl">
         <Stack paddingY="100px">
           <Typography
@@ -134,6 +141,14 @@ const CriteriaExample: FC = () => {
     </Box>
   );
 };
+
+const StyledChip = styled(Chip)`
+  border-color: #fff75b;
+  border-radius: 4px;
+  color: #fff75b;
+  font-family: Roboto Mono, serif;
+  text-transform: uppercase;
+`;
 
 const MapWrapper = styled(Box)`
   height: 600px;
@@ -190,7 +205,11 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                 >
                   Search Properties
                 </Typography>
-                <Chip label="Powered by AI" variant="outlined" />
+                <StyledChip
+                  label="Powered by AI"
+                  variant="outlined"
+                  size="small"
+                />
               </Stack>
               <Autocomplete
                 defaultValue={market}
