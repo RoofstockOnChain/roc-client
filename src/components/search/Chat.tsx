@@ -11,9 +11,16 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import { ChatMessage } from '@azure/openai';
 
-const ChatBubble = styled(Box)`
+interface ChatBubbleProps {
+  role: string;
+}
+
+const ChatBubble = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'role',
+})<ChatBubbleProps>`
   p {
-    background-color: #fbe35a;
+    background-color: ${(props) =>
+      props.role === 'user' ? '#fbe35a' : 'gray'};
     border-radius: 16px;
     color: #232a35;
     margin: 0.5rem 0;
@@ -63,15 +70,15 @@ export const Chat: FC<ChatProps> = ({ messages, addUserMessage, loading }) => {
               direction="row"
               justifyContent={message.role === 'user' ? 'start' : 'end'}
             >
-              <ChatBubble>
+              <ChatBubble role={message.role}>
                 <ReactMarkdown>{message.content ?? ''}</ReactMarkdown>
               </ChatBubble>
             </Stack>
           ))}
       </Stack>
-      <Divider variant="middle" />
       <Stack direction="row" spacing={1}>
         <TextField
+          size="small"
           fullWidth
           placeholder="Tell us what you are looking for..."
           helperText="Press Enter or Go to proceed"
@@ -84,22 +91,21 @@ export const Chat: FC<ChatProps> = ({ messages, addUserMessage, loading }) => {
           }}
           disabled={loading}
         />
-        <Box>
-          <IconButton
-            size="large"
-            color="primary"
-            onClick={addMessage}
-            disabled={!message}
-            style={{
-              backgroundColor: '#FBE35A',
-              borderRadius: '5px',
-              color: 'inherit',
-            }}
-          >
-            <SendIcon />
-          </IconButton>
-        </Box>
+        <IconButton
+          size="small"
+          color="primary"
+          onClick={addMessage}
+          disabled={!message}
+          style={{
+            backgroundColor: '#FBE35A',
+            borderRadius: '5px',
+            color: 'inherit',
+          }}
+        >
+          <SendIcon />
+        </IconButton>
       </Stack>
+      <Divider variant="middle" />
     </Stack>
   );
 };
