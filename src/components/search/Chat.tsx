@@ -12,11 +12,13 @@ import SendIcon from '@mui/icons-material/Send';
 import { ChatMessage } from '@azure/openai';
 
 const ChatBubble = styled(Box)`
-  background-color: #fbe35a;
-  border-radius: 16px;
-  color: #232a35;
-  margin: 0;
-  padding: 0.25rem 0.5rem;
+  p {
+    background-color: #fbe35a;
+    border-radius: 16px;
+    color: #232a35;
+    margin: 0.5rem 0;
+    padding: 0.25rem 0.5rem;
+  }
 `;
 
 interface ChatProps {
