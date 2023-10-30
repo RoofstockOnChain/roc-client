@@ -19,13 +19,12 @@ const ChatBubble = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'role',
 })<ChatBubbleProps>`
   p {
-    background-color: ${(props) =>
-      props.role === 'user' ? '#fbe35a' : 'white'};
-    border-radius: 16px;
-    color: #232a35;
     margin: 0.5rem 0;
-    padding: 0.25rem 0.5rem;
   }
+  background-color: ${(props) => (props.role === 'user' ? '#fbe35a' : 'white')};
+  border-radius: 16px;
+  color: #232a35;
+  padding: 0.25rem 0.5rem;
 `;
 
 interface ChatProps {

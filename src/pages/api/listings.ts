@@ -9,17 +9,23 @@ export const config = {
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
+    market,
     messages = [],
   }: {
+    market: string;
     messages: ChatMessage[];
   } = JSON.parse(request.body);
 
-  const listingRecommendations = await getListingRecommendations(messages);
+  const listingRecommendations = await getListingRecommendations(
+    market,
+    messages
+  );
 
   const listings = await getListings(listingRecommendations.listingIds);
 
   response.status(200).json({
     listings,
+    openAiMessages: listingRecommendations.openAiMessages,
     openAiResponse: listingRecommendations.openAiResponse,
   });
 };

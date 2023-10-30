@@ -29,7 +29,7 @@ export const useListings = ({ market, messages }: ListingsProps) => {
 
   useEffect(() => {
     getListings();
-  }, [messages]);
+  }, [market, messages]);
 
   return {
     loading,

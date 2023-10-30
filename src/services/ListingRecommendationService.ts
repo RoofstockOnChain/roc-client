@@ -3,9 +3,11 @@ import { AzureKeyCredential, ChatMessage, OpenAIClient } from '@azure/openai';
 import { config } from '@/config';
 
 export const getListingRecommendations = async (
+  market: string,
   chatMessages: ChatMessage[]
 ): Promise<{
   listingIds: string[];
+  openAiMessages: ChatMessage[];
   openAiResponse: string;
 }> => {
   const openAiClient = new OpenAIClient(
@@ -15,9 +17,13 @@ export const getListingRecommendations = async (
 
   const openAiPromptBuilder = new OpenAiPromptBuilder();
   openAiPromptBuilder.addMessages(chatMessages);
-  openAiPromptBuilder.addUserMessage(
-    'Recommend a list of property ids from the dataset based on the conversation.'
-  );
+  openAiPromptBuilder.addUserMessage(`
+    Recommend some properties for me that are in the ${market} market based on our conversation.
+    
+    If you can't recommend any properties, then return properties that have a listing price around $250K and that have 3 bedrooms and 2 baths in the ${market} market.
+    
+    Return the data as property ids that are comma separated. Don't include any other text in the response.
+  `);
 
   const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
@@ -50,7 +56,8 @@ export const getListingRecommendations = async (
   const listingRecommendations = choices.map((choice) => {
     const parsedChoice = parseChoice(choice);
     return {
-      listingIds: parsedChoice.listingIds,
+      listingIds: parsedChoice,
+      openAiMessages: messages,
       openAiResponse: choice,
     };
   });
@@ -64,20 +71,18 @@ const parseChoice = (choice: string) => {
     return parseValidatedChoice(hackedChoice);
   } else {
     // TODO: Remove this fallback
-    return {
-      listingIds: [
-        '21945774',
-        '21945133',
-        '21945486',
-        '21944662',
-        '21942309',
-        '21945182',
-        '21945786',
-        '21944946',
-        '21945787',
-        '21945844',
-      ],
-    };
+    return [
+      '21945774',
+      '21945133',
+      '21945486',
+      '21944662',
+      '21942309',
+      '21945182',
+      '21945786',
+      '21944946',
+      '21945787',
+      '21945844',
+    ];
   }
 };
 
@@ -92,11 +97,8 @@ const isValidChoice = (choice: string) => {
   return false;
 };
 
-const parseValidatedChoice = (choice: string) => {
-  return JSON.parse(choice) as {
-    listingIds: string[];
-    explanation: string;
-  };
+const parseValidatedChoice = (choice: string): string[] => {
+  return choice.split(',');
 };
 
 const hackChoice = (choice: string) => {
