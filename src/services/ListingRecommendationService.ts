@@ -17,13 +17,15 @@ export const getListingRecommendations = async (
 
   const openAiPromptBuilder = new OpenAiPromptBuilder();
   openAiPromptBuilder.addMessages(chatMessages);
-  openAiPromptBuilder.addUserMessage(`
-    Recommend some properties for me that are in the ${market} market based on our conversation.
-    
-    If you can't recommend any properties, then return properties that have a listing price around $250K and that have 3 bedrooms and 2 baths in the ${market} market.
-    
-    Return the data as property ids that are comma separated. Don't include any other text in the response.
-  `);
+  openAiPromptBuilder.addUserMessage(`Recommend some properties for me that are in the ${market} market based on our conversation.
+
+If the information is not available in the retrieved data, then return properties that have a listing price around $250K and that have 3 bedrooms and 2 baths in the ${market} market.
+
+Return the data as property ids that are comma separated. Don't include any other text in the response.
+
+---
+EXAMPLE RESPONSE
+21945774,21945133,21945486,21944662,21942309,21945182,21945786,21944946,21945787,21945844`);
 
   const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
@@ -88,11 +90,8 @@ const parseChoice = (choice: string) => {
 
 const isValidChoice = (choice: string) => {
   try {
-    const parsedChoice = JSON.parse(choice) as {
-      listingIds: string[];
-      explanation: string;
-    };
-    return parsedChoice?.listingIds?.length > 0 && parsedChoice?.explanation;
+    const parsedChoice = choice.split(',');
+    return parsedChoice?.length > 1;
   } catch {}
   return false;
 };
