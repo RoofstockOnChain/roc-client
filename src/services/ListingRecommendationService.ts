@@ -17,15 +17,9 @@ export const getListingRecommendations = async (
 
   const openAiPromptBuilder = new OpenAiPromptBuilder();
   openAiPromptBuilder.addMessages(chatMessages);
-  openAiPromptBuilder.addUserMessage(`Recommend some properties for me that are in the ${market} market based on our conversation.
+  openAiPromptBuilder.addUserMessage(`Return a list of property ids from the properties you mentioned in our conversation.
 
-If the information is not available in the retrieved data, then return properties that have a listing price around $250K and that have 3 bedrooms and 2 baths in the ${market} market.
-
-Return the data as property ids that are comma separated. Don't include any other text in the response.
-
----
-EXAMPLE RESPONSE
-21945774,21945133,21945486,21944662,21942309,21945182,21945786,21944946,21945787,21945844`);
+Return the data as property ids that are comma separated. Don't include any other text in the response.`);
 
   const messages = openAiPromptBuilder.generateMessages();
   const completion = await openAiClient.getChatCompletions(
@@ -97,7 +91,7 @@ const isValidChoice = (choice: string) => {
 };
 
 const parseValidatedChoice = (choice: string): string[] => {
-  return choice.split(',');
+  return choice.split(',').map((x) => x.trim());
 };
 
 const hackChoice = (choice: string) => {

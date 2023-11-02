@@ -178,7 +178,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
   useEffect(() => {
     if (listingsMap && listings?.length > 0) {
       const listingPositions = listings
-        .filter((x) => x.latitude && x.longitude)
+        .filter((x) => x?.latitude && x?.longitude)
         .map((x) => ({
           latitude: x.latitude!,
           longitude: x.longitude!,
@@ -254,7 +254,7 @@ const SearchResults: FC<SearchResultsProps> = ({ market: defaultMarket }) => {
                     }}
                   >
                     {listings
-                      .filter((x) => x.latitude && x.longitude)
+                      .filter((x) => x?.latitude && x?.longitude)
                       .map((listing, index) => (
                         <Marker
                           key={index}

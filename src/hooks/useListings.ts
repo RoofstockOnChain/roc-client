@@ -28,7 +28,13 @@ export const useListings = ({ market, messages }: ListingsProps) => {
   };
 
   useEffect(() => {
-    getListings();
+    if (
+      messages &&
+      messages.length > 0 &&
+      messages[messages.length - 1].role === 'assistant'
+    ) {
+      getListings();
+    }
   }, [market, messages]);
 
   return {

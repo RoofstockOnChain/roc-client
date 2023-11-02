@@ -24,7 +24,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const listings = await getListings(listingRecommendations.listingIds);
 
   response.status(200).json({
-    listings,
+    listings: listings.filter((x) => x),
     openAiMessages: listingRecommendations.openAiMessages,
     openAiResponse: listingRecommendations.openAiResponse,
   });
