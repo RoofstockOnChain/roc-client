@@ -103,7 +103,7 @@ export const TopBar = () => {
               paddingRight="2rem"
             >
               <Button href="/properties">View Homes onChain</Button>
-              <Button href={marketplaceUrl}>Buy on Marketplace</Button>
+              <Button href={marketplaceUrl} target="_blank">Buy on Marketplace</Button>
               <Button
                 endIcon={<ArrowDropDownIcon />}
                 onClick={(event) => setLearnMenuAnchorEl(event.currentTarget)}
