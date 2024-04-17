@@ -212,7 +212,7 @@ export const TopBar = () => {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton href={marketplaceUrl}>
+                  <ListItemButton href={marketplaceUrl} target="_blank">
                     <StyledListItemText primary="Buy on Marketplace" />
                   </ListItemButton>
                 </ListItem>
